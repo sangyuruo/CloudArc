@@ -4,6 +4,9 @@ import com.emcloud.arc.EmCloudArcApp;
 
 import com.emcloud.arc.config.SecurityBeanOverrideConfiguration;
 
+import com.emcloud.arc.domain.AlarmRule;
+import com.emcloud.arc.repository.AlarmRuleRepository;
+import com.emcloud.arc.service.AlarmRuleService;
 import com.emcloud.arc.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -22,12 +25,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.time.Instant;
-import java.time.ZonedDateTime;
-import java.time.ZoneOffset;
-import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-import static com.emcloud.arc.web.rest.TestUtil.sameInstant;
 import static com.emcloud.arc.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
@@ -61,14 +61,14 @@ public class AlarmRuleResourceIntTest {
     private static final String DEFAULT_CREATED_BY = "AAAAAAAAAA";
     private static final String UPDATED_CREATED_BY = "BBBBBBBBBB";
 
-    private static final ZonedDateTime DEFAULT_CREATE_TIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
-    private static final ZonedDateTime UPDATED_CREATE_TIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final Instant DEFAULT_CREATE_TIME = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_CREATE_TIME = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     private static final String DEFAULT_UPDATED_BY = "AAAAAAAAAA";
     private static final String UPDATED_UPDATED_BY = "BBBBBBBBBB";
 
-    private static final ZonedDateTime DEFAULT_UPDATE_TIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
-    private static final ZonedDateTime UPDATED_UPDATE_TIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final Instant DEFAULT_UPDATE_TIME = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_UPDATE_TIME = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     @Autowired
     private AlarmRuleRepository alarmRuleRepository;
@@ -352,9 +352,9 @@ public class AlarmRuleResourceIntTest {
             .andExpect(jsonPath("$.[*].alarmLevel").value(hasItem(DEFAULT_ALARM_LEVEL)))
             .andExpect(jsonPath("$.[*].enable").value(hasItem(DEFAULT_ENABLE.booleanValue())))
             .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY.toString())))
-            .andExpect(jsonPath("$.[*].createTime").value(hasItem(sameInstant(DEFAULT_CREATE_TIME))))
+            .andExpect(jsonPath("$.[*].createTime").value(hasItem(DEFAULT_CREATE_TIME.toString())))
             .andExpect(jsonPath("$.[*].updatedBy").value(hasItem(DEFAULT_UPDATED_BY.toString())))
-            .andExpect(jsonPath("$.[*].updateTime").value(hasItem(sameInstant(DEFAULT_UPDATE_TIME))));
+            .andExpect(jsonPath("$.[*].updateTime").value(hasItem(DEFAULT_UPDATE_TIME.toString())));
     }
 
     @Test
@@ -374,9 +374,9 @@ public class AlarmRuleResourceIntTest {
             .andExpect(jsonPath("$.alarmLevel").value(DEFAULT_ALARM_LEVEL))
             .andExpect(jsonPath("$.enable").value(DEFAULT_ENABLE.booleanValue()))
             .andExpect(jsonPath("$.createdBy").value(DEFAULT_CREATED_BY.toString()))
-            .andExpect(jsonPath("$.createTime").value(sameInstant(DEFAULT_CREATE_TIME)))
+            .andExpect(jsonPath("$.createTime").value(DEFAULT_CREATE_TIME.toString()))
             .andExpect(jsonPath("$.updatedBy").value(DEFAULT_UPDATED_BY.toString()))
-            .andExpect(jsonPath("$.updateTime").value(sameInstant(DEFAULT_UPDATE_TIME)));
+            .andExpect(jsonPath("$.updateTime").value(DEFAULT_UPDATE_TIME.toString()));
     }
 
     @Test

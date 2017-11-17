@@ -1,6 +1,13 @@
 {
     "fluentMethods": true,
-    "relationships": [],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "ruleAttributes",
+            "otherEntityName": "ruleAttributes",
+            "otherEntityRelationshipName": "alarmRule"
+        }
+    ],
     "fields": [
         {
             "fieldName": "ruleName",
@@ -20,7 +27,7 @@
                 "maxlength",
                 "required"
             ],
-            "fieldValidateRulesMaxlength": 100
+            "fieldValidateRulesMaxlength": 64
         },
         {
             "fieldName": "ruleType",
@@ -61,7 +68,7 @@
         {
             "fieldName": "createTime",
             "javadoc": "创建时间",
-            "fieldType": "ZonedDateTime",
+            "fieldType": "Instant",
             "fieldValidateRules": [
                 "required"
             ]
@@ -79,14 +86,14 @@
         {
             "fieldName": "updateTime",
             "javadoc": "修改时间",
-            "fieldType": "ZonedDateTime",
+            "fieldType": "Instant",
             "fieldValidateRules": [
                 "required"
             ]
         }
     ],
-    "changelogDate": "20171114083634",
-    "javadoc": "报警服务规则表",
+    "changelogDate": "20171117012031",
+    "javadoc": "报警服务规则表\n@author youhong",
     "entityTableName": "alarm_rule",
     "dto": "no",
     "pagination": "pager",

@@ -4,6 +4,9 @@ import com.emcloud.arc.EmCloudArcApp;
 
 import com.emcloud.arc.config.SecurityBeanOverrideConfiguration;
 
+import com.emcloud.arc.domain.RuleAttributes;
+import com.emcloud.arc.repository.RuleAttributesRepository;
+import com.emcloud.arc.service.RuleAttributesService;
 import com.emcloud.arc.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -22,12 +25,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.time.Instant;
-import java.time.ZonedDateTime;
-import java.time.ZoneOffset;
-import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-import static com.emcloud.arc.web.rest.TestUtil.sameInstant;
 import static com.emcloud.arc.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
@@ -46,8 +46,8 @@ public class RuleAttributesResourceIntTest {
     private static final String DEFAULT_RULE_CODE = "AAAAAAAAAA";
     private static final String UPDATED_RULE_CODE = "BBBBBBBBBB";
 
-    private static final String DEFAULT_ATTRIBUTE_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_ATTRIBUTE_NAME = "BBBBBBBBBB";
+    private static final Double DEFAULT_ATTRIBUTE_NAME = 1D;
+    private static final Double UPDATED_ATTRIBUTE_NAME = 2D;
 
     private static final String DEFAULT_ATTRIBUTE_VALUE = "AAAAAAAAAA";
     private static final String UPDATED_ATTRIBUTE_VALUE = "BBBBBBBBBB";
@@ -55,14 +55,14 @@ public class RuleAttributesResourceIntTest {
     private static final String DEFAULT_CREATED_BY = "AAAAAAAAAA";
     private static final String UPDATED_CREATED_BY = "BBBBBBBBBB";
 
-    private static final ZonedDateTime DEFAULT_CREATE_TIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
-    private static final ZonedDateTime UPDATED_CREATE_TIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final Instant DEFAULT_CREATE_TIME = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_CREATE_TIME = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     private static final String DEFAULT_UPDATED_BY = "AAAAAAAAAA";
     private static final String UPDATED_UPDATED_BY = "BBBBBBBBBB";
 
-    private static final ZonedDateTime DEFAULT_UPDATE_TIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
-    private static final ZonedDateTime UPDATED_UPDATE_TIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final Instant DEFAULT_UPDATE_TIME = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_UPDATE_TIME = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     @Autowired
     private RuleAttributesRepository ruleAttributesRepository;
@@ -301,12 +301,12 @@ public class RuleAttributesResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(ruleAttributes.getId().intValue())))
             .andExpect(jsonPath("$.[*].ruleCode").value(hasItem(DEFAULT_RULE_CODE.toString())))
-            .andExpect(jsonPath("$.[*].attributeName").value(hasItem(DEFAULT_ATTRIBUTE_NAME.toString())))
+            .andExpect(jsonPath("$.[*].attributeName").value(hasItem(DEFAULT_ATTRIBUTE_NAME.doubleValue())))
             .andExpect(jsonPath("$.[*].attributeValue").value(hasItem(DEFAULT_ATTRIBUTE_VALUE.toString())))
             .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY.toString())))
-            .andExpect(jsonPath("$.[*].createTime").value(hasItem(sameInstant(DEFAULT_CREATE_TIME))))
+            .andExpect(jsonPath("$.[*].createTime").value(hasItem(DEFAULT_CREATE_TIME.toString())))
             .andExpect(jsonPath("$.[*].updatedBy").value(hasItem(DEFAULT_UPDATED_BY.toString())))
-            .andExpect(jsonPath("$.[*].updateTime").value(hasItem(sameInstant(DEFAULT_UPDATE_TIME))));
+            .andExpect(jsonPath("$.[*].updateTime").value(hasItem(DEFAULT_UPDATE_TIME.toString())));
     }
 
     @Test
@@ -321,12 +321,12 @@ public class RuleAttributesResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(ruleAttributes.getId().intValue()))
             .andExpect(jsonPath("$.ruleCode").value(DEFAULT_RULE_CODE.toString()))
-            .andExpect(jsonPath("$.attributeName").value(DEFAULT_ATTRIBUTE_NAME.toString()))
+            .andExpect(jsonPath("$.attributeName").value(DEFAULT_ATTRIBUTE_NAME.doubleValue()))
             .andExpect(jsonPath("$.attributeValue").value(DEFAULT_ATTRIBUTE_VALUE.toString()))
             .andExpect(jsonPath("$.createdBy").value(DEFAULT_CREATED_BY.toString()))
-            .andExpect(jsonPath("$.createTime").value(sameInstant(DEFAULT_CREATE_TIME)))
+            .andExpect(jsonPath("$.createTime").value(DEFAULT_CREATE_TIME.toString()))
             .andExpect(jsonPath("$.updatedBy").value(DEFAULT_UPDATED_BY.toString()))
-            .andExpect(jsonPath("$.updateTime").value(sameInstant(DEFAULT_UPDATE_TIME)));
+            .andExpect(jsonPath("$.updateTime").value(DEFAULT_UPDATE_TIME.toString()));
     }
 
     @Test

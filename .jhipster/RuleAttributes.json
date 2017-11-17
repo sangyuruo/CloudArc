@@ -2,12 +2,10 @@
     "fluentMethods": true,
     "relationships": [
         {
-            "relationshipType": "one-to-one",
+            "relationshipType": "many-to-one",
             "relationshipName": "alarmRule",
             "otherEntityName": "alarmRule",
-            "otherEntityField": "id",
-            "ownerSide": true,
-            "otherEntityRelationshipName": "ruleAttributes"
+            "otherEntityField": "id"
         }
     ],
     "fields": [
@@ -19,17 +17,15 @@
                 "maxlength",
                 "required"
             ],
-            "fieldValidateRulesMaxlength": 100
+            "fieldValidateRulesMaxlength": 64
         },
         {
             "fieldName": "attributeName",
             "javadoc": "属性名",
-            "fieldType": "String",
+            "fieldType": "Double",
             "fieldValidateRules": [
-                "maxlength",
                 "required"
-            ],
-            "fieldValidateRulesMaxlength": 100
+            ]
         },
         {
             "fieldName": "attributeValue",
@@ -54,7 +50,7 @@
         {
             "fieldName": "createTime",
             "javadoc": "创建时间",
-            "fieldType": "ZonedDateTime",
+            "fieldType": "Instant",
             "fieldValidateRules": [
                 "required"
             ]
@@ -72,14 +68,14 @@
         {
             "fieldName": "updateTime",
             "javadoc": "修改时间",
-            "fieldType": "ZonedDateTime",
+            "fieldType": "Instant",
             "fieldValidateRules": [
                 "required"
             ]
         }
     ],
-    "changelogDate": "20171114083635",
-    "javadoc": "规则属性表",
+    "changelogDate": "20171117012032",
+    "javadoc": "规则属性表\n@author youhong",
     "entityTableName": "rule_attributes",
     "dto": "no",
     "pagination": "pager",

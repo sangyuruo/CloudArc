@@ -80,7 +80,7 @@ class RuleAttributesGatlingTest extends Simulation {
             .exec(http("Create new ruleAttributes")
             .post("/emcloudarc/api/rule-attributes")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "ruleCode":"SAMPLE_TEXT", "attributeName":"SAMPLE_TEXT", "attributeValue":"SAMPLE_TEXT", "createdBy":"SAMPLE_TEXT", "createTime":"2020-01-01T00:00:00.000Z", "updatedBy":"SAMPLE_TEXT", "updateTime":"2020-01-01T00:00:00.000Z"}""")).asJSON
+            .body(StringBody("""{"id":null, "ruleCode":"SAMPLE_TEXT", "attributeName":null, "attributeValue":"SAMPLE_TEXT", "createdBy":"SAMPLE_TEXT", "createTime":"2020-01-01T00:00:00.000Z", "updatedBy":"SAMPLE_TEXT", "updateTime":"2020-01-01T00:00:00.000Z"}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_ruleAttributes_url"))).exitHereIfFailed
             .pause(10)

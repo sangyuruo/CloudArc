@@ -4,6 +4,9 @@ import com.emcloud.arc.EmCloudArcApp;
 
 import com.emcloud.arc.config.SecurityBeanOverrideConfiguration;
 
+import com.emcloud.arc.domain.MeterRule;
+import com.emcloud.arc.repository.MeterRuleRepository;
+import com.emcloud.arc.service.MeterRuleService;
 import com.emcloud.arc.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -22,12 +25,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.time.Instant;
-import java.time.ZonedDateTime;
-import java.time.ZoneOffset;
-import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-import static com.emcloud.arc.web.rest.TestUtil.sameInstant;
 import static com.emcloud.arc.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
@@ -49,11 +49,11 @@ public class MeterRuleResourceIntTest {
     private static final String DEFAULT_METER_NAME = "AAAAAAAAAA";
     private static final String UPDATED_METER_NAME = "BBBBBBBBBB";
 
-    private static final String DEFAULT_RULE_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_RULE_NAME = "BBBBBBBBBB";
-
     private static final String DEFAULT_RULE_CODE = "AAAAAAAAAA";
     private static final String UPDATED_RULE_CODE = "BBBBBBBBBB";
+
+    private static final String DEFAULT_RULE_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_RULE_NAME = "BBBBBBBBBB";
 
     private static final Boolean DEFAULT_ENABLE = false;
     private static final Boolean UPDATED_ENABLE = true;
@@ -61,14 +61,14 @@ public class MeterRuleResourceIntTest {
     private static final String DEFAULT_CREATED_BY = "AAAAAAAAAA";
     private static final String UPDATED_CREATED_BY = "BBBBBBBBBB";
 
-    private static final ZonedDateTime DEFAULT_CREATE_TIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
-    private static final ZonedDateTime UPDATED_CREATE_TIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final Instant DEFAULT_CREATE_TIME = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_CREATE_TIME = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     private static final String DEFAULT_UPDATED_BY = "AAAAAAAAAA";
     private static final String UPDATED_UPDATED_BY = "BBBBBBBBBB";
 
-    private static final ZonedDateTime DEFAULT_UPDATE_TIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
-    private static final ZonedDateTime UPDATED_UPDATE_TIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final Instant DEFAULT_UPDATE_TIME = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_UPDATE_TIME = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     @Autowired
     private MeterRuleRepository meterRuleRepository;
@@ -113,8 +113,8 @@ public class MeterRuleResourceIntTest {
         MeterRule meterRule = new MeterRule()
             .meterCode(DEFAULT_METER_CODE)
             .meterName(DEFAULT_METER_NAME)
-            .ruleName(DEFAULT_RULE_NAME)
             .ruleCode(DEFAULT_RULE_CODE)
+            .ruleName(DEFAULT_RULE_NAME)
             .enable(DEFAULT_ENABLE)
             .createdBy(DEFAULT_CREATED_BY)
             .createTime(DEFAULT_CREATE_TIME)
@@ -145,8 +145,8 @@ public class MeterRuleResourceIntTest {
         MeterRule testMeterRule = meterRuleList.get(meterRuleList.size() - 1);
         assertThat(testMeterRule.getMeterCode()).isEqualTo(DEFAULT_METER_CODE);
         assertThat(testMeterRule.getMeterName()).isEqualTo(DEFAULT_METER_NAME);
-        assertThat(testMeterRule.getRuleName()).isEqualTo(DEFAULT_RULE_NAME);
         assertThat(testMeterRule.getRuleCode()).isEqualTo(DEFAULT_RULE_CODE);
+        assertThat(testMeterRule.getRuleName()).isEqualTo(DEFAULT_RULE_NAME);
         assertThat(testMeterRule.isEnable()).isEqualTo(DEFAULT_ENABLE);
         assertThat(testMeterRule.getCreatedBy()).isEqualTo(DEFAULT_CREATED_BY);
         assertThat(testMeterRule.getCreateTime()).isEqualTo(DEFAULT_CREATE_TIME);
@@ -211,10 +211,10 @@ public class MeterRuleResourceIntTest {
 
     @Test
     @Transactional
-    public void checkRuleNameIsRequired() throws Exception {
+    public void checkRuleCodeIsRequired() throws Exception {
         int databaseSizeBeforeTest = meterRuleRepository.findAll().size();
         // set the field null
-        meterRule.setRuleName(null);
+        meterRule.setRuleCode(null);
 
         // Create the MeterRule, which fails.
 
@@ -229,10 +229,10 @@ public class MeterRuleResourceIntTest {
 
     @Test
     @Transactional
-    public void checkRuleCodeIsRequired() throws Exception {
+    public void checkRuleNameIsRequired() throws Exception {
         int databaseSizeBeforeTest = meterRuleRepository.findAll().size();
         // set the field null
-        meterRule.setRuleCode(null);
+        meterRule.setRuleName(null);
 
         // Create the MeterRule, which fails.
 
@@ -348,13 +348,13 @@ public class MeterRuleResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(meterRule.getId().intValue())))
             .andExpect(jsonPath("$.[*].meterCode").value(hasItem(DEFAULT_METER_CODE.toString())))
             .andExpect(jsonPath("$.[*].meterName").value(hasItem(DEFAULT_METER_NAME.toString())))
-            .andExpect(jsonPath("$.[*].ruleName").value(hasItem(DEFAULT_RULE_NAME.toString())))
             .andExpect(jsonPath("$.[*].ruleCode").value(hasItem(DEFAULT_RULE_CODE.toString())))
+            .andExpect(jsonPath("$.[*].ruleName").value(hasItem(DEFAULT_RULE_NAME.toString())))
             .andExpect(jsonPath("$.[*].enable").value(hasItem(DEFAULT_ENABLE.booleanValue())))
             .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY.toString())))
-            .andExpect(jsonPath("$.[*].createTime").value(hasItem(sameInstant(DEFAULT_CREATE_TIME))))
+            .andExpect(jsonPath("$.[*].createTime").value(hasItem(DEFAULT_CREATE_TIME.toString())))
             .andExpect(jsonPath("$.[*].updatedBy").value(hasItem(DEFAULT_UPDATED_BY.toString())))
-            .andExpect(jsonPath("$.[*].updateTime").value(hasItem(sameInstant(DEFAULT_UPDATE_TIME))));
+            .andExpect(jsonPath("$.[*].updateTime").value(hasItem(DEFAULT_UPDATE_TIME.toString())));
     }
 
     @Test
@@ -370,13 +370,13 @@ public class MeterRuleResourceIntTest {
             .andExpect(jsonPath("$.id").value(meterRule.getId().intValue()))
             .andExpect(jsonPath("$.meterCode").value(DEFAULT_METER_CODE.toString()))
             .andExpect(jsonPath("$.meterName").value(DEFAULT_METER_NAME.toString()))
-            .andExpect(jsonPath("$.ruleName").value(DEFAULT_RULE_NAME.toString()))
             .andExpect(jsonPath("$.ruleCode").value(DEFAULT_RULE_CODE.toString()))
+            .andExpect(jsonPath("$.ruleName").value(DEFAULT_RULE_NAME.toString()))
             .andExpect(jsonPath("$.enable").value(DEFAULT_ENABLE.booleanValue()))
             .andExpect(jsonPath("$.createdBy").value(DEFAULT_CREATED_BY.toString()))
-            .andExpect(jsonPath("$.createTime").value(sameInstant(DEFAULT_CREATE_TIME)))
+            .andExpect(jsonPath("$.createTime").value(DEFAULT_CREATE_TIME.toString()))
             .andExpect(jsonPath("$.updatedBy").value(DEFAULT_UPDATED_BY.toString()))
-            .andExpect(jsonPath("$.updateTime").value(sameInstant(DEFAULT_UPDATE_TIME)));
+            .andExpect(jsonPath("$.updateTime").value(DEFAULT_UPDATE_TIME.toString()));
     }
 
     @Test
@@ -400,8 +400,8 @@ public class MeterRuleResourceIntTest {
         updatedMeterRule
             .meterCode(UPDATED_METER_CODE)
             .meterName(UPDATED_METER_NAME)
-            .ruleName(UPDATED_RULE_NAME)
             .ruleCode(UPDATED_RULE_CODE)
+            .ruleName(UPDATED_RULE_NAME)
             .enable(UPDATED_ENABLE)
             .createdBy(UPDATED_CREATED_BY)
             .createTime(UPDATED_CREATE_TIME)
@@ -419,8 +419,8 @@ public class MeterRuleResourceIntTest {
         MeterRule testMeterRule = meterRuleList.get(meterRuleList.size() - 1);
         assertThat(testMeterRule.getMeterCode()).isEqualTo(UPDATED_METER_CODE);
         assertThat(testMeterRule.getMeterName()).isEqualTo(UPDATED_METER_NAME);
-        assertThat(testMeterRule.getRuleName()).isEqualTo(UPDATED_RULE_NAME);
         assertThat(testMeterRule.getRuleCode()).isEqualTo(UPDATED_RULE_CODE);
+        assertThat(testMeterRule.getRuleName()).isEqualTo(UPDATED_RULE_NAME);
         assertThat(testMeterRule.isEnable()).isEqualTo(UPDATED_ENABLE);
         assertThat(testMeterRule.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
         assertThat(testMeterRule.getCreateTime()).isEqualTo(UPDATED_CREATE_TIME);

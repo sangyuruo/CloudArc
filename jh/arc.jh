@@ -1,41 +1,75 @@
- /**报警服务规则表*/
- entity AlarmRule {
-  ruleName String maxlength(200) required /**规则名称*/,
-  ruleCode String maxlength(100)  required /**规则编码*/,
-  ruleType String maxlength(100)  required /**规则类型*/,
-  alarmLevel Integer required          /**紧急度*/,
-  enable Boolean required  		/** 是否有效 */,
-  createdBy String maxlength(20) required /**创建人*/, 
-  createTime ZonedDateTime required		/**创建时间*/,
-  updatedBy String maxlength(20) required	/**修改人*/,
-  updateTime ZonedDateTime required		/**修改时间*/
+ /**
+ * 报警服务规则表
+ * @author youhong
+ */
+entity AlarmRule {
+  /** 规则名称*/
+  ruleName String maxlength(200) required,
+  /** 规则编码*/
+  ruleCode String maxlength(64)  required,
+  /** 规则类型*/
+  ruleType String maxlength(100)  required,
+  /** 紧急度*/
+  alarmLevel Integer required,
+  /** 是否有效 */
+  enable Boolean required,
+  /** 创建人*/
+  createdBy String maxlength(20) required, 
+  /** 创建时间*/
+  createTime Instant  required,
+  /** 修改人*/
+  updatedBy String maxlength(20) required,
+  /** 修改时间*/
+  updateTime Instant  required		
 }
 
- /**规则属性表*/
- entity RuleAttributes {
-  ruleCode String maxlength(100)  required /**规则编码*/,
-  attributeName String maxlength(100)  required /**属性名*/,
-  attributeValue String maxlength(100)  required /**属性值*/,
-  createdBy String maxlength(20) required /**创建人*/, 
-  createTime ZonedDateTime required		/**创建时间*/,
-  updatedBy String maxlength(20) required	/**修改人*/,
-  updateTime ZonedDateTime required		/**修改时间*/
+  /**
+ * 规则属性表
+ * @author youhong
+ */
+entity RuleAttributes {
+  /** 规则编码*/
+  ruleCode String maxlength(64)  required,
+  /**属性名*/
+  attributeName Double required,
+  /** 属性值*/
+  attributeValue String maxlength(100)  required,
+  /** 创建人*/
+  createdBy String maxlength(20) required, 
+  /** 创建时间*/
+  createTime Instant  required,
+  /** 修改人*/
+  updatedBy String maxlength(20) required,
+  /** 修改时间*/
+  updateTime Instant  required		
 }
 
- /**设备规则表*/
-  entity MeterRule {
-  meterCode String maxlength(100)  required /**设备编码*/,
-  meterName  String maxlength(200) required /**设备名称*/,
-  ruleName String maxlength(200) required /**规则名称*/,
-  ruleCode String maxlength(100)  required /**规则编码*/,
-  enable Boolean required                /** 是否有效 */,
-  createdBy String maxlength(20) required /**创建人*/, 
-  createTime ZonedDateTime required		/**创建时间*/,
-  updatedBy String maxlength(20) required	/**修改人*/,
-  updateTime ZonedDateTime required		/**修改时间*/
+  /**
+ * 设备规则表
+ * @author youhong
+ */
+entity MeterRule {
+  /** 设备编码*/
+  meterCode String maxlength(64)  required,
+  /** 设备名称*/
+  meterName  String maxlength(200) required,
+    /** 规则编码*/
+  ruleCode String maxlength(64)  required,
+  /** 规则名称*/
+  ruleName String maxlength(200) required,
+  /** 是否有效 */
+  enable Boolean required ,
+  /** 创建人*/
+  createdBy String maxlength(20) required, 
+  /** 创建时间*/
+  createTime Instant required,
+  /** 修改人*/
+  updatedBy String maxlength(20) required,
+  /** 修改时间*/
+  updateTime Instant required		
 }
 
-relationship OneToOne {
-  RuleAttributes{AlarmRule} to AlarmRule
+relationship OneToMany {
+  AlarmRule{RuleAttributes} to RuleAttributes{AlarmRule}
 }
 
