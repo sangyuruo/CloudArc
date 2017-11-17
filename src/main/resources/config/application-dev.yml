@@ -59,7 +59,7 @@ spring:
         host: localhost
         port: 25
         username:
-        password:
+        password: 123456
     messages:
         cache-seconds: 1
     thymeleaf:
@@ -87,7 +87,7 @@ liquibase:
 #    port: 8443
 #    ssl:
 #        key-store: keystore.p12
-#        key-store-password: <your-password>
+#        key-store-password: 123456 <your-password>
 #        keyStoreType: PKCS12
 #        keyAlias: EmCloudArc
 # ===================================================================

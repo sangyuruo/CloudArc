@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+
+    <property name="now" value="now()" dbms="mysql"/>
+    <property name="autoIncrement" value="true"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
+
+    <!--
+        Added the entity MeterRule.
+    -->
+    <changeSet id="20171114083636-1" author="jhipster">
+        <createTable tableName="meter_rule">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="meter_code" type="varchar(100)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="meter_name" type="varchar(200)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="rule_name" type="varchar(200)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="rule_code" type="varchar(100)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="jhi_enable" type="bit">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="created_by" type="varchar(20)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="create_time" type="datetime">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="updated_by" type="varchar(20)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="update_time" type="datetime">
+                <constraints nullable="false" />
+            </column>
+
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        <dropDefaultValue tableName="meter_rule" columnName="create_time" columnDataType="datetime"/>
+        <dropDefaultValue tableName="meter_rule" columnName="update_time" columnDataType="datetime"/>
+
+    </changeSet>
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+</databaseChangeLog>
