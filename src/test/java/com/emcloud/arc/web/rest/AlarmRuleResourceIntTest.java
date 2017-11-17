@@ -4,9 +4,6 @@ import com.emcloud.arc.EmCloudArcApp;
 
 import com.emcloud.arc.config.SecurityBeanOverrideConfiguration;
 
-import com.emcloud.arc.domain.AlarmRule;
-import com.emcloud.arc.repository.AlarmRuleRepository;
-import com.emcloud.arc.service.AlarmRuleService;
 import com.emcloud.arc.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;

@@ -4,9 +4,6 @@ import com.emcloud.arc.EmCloudArcApp;
 
 import com.emcloud.arc.config.SecurityBeanOverrideConfiguration;
 
-import com.emcloud.arc.domain.MeterRule;
-import com.emcloud.arc.repository.MeterRuleRepository;
-import com.emcloud.arc.service.MeterRuleService;
 import com.emcloud.arc.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;

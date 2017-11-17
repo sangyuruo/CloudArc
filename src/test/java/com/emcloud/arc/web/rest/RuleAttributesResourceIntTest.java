@@ -4,9 +4,6 @@ import com.emcloud.arc.EmCloudArcApp;
 
 import com.emcloud.arc.config.SecurityBeanOverrideConfiguration;
 
-import com.emcloud.arc.domain.RuleAttributes;
-import com.emcloud.arc.repository.RuleAttributesRepository;
-import com.emcloud.arc.service.RuleAttributesService;
 import com.emcloud.arc.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
