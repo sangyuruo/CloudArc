@@ -14,7 +14,7 @@ public class ConsumerService {
     private final Logger log = LoggerFactory.getLogger(ConsumerService.class);
 
     @StreamListener(ConsumerChannel.CHANNEL)
-    public void consume(AbstractMessageEvent messageEvent) {
-        log.info("Received Ser type:{} action:{} message: {}.", messageEvent.getType(), messageEvent.getAction(), messageEvent.getMessage().toString());
+    public void consume(String messageEvent) {
+        log.info("Received Ser type:{} action:{} message: {}.", messageEvent );
     }
 }
