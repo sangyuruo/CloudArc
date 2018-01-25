@@ -82,7 +82,8 @@ spring:
                 messageChannel:
                     destination: em-data
                 subscribableChannel:
-                    destination: em-data
+                    destination: cloud-data
+                    group: em-cloud-arc
 
 liquibase:
     contexts: dev

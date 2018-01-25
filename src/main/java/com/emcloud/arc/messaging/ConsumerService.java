@@ -13,8 +13,13 @@ import org.springframework.stereotype.Service;
 public class ConsumerService {
     private final Logger log = LoggerFactory.getLogger(ConsumerService.class);
 
+//    @StreamListener(ConsumerChannel.CHANNEL)
+//    public void consume(String messageEvent) {
+//        log.info("Received Ser type:{} action:{} message: {}.", messageEvent );
+//    }
+
     @StreamListener(ConsumerChannel.CHANNEL)
     public void consume(String messageEvent) {
-        log.info("Received Ser type:{} action:{} message: {}.", messageEvent );
+        log.info("Received Ser msg:{}.", messageEvent );
     }
 }
