@@ -14,13 +14,13 @@ entity AlarmRule {
   /** 是否有效 */
   enable Boolean required,
   /** 创建人*/
-  createdBy String maxlength(20) required, 
+  createdBy String maxlength(20) required,
   /** 创建时间*/
   createTime Instant  required,
   /** 修改人*/
   updatedBy String maxlength(20) required,
   /** 修改时间*/
-  updateTime Instant  required		
+  updateTime Instant  required
 }
 
   /**
@@ -35,13 +35,13 @@ entity RuleAttributes {
   /** 属性值*/
   attributeValue String maxlength(100)  required,
   /** 创建人*/
-  createdBy String maxlength(20) required, 
+  createdBy String maxlength(20) required,
   /** 创建时间*/
   createTime Instant  required,
   /** 修改人*/
   updatedBy String maxlength(20) required,
   /** 修改时间*/
-  updateTime Instant  required		
+  updateTime Instant  required
 }
 
   /**
@@ -60,13 +60,15 @@ entity MeterRule {
   /** 是否有效 */
   enable Boolean required ,
   /** 创建人*/
-  createdBy String maxlength(20) required, 
+  createdBy String maxlength(20) required,
   /** 创建时间*/
   createTime Instant required,
   /** 修改人*/
   updatedBy String maxlength(20) required,
   /** 修改时间*/
-  updateTime Instant required		
+  updateTime Instant required,
+  /** 设备分类id*/
+  meterCategory Integer
 }
 
 relationship OneToMany {

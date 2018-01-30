@@ -13,9 +13,9 @@ public class Pm25Analysis extends DefaultOneParamAnalysis {
         boolean alarm = true;
         if (pm25 > 10 && pm25 < 20) {
             alarmLevel = 1;
-        } else if (pm25 > 20 && pm25 < 30) {
+        } else if (pm25 >= 20 && pm25 < 30) {
             alarmLevel = 2;
-        } else if (pm25 > 30) {
+        } else if (pm25 >= 30) {
             alarmLevel = 3;
         }else{
             alarm = false;

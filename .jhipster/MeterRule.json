@@ -85,6 +85,11 @@
             "fieldValidateRules": [
                 "required"
             ]
+        },
+        {
+            "fieldName": "meterCategory",
+            "javadoc": "设备分类id",
+            "fieldType": "Integer"
         }
     ],
     "changelogDate": "20171117012033",

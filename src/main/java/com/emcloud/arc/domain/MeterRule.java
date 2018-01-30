@@ -101,6 +101,26 @@ public class MeterRule implements Serializable {
     @Column(name = "update_time", nullable = false)
     private Instant updateTime;
 
+    /**
+     * 设备分类id
+     */
+    @ApiModelProperty(value = "设备分类id")
+    @Column(name = "meter_category", nullable = false)
+    private Integer meterCategory;
+
+    public Integer getMeterCategory() {
+        return meterCategory;
+    }
+
+    public MeterRule meterCategory(Integer meterCategory) {
+        this.meterCategory = meterCategory;
+        return this;
+    }
+
+    public void setMeterCategory(Integer meterCategory) {
+        this.meterCategory = meterCategory;
+    }
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
