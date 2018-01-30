@@ -94,6 +94,7 @@ public class AlarmRuleResource {
     public ResponseEntity<List<AlarmRule>> getAllAlarmRules(@ApiParam Pageable pageable) {
         log.debug("REST request to get a page of AlarmRules");
         Page<AlarmRule> page = alarmRuleService.findAll(pageable);
+
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/alarm-rules");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
