@@ -1,7 +1,7 @@
 package com.emcloud.arc.analysis.impl;
 
-import com.emcloud.arc.analysis.DefaultAnalysisResult;
-import com.emcloud.arc.analysis.DefaultOneParamAnalysis;
+import com.emcloud.arc.analysis.analysis.DefaultAnalysisResult;
+import com.emcloud.arc.analysis.analysis.DefaultOneParamAnalysis;
 
 public class Pm25Analysis extends DefaultOneParamAnalysis {
 

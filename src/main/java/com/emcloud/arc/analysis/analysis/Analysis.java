@@ -1,4 +1,4 @@
-package com.emcloud.arc.analysis;
+package com.emcloud.arc.analysis.analysis;
 
 
 import java.util.Map;

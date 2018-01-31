@@ -4,6 +4,6 @@ import org.json.JSONArray;
 
 import java.util.Map;
 
-public class UAnalysis {
+public class VoltageAnalysis {
 
 }

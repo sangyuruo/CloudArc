@@ -1,4 +1,4 @@
-package com.emcloud.arc.analysis;
+package com.emcloud.arc.analysis.analysis;
 
 
 public abstract class DefaultMutilParamAnalysis<P extends DefaultAnalysisResult> implements Analysis<P> {
