@@ -2,13 +2,10 @@ package com.emcloud.arc.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.emcloud.arc.domain.AlarmRule;
-import com.emcloud.arc.domain.MeterRule;
-import com.emcloud.arc.domain.SmartMeterData;
 import com.emcloud.arc.service.AlarmRuleService;
 import com.emcloud.arc.web.rest.errors.BadRequestAlertException;
 import com.emcloud.arc.web.rest.util.HeaderUtil;
 import com.emcloud.arc.web.rest.util.PaginationUtil;
-import com.sun.net.httpserver.Authenticator;
 import io.swagger.annotations.ApiParam;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;

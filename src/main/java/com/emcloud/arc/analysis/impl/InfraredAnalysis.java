@@ -10,11 +10,11 @@ public class InfraredAnalysis extends DefaultOneParamAnalysis {
         int infrared = Integer.parseInt(infraredStr);
         int alarmLevel = 0;
         boolean alarm = true;
-        if (infrared > 10 && infrared < 20) {
+        if (infrared > 0 && infrared < 15) {
             alarmLevel = 1;
-        } else if (infrared >= 20 && infrared < 30) {
+        } else if (infrared >= 15 && infrared < 40) {
             alarmLevel = 2;
-        } else if (infrared >= 30) {
+        } else if (infrared >= 40) {
             alarmLevel = 3;
         }else{
             alarm = false;

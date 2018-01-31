@@ -4,19 +4,18 @@ import com.emcloud.arc.analysis.analysis.DefaultAnalysisResult;
 import com.emcloud.arc.analysis.analysis.DefaultOneParamAnalysis;
 
 
-public class TemperatureAnalysis extends DefaultOneParamAnalysis {
-
+public class TemperatureAnalysis extends  DefaultOneParamAnalysis {
     @Override
-    public DefaultAnalysisResult handle(String temperatureStr) {
+    public DefaultAnalysisResult handle(String temStr) {
         DefaultAnalysisResult defaultAnalysis = new DefaultAnalysisResult();
-        int temperature = Integer.parseInt(temperatureStr);
+        int tem = Integer.parseInt(temStr);
         int alarmLevel = 0;
         boolean alarm = true;
-        if (temperature > 30 && temperature < 40) {
+        if (tem > 10 && tem < 20) {
             alarmLevel = 1;
-        } else if (temperature >40  && temperature < 50) {
+        } else if (tem >= 20 && tem < 40) {
             alarmLevel = 2;
-        } else if (temperature > 50) {
+        } else if (tem >= 40) {
             alarmLevel = 3;
         }else{
             alarm = false;
