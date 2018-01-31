@@ -16,17 +16,19 @@ public class ReactivePowerAnalysis extends DefaultOneParamAnalysis {
         } else if (tem >= 20 && tem < 40) {
             alarmLevel = 2;
         } else if (tem >= 40) {
-            alarmLevel = 3;
-        }else{
+        } else {
             alarm = false;
         }
-        defaultAnalysis.setAlarm( alarm );
+        defaultAnalysis.setAlarm(alarm);
         defaultAnalysis.setAlarmLevel(alarmLevel);
         return defaultAnalysis;
     }
 
+
     @Override
     public DefaultAnalysisResult handle(Map<String, Float> data) {
-        return null;
+        return handle(data.get(""));
+
     }
+
 }
