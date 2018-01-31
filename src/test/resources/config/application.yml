@@ -34,7 +34,7 @@ spring:
         username:
         password:
     jpa:
-        database-platform: io.github.jhipster.domain.util.FixedH2Dialect
+        database-platform: io.github.jhipster.service.util.FixedH2Dialect
         database: H2
         open-in-view: false
         show-sql: false

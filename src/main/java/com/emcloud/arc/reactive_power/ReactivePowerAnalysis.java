@@ -1,6 +1,5 @@
 package com.emcloud.arc.reactive_power;
 
-import com.emcloud.arc.analysis.analysis.DefaultAnalysisResult;
 import com.emcloud.arc.analysis.analysis.DefaultOneParamAnalysis;
 
 //无功

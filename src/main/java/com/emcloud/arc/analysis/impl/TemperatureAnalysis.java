@@ -3,12 +3,13 @@ package com.emcloud.arc.analysis.impl;
 import com.emcloud.arc.analysis.analysis.DefaultAnalysisResult;
 import com.emcloud.arc.analysis.analysis.DefaultOneParamAnalysis;
 
+import java.util.Map;
+
 
 public class TemperatureAnalysis extends  DefaultOneParamAnalysis {
     @Override
-    public DefaultAnalysisResult handle(String temStr) {
+    public DefaultAnalysisResult handle(Float tem) {
         DefaultAnalysisResult defaultAnalysis = new DefaultAnalysisResult();
-        int tem = Integer.parseInt(temStr);
         int alarmLevel = 0;
         boolean alarm = true;
         if (tem > 10 && tem < 20) {
@@ -23,5 +24,10 @@ public class TemperatureAnalysis extends  DefaultOneParamAnalysis {
         defaultAnalysis.setAlarm( alarm );
         defaultAnalysis.setAlarmLevel(alarmLevel);
         return defaultAnalysis;
+    }
+
+    @Override
+    public DefaultAnalysisResult handle(Map<String, Float> data) {
+        return handle(data.get(""));
     }
 }

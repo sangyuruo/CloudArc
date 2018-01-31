@@ -3,11 +3,13 @@ package com.emcloud.arc.analysis.impl;
 import com.emcloud.arc.analysis.analysis.DefaultAnalysisResult;
 import com.emcloud.arc.analysis.analysis.DefaultOneParamAnalysis;
 
+import java.util.Map;
+
 public class InfraredAnalysis extends DefaultOneParamAnalysis {
+    static final String infraredkey = "";
     @Override
-    public DefaultAnalysisResult handle(String infraredStr) {
+    public DefaultAnalysisResult handle(Float infrared) {
         DefaultAnalysisResult defaultAnalysis = new DefaultAnalysisResult();
-        int infrared = Integer.parseInt(infraredStr);
         int alarmLevel = 0;
         boolean alarm = true;
         if (infrared > 0 && infrared < 15) {
@@ -22,5 +24,10 @@ public class InfraredAnalysis extends DefaultOneParamAnalysis {
         defaultAnalysis.setAlarm( alarm );
         defaultAnalysis.setAlarmLevel(alarmLevel);
         return defaultAnalysis;
+    }
+
+    @Override
+    public DefaultAnalysisResult handle(Map<String, Float> data) {
+        return this.handle(data.get( infraredkey ));
     }
 }

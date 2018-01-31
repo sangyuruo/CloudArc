@@ -3,11 +3,12 @@ package com.emcloud.arc.analysis.impl;
 import com.emcloud.arc.analysis.analysis.DefaultAnalysisResult;
 import com.emcloud.arc.analysis.analysis.DefaultOneParamAnalysis;
 
+import java.util.Map;
+
 public class WaterLevelAnalysis extends DefaultOneParamAnalysis {
     @Override
-    public DefaultAnalysisResult handle(String waterlevStr) {
+    public DefaultAnalysisResult handle(Float waterlev) {
         DefaultAnalysisResult defaultAnalysis = new DefaultAnalysisResult();
-        int waterlev = Integer.parseInt(waterlevStr);
         int alarmLevel = 0;
         boolean alarm = true;
         if (waterlev > 5 && waterlev < 10) {
@@ -22,5 +23,10 @@ public class WaterLevelAnalysis extends DefaultOneParamAnalysis {
         defaultAnalysis.setAlarm( alarm );
         defaultAnalysis.setAlarmLevel(alarmLevel);
         return defaultAnalysis;
+    }
+
+    @Override
+    public DefaultAnalysisResult handle(Map<String, Float> data) {
+        return handle(data.get(""));
     }
 }

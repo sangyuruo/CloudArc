@@ -103,7 +103,7 @@ public class TestUtil {
     }
 
     /**
-     * Verifies the equals/hashcode contract on the domain object.
+     * Verifies the equals/hashcode contract on the service object.
      */
     @SuppressWarnings("unchecked")
     public static void equalsVerifier(Class clazz) throws Exception {

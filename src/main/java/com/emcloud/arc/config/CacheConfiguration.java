@@ -108,7 +108,7 @@ public class CacheConfiguration {
             }
         }
         config.getMapConfigs().put("default", initializeDefaultMapConfig());
-        config.getMapConfigs().put("com.emcloud.arc.domain.*", initializeDomainMapConfig(jHipsterProperties));
+        config.getMapConfigs().put("com.emcloud.arc.service.*", initializeDomainMapConfig(jHipsterProperties));
         return Hazelcast.newHazelcastInstance(config);
     }
 

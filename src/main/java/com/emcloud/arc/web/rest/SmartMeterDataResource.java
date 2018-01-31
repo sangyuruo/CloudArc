@@ -2,6 +2,7 @@ package com.emcloud.arc.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.emcloud.arc.analysis.impl.ElectricityAnalysis;
+import com.emcloud.arc.domain.SmartMeterData;
 import com.emcloud.arc.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
