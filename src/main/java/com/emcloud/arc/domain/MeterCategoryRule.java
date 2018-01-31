@@ -1,5 +1,6 @@
 package com.emcloud.arc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Cache;
@@ -9,17 +10,19 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
- * 设备规则表
+ * 设备分类规则表
  * @author youhong
  */
-@ApiModel(description = "设备规则表 @author youhong")
+@ApiModel(description = "设备分类规则表 @author youhong")
 @Entity
-@Table(name = "meter_rule")
+@Table(name = "meter_category_rule")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class MeterRule implements Serializable {
+public class MeterCategoryRule implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -28,31 +31,12 @@ public class MeterRule implements Serializable {
     private Long id;
 
     /**
-     * 设备编码
+     * 设备分类编码
      */
     @NotNull
-    @Size(max = 64)
-    @ApiModelProperty(value = "设备编码", required = true)
-    @Column(name = "meter_code", length = 64, nullable = false)
-    private String meterCode;
-
-    /**
-     * 设备名称
-     */
-    @NotNull
-    @Size(max = 200)
-    @ApiModelProperty(value = "设备名称", required = true)
-    @Column(name = "meter_name", length = 200, nullable = false)
-    private String meterName;
-
-    /**
-     * 规则编码
-     */
-    @NotNull
-    @Size(max = 64)
-    @ApiModelProperty(value = "规则编码", required = true)
-    @Column(name = "rule_code", length = 64, nullable = false)
-    private String ruleCode;
+    @ApiModelProperty(value = "设备分类编码", required = true)
+    @Column(name = "meter_category_code", nullable = false)
+    private Integer meterCategoryCode;
 
     /**
      * 规则名称
@@ -64,16 +48,9 @@ public class MeterRule implements Serializable {
     private String ruleName;
 
     /**
-     * 是否有效
-     */
-    @NotNull
-    @ApiModelProperty(value = "是否有效", required = true)
-    @Column(name = "jhi_enable", nullable = false)
-    private Boolean enable;
-
-    /**
      * 创建人
      */
+    @NotNull
     @Size(max = 20)
     @ApiModelProperty(value = "创建人", required = true)
     @Column(name = "created_by", length = 20, nullable = false)
@@ -82,6 +59,7 @@ public class MeterRule implements Serializable {
     /**
      * 创建时间
      */
+    @NotNull
     @ApiModelProperty(value = "创建时间", required = true)
     @Column(name = "create_time", nullable = false)
     private Instant createTime;
@@ -89,6 +67,7 @@ public class MeterRule implements Serializable {
     /**
      * 修改人
      */
+    @NotNull
     @Size(max = 20)
     @ApiModelProperty(value = "修改人", required = true)
     @Column(name = "updated_by", length = 20, nullable = false)
@@ -97,34 +76,15 @@ public class MeterRule implements Serializable {
     /**
      * 修改时间
      */
+    @NotNull
     @ApiModelProperty(value = "修改时间", required = true)
     @Column(name = "update_time", nullable = false)
     private Instant updateTime;
 
-    /**
-     * 设备分类id
-     */
-    @ApiModelProperty(value = "设备分类id")
-    @Column(name = "meter_category", nullable = false)
-    private Integer meterCategory;
-
-
-    @ManyToOne
-    private MeterCategoryRule meterCategoryRule;
-
-
-    public Integer getMeterCategory() {
-        return meterCategory;
-    }
-
-    public MeterRule meterCategory(Integer meterCategory) {
-        this.meterCategory = meterCategory;
-        return this;
-    }
-
-    public void setMeterCategory(Integer meterCategory) {
-        this.meterCategory = meterCategory;
-    }
+    @OneToMany(mappedBy = "meterCategoryRule")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<MeterRule> meterRules = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -135,50 +95,24 @@ public class MeterRule implements Serializable {
         this.id = id;
     }
 
-    public String getMeterCode() {
-        return meterCode;
+    public Integer getMeterCategoryCode() {
+        return meterCategoryCode;
     }
 
-    public MeterRule meterCode(String meterCode) {
-        this.meterCode = meterCode;
+    public MeterCategoryRule meterCategoryCode(Integer meterCategoryCode) {
+        this.meterCategoryCode = meterCategoryCode;
         return this;
     }
 
-    public void setMeterCode(String meterCode) {
-        this.meterCode = meterCode;
-    }
-
-    public String getMeterName() {
-        return meterName;
-    }
-
-    public MeterRule meterName(String meterName) {
-        this.meterName = meterName;
-        return this;
-    }
-
-    public void setMeterName(String meterName) {
-        this.meterName = meterName;
-    }
-
-    public String getRuleCode() {
-        return ruleCode;
-    }
-
-    public MeterRule ruleCode(String ruleCode) {
-        this.ruleCode = ruleCode;
-        return this;
-    }
-
-    public void setRuleCode(String ruleCode) {
-        this.ruleCode = ruleCode;
+    public void setMeterCategoryCode(Integer meterCategoryCode) {
+        this.meterCategoryCode = meterCategoryCode;
     }
 
     public String getRuleName() {
         return ruleName;
     }
 
-    public MeterRule ruleName(String ruleName) {
+    public MeterCategoryRule ruleName(String ruleName) {
         this.ruleName = ruleName;
         return this;
     }
@@ -187,24 +121,11 @@ public class MeterRule implements Serializable {
         this.ruleName = ruleName;
     }
 
-    public Boolean isEnable() {
-        return enable;
-    }
-
-    public MeterRule enable(Boolean enable) {
-        this.enable = enable;
-        return this;
-    }
-
-    public void setEnable(Boolean enable) {
-        this.enable = enable;
-    }
-
     public String getCreatedBy() {
         return createdBy;
     }
 
-    public MeterRule createdBy(String createdBy) {
+    public MeterCategoryRule createdBy(String createdBy) {
         this.createdBy = createdBy;
         return this;
     }
@@ -217,7 +138,7 @@ public class MeterRule implements Serializable {
         return createTime;
     }
 
-    public MeterRule createTime(Instant createTime) {
+    public MeterCategoryRule createTime(Instant createTime) {
         this.createTime = createTime;
         return this;
     }
@@ -230,7 +151,7 @@ public class MeterRule implements Serializable {
         return updatedBy;
     }
 
-    public MeterRule updatedBy(String updatedBy) {
+    public MeterCategoryRule updatedBy(String updatedBy) {
         this.updatedBy = updatedBy;
         return this;
     }
@@ -243,27 +164,38 @@ public class MeterRule implements Serializable {
         return updateTime;
     }
 
-    public MeterRule updateTime(Instant updateTime) {
+    public MeterCategoryRule updateTime(Instant updateTime) {
         this.updateTime = updateTime;
         return this;
     }
-
-    public MeterCategoryRule getMeterCategoryRule() {
-        return meterCategoryRule;
-    }
-
-    public MeterRule meterCategoryRule(MeterCategoryRule meterCategoryRule) {
-        this.meterCategoryRule = meterCategoryRule;
-        return this;
-    }
-
-    public void setMeterCategoryRule(MeterCategoryRule meterCategoryRule) {
-        this.meterCategoryRule = meterCategoryRule;
-    }
-
 
     public void setUpdateTime(Instant updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Set<MeterRule> getMeterRules() {
+        return meterRules;
+    }
+
+    public MeterCategoryRule meterRules(Set<MeterRule> meterRules) {
+        this.meterRules = meterRules;
+        return this;
+    }
+
+    public MeterCategoryRule addMeterRule(MeterRule meterRule) {
+        this.meterRules.add(meterRule);
+        meterRule.setMeterCategoryRule(this);
+        return this;
+    }
+
+    public MeterCategoryRule removeMeterRule(MeterRule meterRule) {
+        this.meterRules.remove(meterRule);
+        meterRule.setMeterCategoryRule(null);
+        return this;
+    }
+
+    public void setMeterRules(Set<MeterRule> meterRules) {
+        this.meterRules = meterRules;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -275,11 +207,11 @@ public class MeterRule implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        MeterRule meterRule = (MeterRule) o;
-        if (meterRule.getId() == null || getId() == null) {
+        MeterCategoryRule meterCategoryRule = (MeterCategoryRule) o;
+        if (meterCategoryRule.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(getId(), meterRule.getId());
+        return Objects.equals(getId(), meterCategoryRule.getId());
     }
 
     @Override
@@ -289,13 +221,10 @@ public class MeterRule implements Serializable {
 
     @Override
     public String toString() {
-        return "MeterRule{" +
+        return "MeterCategoryRule{" +
             "id=" + getId() +
-            ", meterCode='" + getMeterCode() + "'" +
-            ", meterName='" + getMeterName() + "'" +
-            ", ruleCode='" + getRuleCode() + "'" +
+            ", meterCategoryCode='" + getMeterCategoryCode() + "'" +
             ", ruleName='" + getRuleName() + "'" +
-            ", enable='" + isEnable() + "'" +
             ", createdBy='" + getCreatedBy() + "'" +
             ", createTime='" + getCreateTime() + "'" +
             ", updatedBy='" + getUpdatedBy() + "'" +

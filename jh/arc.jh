@@ -71,7 +71,29 @@ entity MeterRule {
   meterCategory Integer
 }
 
+ /**
+ * 设备分类规则表
+ * @author youhong
+ */
+entity MeterCategoryRule {
+  /** 设备分类编码*/
+  meterCategoryCode Integer  required,
+  /** 规则名称*/
+  ruleName  String maxlength(200) required,
+  /** 创建人*/
+  createdBy String maxlength(20) required,
+  /** 创建时间*/
+  createTime Instant  required,
+  /** 修改人*/
+  updatedBy String maxlength(20) required,
+  /** 修改时间*/
+  updateTime Instant  required
+}
+
 relationship OneToMany {
   AlarmRule{RuleAttributes} to RuleAttributes{AlarmRule}
 }
 
+relationship OneToMany {
+  MeterCategoryRule{MeterRule} to MeterRule{MeterCategoryRule}
+}

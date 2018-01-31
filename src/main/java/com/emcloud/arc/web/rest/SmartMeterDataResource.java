@@ -1,3 +1,4 @@
+/*
 package com.emcloud.arc.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
@@ -12,9 +13,11 @@ import javax.validation.Valid;
 import java.net.URISyntaxException;
 
 
+*/
 /**
  * REST controller for managing AlarmRule.
- */
+ *//*
+
 @RestController
 @RequestMapping("/api")
 public class SmartMeterDataResource {
@@ -46,3 +49,4 @@ public class SmartMeterDataResource {
         return "成功";
     }
 }
+*/
