@@ -3,8 +3,8 @@
     "relationships": [
         {
             "relationshipType": "one-to-many",
-            "relationshipName": "meterRule",
-            "otherEntityName": "meterRule",
+            "relationshipName": "alarmRule",
+            "otherEntityName": "alarmRule",
             "otherEntityRelationshipName": "meterCategoryRule"
         }
     ],
@@ -18,6 +18,16 @@
             ]
         },
         {
+            "fieldName": "ruleCode",
+            "javadoc": "规则编码",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength",
+                "required"
+            ],
+            "fieldValidateRulesMaxlength": 64
+        },
+        {
             "fieldName": "ruleName",
             "javadoc": "规则名称",
             "fieldType": "String",
@@ -26,6 +36,16 @@
                 "required"
             ],
             "fieldValidateRulesMaxlength": 200
+        },
+        {
+            "fieldName": "className",
+            "javadoc": "分析器名",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength",
+                "required"
+            ],
+            "fieldValidateRulesMaxlength": 64
         },
         {
             "fieldName": "createdBy",

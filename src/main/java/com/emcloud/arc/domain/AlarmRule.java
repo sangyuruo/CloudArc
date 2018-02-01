@@ -49,21 +49,13 @@ public class AlarmRule implements Serializable {
     private String ruleCode;
 
     /**
-     * 规则类型
+     * 分析器名
      */
     @NotNull
-    @Size(max = 100)
-    @ApiModelProperty(value = "规则类型", required = true)
-    @Column(name = "rule_type", length = 100, nullable = false)
-    private String ruleType;
-
-    /**
-     * 紧急度
-     */
-    @NotNull
-    @ApiModelProperty(value = "紧急度", required = true)
-    @Column(name = "alarm_level", nullable = false)
-    private Integer alarmLevel;
+    @Size(max = 64)
+    @ApiModelProperty(value = "分析器名", required = true)
+    @Column(name = "class_name", length = 64, nullable = false)
+    private String className;
 
     /**
      * 是否有效
@@ -108,6 +100,9 @@ public class AlarmRule implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<RuleAttributes> ruleAttributes = new HashSet<>();
 
+    @ManyToOne
+    private MeterCategoryRule meterCategoryRule;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -143,30 +138,17 @@ public class AlarmRule implements Serializable {
         this.ruleCode = ruleCode;
     }
 
-    public String getRuleType() {
-        return ruleType;
+    public String getClassName() {
+        return className;
     }
 
-    public AlarmRule ruleType(String ruleType) {
-        this.ruleType = ruleType;
+    public AlarmRule className(String className) {
+        this.className = className;
         return this;
     }
 
-    public void setRuleType(String ruleType) {
-        this.ruleType = ruleType;
-    }
-
-    public Integer getAlarmLevel() {
-        return alarmLevel;
-    }
-
-    public AlarmRule alarmLevel(Integer alarmLevel) {
-        this.alarmLevel = alarmLevel;
-        return this;
-    }
-
-    public void setAlarmLevel(Integer alarmLevel) {
-        this.alarmLevel = alarmLevel;
+    public void setClassName(String className) {
+        this.className = className;
     }
 
     public Boolean isEnable() {
@@ -260,6 +242,19 @@ public class AlarmRule implements Serializable {
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
+    public MeterCategoryRule getMeterCategoryRule() {
+        return meterCategoryRule;
+    }
+
+    public AlarmRule meterCategoryRule(MeterCategoryRule meterCategoryRule) {
+        this.meterCategoryRule = meterCategoryRule;
+        return this;
+    }
+
+    public void setMeterCategoryRule(MeterCategoryRule meterCategoryRule) {
+        this.meterCategoryRule = meterCategoryRule;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -286,8 +281,7 @@ public class AlarmRule implements Serializable {
             "id=" + getId() +
             ", ruleName='" + getRuleName() + "'" +
             ", ruleCode='" + getRuleCode() + "'" +
-            ", ruleType='" + getRuleType() + "'" +
-            ", alarmLevel='" + getAlarmLevel() + "'" +
+            ", className='" + getClassName() + "'" +
             ", enable='" + isEnable() + "'" +
             ", createdBy='" + getCreatedBy() + "'" +
             ", createTime='" + getCreateTime() + "'" +

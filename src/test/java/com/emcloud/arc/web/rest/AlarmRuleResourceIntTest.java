@@ -113,8 +113,6 @@ public class AlarmRuleResourceIntTest {
         AlarmRule alarmRule = new AlarmRule()
             .ruleName(DEFAULT_RULE_NAME)
             .ruleCode(DEFAULT_RULE_CODE)
-            .ruleType(DEFAULT_RULE_TYPE)
-            .alarmLevel(DEFAULT_ALARM_LEVEL)
             .enable(DEFAULT_ENABLE)
             .createdBy(DEFAULT_CREATED_BY)
             .createTime(DEFAULT_CREATE_TIME)
@@ -145,8 +143,6 @@ public class AlarmRuleResourceIntTest {
         AlarmRule testAlarmRule = alarmRuleList.get(alarmRuleList.size() - 1);
         assertThat(testAlarmRule.getRuleName()).isEqualTo(DEFAULT_RULE_NAME);
         assertThat(testAlarmRule.getRuleCode()).isEqualTo(DEFAULT_RULE_CODE);
-        assertThat(testAlarmRule.getRuleType()).isEqualTo(DEFAULT_RULE_TYPE);
-        assertThat(testAlarmRule.getAlarmLevel()).isEqualTo(DEFAULT_ALARM_LEVEL);
         assertThat(testAlarmRule.isEnable()).isEqualTo(DEFAULT_ENABLE);
         assertThat(testAlarmRule.getCreatedBy()).isEqualTo(DEFAULT_CREATED_BY);
         assertThat(testAlarmRule.getCreateTime()).isEqualTo(DEFAULT_CREATE_TIME);
@@ -214,7 +210,7 @@ public class AlarmRuleResourceIntTest {
     public void checkRuleTypeIsRequired() throws Exception {
         int databaseSizeBeforeTest = alarmRuleRepository.findAll().size();
         // set the field null
-        alarmRule.setRuleType(null);
+
 
         // Create the AlarmRule, which fails.
 
@@ -232,7 +228,7 @@ public class AlarmRuleResourceIntTest {
     public void checkAlarmLevelIsRequired() throws Exception {
         int databaseSizeBeforeTest = alarmRuleRepository.findAll().size();
         // set the field null
-        alarmRule.setAlarmLevel(null);
+
 
         // Create the AlarmRule, which fails.
 
@@ -400,8 +396,6 @@ public class AlarmRuleResourceIntTest {
         updatedAlarmRule
             .ruleName(UPDATED_RULE_NAME)
             .ruleCode(UPDATED_RULE_CODE)
-            .ruleType(UPDATED_RULE_TYPE)
-            .alarmLevel(UPDATED_ALARM_LEVEL)
             .enable(UPDATED_ENABLE)
             .createdBy(UPDATED_CREATED_BY)
             .createTime(UPDATED_CREATE_TIME)
@@ -419,8 +413,6 @@ public class AlarmRuleResourceIntTest {
         AlarmRule testAlarmRule = alarmRuleList.get(alarmRuleList.size() - 1);
         assertThat(testAlarmRule.getRuleName()).isEqualTo(UPDATED_RULE_NAME);
         assertThat(testAlarmRule.getRuleCode()).isEqualTo(UPDATED_RULE_CODE);
-        assertThat(testAlarmRule.getRuleType()).isEqualTo(UPDATED_RULE_TYPE);
-        assertThat(testAlarmRule.getAlarmLevel()).isEqualTo(UPDATED_ALARM_LEVEL);
         assertThat(testAlarmRule.isEnable()).isEqualTo(UPDATED_ENABLE);
         assertThat(testAlarmRule.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
         assertThat(testAlarmRule.getCreateTime()).isEqualTo(UPDATED_CREATE_TIME);

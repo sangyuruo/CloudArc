@@ -30,11 +30,7 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="rule_type" type="varchar(100)">
-                <constraints nullable="false" />
-            </column>
-
-            <column name="alarm_level" type="integer">
+            <column name="class_name" type="varchar(64)">
                 <constraints nullable="false" />
             </column>
 

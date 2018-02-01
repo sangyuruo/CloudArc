@@ -37,21 +37,30 @@ public class RuleAttributes implements Serializable {
     private String ruleCode;
 
     /**
-     * 属性名
+     * 紧急度
      */
     @NotNull
-    @ApiModelProperty(value = "属性名", required = true)
-    @Column(name = "attribute_name", nullable = false)
-    private Double attributeName;
+    @ApiModelProperty(value = "紧急度", required = true)
+    @Column(name = "alarm_level", nullable = false)
+    private Integer alarmLevel;
 
     /**
-     * 属性值
+     * 起始值
      */
     @NotNull
     @Size(max = 100)
-    @ApiModelProperty(value = "属性值", required = true)
-    @Column(name = "attribute_value", length = 100, nullable = false)
-    private String attributeValue;
+    @ApiModelProperty(value = "起始值", required = true)
+    @Column(name = "start_value", nullable = false)
+    private Double startValue;
+
+    /**
+     * 结束值
+     */
+    @NotNull
+    @Size(max = 100)
+    @ApiModelProperty(value = "结束值", required = true)
+    @Column(name = "end_value", nullable = false)
+    private Double endValue;
 
     /**
      * 创建人
@@ -108,30 +117,43 @@ public class RuleAttributes implements Serializable {
         this.ruleCode = ruleCode;
     }
 
-    public Double getAttributeName() {
-        return attributeName;
+    public Integer getAlarmLevel() {
+        return alarmLevel;
     }
 
-    public RuleAttributes attributeName(Double attributeName) {
-        this.attributeName = attributeName;
+    public RuleAttributes alarmLevel(Integer alarmLevel) {
+        this.alarmLevel = alarmLevel;
         return this;
     }
 
-    public void setAttributeName(Double attributeName) {
-        this.attributeName = attributeName;
+    public void setAlarmLevel(Integer alarmLevel) {
+        this.alarmLevel = alarmLevel;
     }
 
-    public String getAttributeValue() {
-        return attributeValue;
+    public Double getStartValue() {
+        return startValue;
     }
 
-    public RuleAttributes attributeValue(String attributeValue) {
-        this.attributeValue = attributeValue;
+    public RuleAttributes startValue(Double startValue) {
+        this.startValue = startValue;
         return this;
     }
 
-    public void setAttributeValue(String attributeValue) {
-        this.attributeValue = attributeValue;
+    public void setStartValue(Double startValue) {
+        this.startValue = startValue;
+    }
+
+    public Double getEndValue() {
+        return endValue;
+    }
+
+    public RuleAttributes endValue(Double endValue) {
+        this.endValue = endValue;
+        return this;
+    }
+
+    public void setEndValue(Double endValue) {
+        this.endValue = endValue;
     }
 
     public String getCreatedBy() {
@@ -225,8 +247,9 @@ public class RuleAttributes implements Serializable {
         return "RuleAttributes{" +
             "id=" + getId() +
             ", ruleCode='" + getRuleCode() + "'" +
-            ", attributeName='" + getAttributeName() + "'" +
-            ", attributeValue='" + getAttributeValue() + "'" +
+            ", alarmLevel='" + getAlarmLevel() + "'" +
+            ", startValue='" + getStartValue() + "'" +
+            ", endValue='" + getEndValue() + "'" +
             ", createdBy='" + getCreatedBy() + "'" +
             ", createTime='" + getCreateTime() + "'" +
             ", updatedBy='" + getUpdatedBy() + "'" +

@@ -30,22 +30,14 @@
             "fieldValidateRulesMaxlength": 64
         },
         {
-            "fieldName": "ruleType",
-            "javadoc": "规则类型",
+            "fieldName": "className",
+            "javadoc": "分析器名",
             "fieldType": "String",
             "fieldValidateRules": [
                 "maxlength",
                 "required"
             ],
-            "fieldValidateRulesMaxlength": 100
-        },
-        {
-            "fieldName": "alarmLevel",
-            "javadoc": "紧急度",
-            "fieldType": "Integer",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldValidateRulesMaxlength": 64
         },
         {
             "fieldName": "enable",

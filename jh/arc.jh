@@ -1,5 +1,5 @@
  /**
- * 报警服务规则表
+ * 报警分类表
  * @author youhong
  */
 entity AlarmRule {
@@ -7,10 +7,8 @@ entity AlarmRule {
   ruleName String maxlength(200) required,
   /** 规则编码*/
   ruleCode String maxlength(64)  required,
-  /** 规则类型*/
-  ruleType String maxlength(100)  required,
-  /** 紧急度*/
-  alarmLevel Integer required,
+  /** 分析器名*/
+  className String maxlength(64)  required,
   /** 是否有效 */
   enable Boolean required,
   /** 创建人*/
@@ -30,10 +28,12 @@ entity AlarmRule {
 entity RuleAttributes {
   /** 规则编码*/
   ruleCode String maxlength(64)  required,
-  /**属性名*/
-  attributeName Double required,
-  /** 属性值*/
-  attributeValue String maxlength(100)  required,
+  /**紧急度*/
+  alarmLevel Integer required,
+  /** 起始值*/
+  startValue Double required,
+  /** 结束值*/
+  endValue Double required,
   /** 创建人*/
   createdBy String maxlength(20) required,
   /** 创建时间*/
@@ -53,10 +53,12 @@ entity MeterRule {
   meterCode String maxlength(64)  required,
   /** 设备名称*/
   meterName  String maxlength(200) required,
-    /** 规则编码*/
+  /** 规则编码*/
   ruleCode String maxlength(64)  required,
   /** 规则名称*/
   ruleName String maxlength(200) required,
+  /** 分析器名*/
+  className String maxlength(64)  required,
   /** 是否有效 */
   enable Boolean required ,
   /** 创建人*/
@@ -78,8 +80,12 @@ entity MeterRule {
 entity MeterCategoryRule {
   /** 设备分类编码*/
   meterCategoryCode Integer  required,
+  /** 规则编码*/
+  ruleCode String maxlength(64)  required,
   /** 规则名称*/
-  ruleName  String maxlength(200) required,
+  ruleName String maxlength(200) required,
+ /** 分析器名*/
+  className String maxlength(64)  required,
   /** 创建人*/
   createdBy String maxlength(20) required,
   /** 创建时间*/
@@ -95,5 +101,5 @@ relationship OneToMany {
 }
 
 relationship OneToMany {
-  MeterCategoryRule{MeterRule} to MeterRule{MeterCategoryRule}
+  MeterCategoryRule{AlarmRule} to AlarmRule{MeterCategoryRule}
 }

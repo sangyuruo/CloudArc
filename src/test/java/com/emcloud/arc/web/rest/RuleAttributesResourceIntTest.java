@@ -106,8 +106,6 @@ public class RuleAttributesResourceIntTest {
     public static RuleAttributes createEntity(EntityManager em) {
         RuleAttributes ruleAttributes = new RuleAttributes()
             .ruleCode(DEFAULT_RULE_CODE)
-            .attributeName(DEFAULT_ATTRIBUTE_NAME)
-            .attributeValue(DEFAULT_ATTRIBUTE_VALUE)
             .createdBy(DEFAULT_CREATED_BY)
             .createTime(DEFAULT_CREATE_TIME)
             .updatedBy(DEFAULT_UPDATED_BY)
@@ -136,8 +134,6 @@ public class RuleAttributesResourceIntTest {
         assertThat(ruleAttributesList).hasSize(databaseSizeBeforeCreate + 1);
         RuleAttributes testRuleAttributes = ruleAttributesList.get(ruleAttributesList.size() - 1);
         assertThat(testRuleAttributes.getRuleCode()).isEqualTo(DEFAULT_RULE_CODE);
-        assertThat(testRuleAttributes.getAttributeName()).isEqualTo(DEFAULT_ATTRIBUTE_NAME);
-        assertThat(testRuleAttributes.getAttributeValue()).isEqualTo(DEFAULT_ATTRIBUTE_VALUE);
         assertThat(testRuleAttributes.getCreatedBy()).isEqualTo(DEFAULT_CREATED_BY);
         assertThat(testRuleAttributes.getCreateTime()).isEqualTo(DEFAULT_CREATE_TIME);
         assertThat(testRuleAttributes.getUpdatedBy()).isEqualTo(DEFAULT_UPDATED_BY);
@@ -186,7 +182,7 @@ public class RuleAttributesResourceIntTest {
     public void checkAttributeNameIsRequired() throws Exception {
         int databaseSizeBeforeTest = ruleAttributesRepository.findAll().size();
         // set the field null
-        ruleAttributes.setAttributeName(null);
+
 
         // Create the RuleAttributes, which fails.
 
@@ -204,7 +200,6 @@ public class RuleAttributesResourceIntTest {
     public void checkAttributeValueIsRequired() throws Exception {
         int databaseSizeBeforeTest = ruleAttributesRepository.findAll().size();
         // set the field null
-        ruleAttributes.setAttributeValue(null);
 
         // Create the RuleAttributes, which fails.
 
@@ -349,8 +344,6 @@ public class RuleAttributesResourceIntTest {
         RuleAttributes updatedRuleAttributes = ruleAttributesRepository.findOne(ruleAttributes.getId());
         updatedRuleAttributes
             .ruleCode(UPDATED_RULE_CODE)
-            .attributeName(UPDATED_ATTRIBUTE_NAME)
-            .attributeValue(UPDATED_ATTRIBUTE_VALUE)
             .createdBy(UPDATED_CREATED_BY)
             .createTime(UPDATED_CREATE_TIME)
             .updatedBy(UPDATED_UPDATED_BY)
@@ -366,8 +359,6 @@ public class RuleAttributesResourceIntTest {
         assertThat(ruleAttributesList).hasSize(databaseSizeBeforeUpdate);
         RuleAttributes testRuleAttributes = ruleAttributesList.get(ruleAttributesList.size() - 1);
         assertThat(testRuleAttributes.getRuleCode()).isEqualTo(UPDATED_RULE_CODE);
-        assertThat(testRuleAttributes.getAttributeName()).isEqualTo(UPDATED_ATTRIBUTE_NAME);
-        assertThat(testRuleAttributes.getAttributeValue()).isEqualTo(UPDATED_ATTRIBUTE_VALUE);
         assertThat(testRuleAttributes.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
         assertThat(testRuleAttributes.getCreateTime()).isEqualTo(UPDATED_CREATE_TIME);
         assertThat(testRuleAttributes.getUpdatedBy()).isEqualTo(UPDATED_UPDATED_BY);

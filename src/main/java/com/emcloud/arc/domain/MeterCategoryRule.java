@@ -39,6 +39,15 @@ public class MeterCategoryRule implements Serializable {
     private Integer meterCategoryCode;
 
     /**
+     * 规则编码
+     */
+    @NotNull
+    @Size(max = 64)
+    @ApiModelProperty(value = "规则编码", required = true)
+    @Column(name = "rule_code", length = 64, nullable = false)
+    private String ruleCode;
+
+    /**
      * 规则名称
      */
     @NotNull
@@ -46,6 +55,17 @@ public class MeterCategoryRule implements Serializable {
     @ApiModelProperty(value = "规则名称", required = true)
     @Column(name = "rule_name", length = 200, nullable = false)
     private String ruleName;
+
+
+
+    /**
+     * 分析器名
+     */
+    @NotNull
+    @Size(max = 64)
+    @ApiModelProperty(value = "分析器名", required = true)
+    @Column(name = "class_name", length = 64, nullable = false)
+    private String className;
 
     /**
      * 创建人
@@ -84,7 +104,7 @@ public class MeterCategoryRule implements Serializable {
     @OneToMany(mappedBy = "meterCategoryRule")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<MeterRule> meterRules = new HashSet<>();
+    private Set<AlarmRule> alarmRules = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -108,6 +128,19 @@ public class MeterCategoryRule implements Serializable {
         this.meterCategoryCode = meterCategoryCode;
     }
 
+    public String getRuleCode() {
+        return ruleCode;
+    }
+
+    public MeterCategoryRule ruleCode(String ruleCode) {
+        this.ruleCode = ruleCode;
+        return this;
+    }
+
+    public void setRuleCode(String ruleCode) {
+        this.ruleCode = ruleCode;
+    }
+
     public String getRuleName() {
         return ruleName;
     }
@@ -119,6 +152,19 @@ public class MeterCategoryRule implements Serializable {
 
     public void setRuleName(String ruleName) {
         this.ruleName = ruleName;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public MeterCategoryRule className(String className) {
+        this.className = className;
+        return this;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
     }
 
     public String getCreatedBy() {
@@ -173,29 +219,29 @@ public class MeterCategoryRule implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Set<MeterRule> getMeterRules() {
-        return meterRules;
+    public Set<AlarmRule> getAlarmRules() {
+        return alarmRules;
     }
 
-    public MeterCategoryRule meterRules(Set<MeterRule> meterRules) {
-        this.meterRules = meterRules;
+    public MeterCategoryRule alarmRules(Set<AlarmRule> alarmRules) {
+        this.alarmRules = alarmRules;
         return this;
     }
 
-    public MeterCategoryRule addMeterRule(MeterRule meterRule) {
-        this.meterRules.add(meterRule);
-        meterRule.setMeterCategoryRule(this);
+    public MeterCategoryRule addAlarmRule(AlarmRule alarmRule) {
+        this.alarmRules.add(alarmRule);
+        alarmRule.setMeterCategoryRule(this);
         return this;
     }
 
-    public MeterCategoryRule removeMeterRule(MeterRule meterRule) {
-        this.meterRules.remove(meterRule);
-        meterRule.setMeterCategoryRule(null);
+    public MeterCategoryRule removeAlarmRule(AlarmRule alarmRule) {
+        this.alarmRules.remove(alarmRule);
+        alarmRule.setMeterCategoryRule(null);
         return this;
     }
 
-    public void setMeterRules(Set<MeterRule> meterRules) {
-        this.meterRules = meterRules;
+    public void setAlarmRules(Set<AlarmRule> alarmRules) {
+        this.alarmRules = alarmRules;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -224,7 +270,9 @@ public class MeterCategoryRule implements Serializable {
         return "MeterCategoryRule{" +
             "id=" + getId() +
             ", meterCategoryCode='" + getMeterCategoryCode() + "'" +
+            ", ruleCode='" + getRuleCode() + "'" +
             ", ruleName='" + getRuleName() + "'" +
+            ", className='" + getClassName() + "'" +
             ", createdBy='" + getCreatedBy() + "'" +
             ", createTime='" + getCreateTime() + "'" +
             ", updatedBy='" + getUpdatedBy() + "'" +

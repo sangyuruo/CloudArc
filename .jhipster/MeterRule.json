@@ -43,6 +43,16 @@
             "fieldValidateRulesMaxlength": 200
         },
         {
+            "fieldName": "className",
+            "javadoc": "分析器名",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength",
+                "required"
+            ],
+            "fieldValidateRulesMaxlength": 64
+        },
+        {
             "fieldName": "enable",
             "javadoc": "是否有效",
             "fieldType": "Boolean",

@@ -46,6 +46,9 @@ public class MeterCategoryRuleResourceIntTest {
     private static final Integer DEFAULT_METER_CATEGORY_CODE = 1;
     private static final Integer UPDATED_METER_CATEGORY_CODE = 2;
 
+    private static final String DEFAULT_RULE_CODE = "AAAAAAAAAA";
+    private static final String UPDATED_RULE_CODE = "BBBBBBBBBB";
+
     private static final String DEFAULT_RULE_NAME = "AAAAAAAAAA";
     private static final String UPDATED_RULE_NAME = "BBBBBBBBBB";
 
@@ -103,6 +106,7 @@ public class MeterCategoryRuleResourceIntTest {
     public static MeterCategoryRule createEntity(EntityManager em) {
         MeterCategoryRule meterCategoryRule = new MeterCategoryRule()
             .meterCategoryCode(DEFAULT_METER_CATEGORY_CODE)
+            .ruleCode(DEFAULT_RULE_CODE)
             .ruleName(DEFAULT_RULE_NAME)
             .createdBy(DEFAULT_CREATED_BY)
             .createTime(DEFAULT_CREATE_TIME)
@@ -132,6 +136,7 @@ public class MeterCategoryRuleResourceIntTest {
         assertThat(meterCategoryRuleList).hasSize(databaseSizeBeforeCreate + 1);
         MeterCategoryRule testMeterCategoryRule = meterCategoryRuleList.get(meterCategoryRuleList.size() - 1);
         assertThat(testMeterCategoryRule.getMeterCategoryCode()).isEqualTo(DEFAULT_METER_CATEGORY_CODE);
+        assertThat(testMeterCategoryRule.getRuleCode()).isEqualTo(DEFAULT_RULE_CODE);
         assertThat(testMeterCategoryRule.getRuleName()).isEqualTo(DEFAULT_RULE_NAME);
         assertThat(testMeterCategoryRule.getCreatedBy()).isEqualTo(DEFAULT_CREATED_BY);
         assertThat(testMeterCategoryRule.getCreateTime()).isEqualTo(DEFAULT_CREATE_TIME);
@@ -164,6 +169,24 @@ public class MeterCategoryRuleResourceIntTest {
         int databaseSizeBeforeTest = meterCategoryRuleRepository.findAll().size();
         // set the field null
         meterCategoryRule.setMeterCategoryCode(null);
+
+        // Create the MeterCategoryRule, which fails.
+
+        restMeterCategoryRuleMockMvc.perform(post("/api/meter-category-rules")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(meterCategoryRule)))
+            .andExpect(status().isBadRequest());
+
+        List<MeterCategoryRule> meterCategoryRuleList = meterCategoryRuleRepository.findAll();
+        assertThat(meterCategoryRuleList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkRuleCodeIsRequired() throws Exception {
+        int databaseSizeBeforeTest = meterCategoryRuleRepository.findAll().size();
+        // set the field null
+        meterCategoryRule.setRuleCode(null);
 
         // Create the MeterCategoryRule, which fails.
 
@@ -278,6 +301,7 @@ public class MeterCategoryRuleResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(meterCategoryRule.getId().intValue())))
             .andExpect(jsonPath("$.[*].meterCategoryCode").value(hasItem(DEFAULT_METER_CATEGORY_CODE)))
+            .andExpect(jsonPath("$.[*].ruleCode").value(hasItem(DEFAULT_RULE_CODE.toString())))
             .andExpect(jsonPath("$.[*].ruleName").value(hasItem(DEFAULT_RULE_NAME.toString())))
             .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY.toString())))
             .andExpect(jsonPath("$.[*].createTime").value(hasItem(DEFAULT_CREATE_TIME.toString())))
@@ -297,6 +321,7 @@ public class MeterCategoryRuleResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(meterCategoryRule.getId().intValue()))
             .andExpect(jsonPath("$.meterCategoryCode").value(DEFAULT_METER_CATEGORY_CODE))
+            .andExpect(jsonPath("$.ruleCode").value(DEFAULT_RULE_CODE.toString()))
             .andExpect(jsonPath("$.ruleName").value(DEFAULT_RULE_NAME.toString()))
             .andExpect(jsonPath("$.createdBy").value(DEFAULT_CREATED_BY.toString()))
             .andExpect(jsonPath("$.createTime").value(DEFAULT_CREATE_TIME.toString()))
@@ -324,6 +349,7 @@ public class MeterCategoryRuleResourceIntTest {
         MeterCategoryRule updatedMeterCategoryRule = meterCategoryRuleRepository.findOne(meterCategoryRule.getId());
         updatedMeterCategoryRule
             .meterCategoryCode(UPDATED_METER_CATEGORY_CODE)
+            .ruleCode(UPDATED_RULE_CODE)
             .ruleName(UPDATED_RULE_NAME)
             .createdBy(UPDATED_CREATED_BY)
             .createTime(UPDATED_CREATE_TIME)
@@ -340,6 +366,7 @@ public class MeterCategoryRuleResourceIntTest {
         assertThat(meterCategoryRuleList).hasSize(databaseSizeBeforeUpdate);
         MeterCategoryRule testMeterCategoryRule = meterCategoryRuleList.get(meterCategoryRuleList.size() - 1);
         assertThat(testMeterCategoryRule.getMeterCategoryCode()).isEqualTo(UPDATED_METER_CATEGORY_CODE);
+        assertThat(testMeterCategoryRule.getRuleCode()).isEqualTo(UPDATED_RULE_CODE);
         assertThat(testMeterCategoryRule.getRuleName()).isEqualTo(UPDATED_RULE_NAME);
         assertThat(testMeterCategoryRule.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
         assertThat(testMeterCategoryRule.getCreateTime()).isEqualTo(UPDATED_CREATE_TIME);
