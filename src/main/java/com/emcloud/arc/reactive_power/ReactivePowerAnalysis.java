@@ -2,13 +2,15 @@ package com.emcloud.arc.reactive_power;
 
 import com.emcloud.arc.analysis.analysis.DefaultAnalysisResult;
 import com.emcloud.arc.analysis.analysis.DefaultOneParamAnalysis;
+import com.emcloud.arc.domain.RuleAttributes;
 
+import java.util.List;
 import java.util.Map;
 
 //无功
 public class ReactivePowerAnalysis   extends DefaultOneParamAnalysis {
     @Override
-    public DefaultAnalysisResult handle(Float reactivePower) {
+    public DefaultAnalysisResult handle(Float reactivePower, List<RuleAttributes> ruleAttributesList) {
         DefaultAnalysisResult defaultAnalysis = new DefaultAnalysisResult();
         int alarmLevel = 0;
         boolean alarm = true;
@@ -27,7 +29,7 @@ public class ReactivePowerAnalysis   extends DefaultOneParamAnalysis {
     }
 
     @Override
-    public DefaultAnalysisResult handle(Map<String, Float> data) {
+    public DefaultAnalysisResult handle(Map<String, Float> data, List<RuleAttributes> ruleAttributesList) {
         return null;
     }
 }

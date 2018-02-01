@@ -2,13 +2,15 @@ package com.emcloud.arc.analysis.impl;
 
 import com.emcloud.arc.analysis.analysis.DefaultAnalysisResult;
 import com.emcloud.arc.analysis.analysis.DefaultOneParamAnalysis;
+import com.emcloud.arc.domain.RuleAttributes;
 
+import java.util.List;
 import java.util.Map;
 
 public class VoltageAnalysis  extends DefaultOneParamAnalysis {
 
     @Override
-    public DefaultAnalysisResult handle(Float voltage) {
+    public DefaultAnalysisResult handle(Float voltage, List<RuleAttributes> ruleAttributesList) {
         DefaultAnalysisResult defaultAnalysis = new DefaultAnalysisResult();
         int alarmLevel = 0;
         boolean alarm = true;
@@ -27,8 +29,8 @@ public class VoltageAnalysis  extends DefaultOneParamAnalysis {
     }
 
     @Override
-    public DefaultAnalysisResult handle(Map<String, Float> data) {
-        return handle(data.get(""));
+    public DefaultAnalysisResult handle(Map<String, Float> data, List<RuleAttributes> ruleAttributesList) {
+        return handle(data.get(""), ruleAttributesList);
     }
 
 }
