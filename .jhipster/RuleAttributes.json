@@ -20,22 +20,28 @@
             "fieldValidateRulesMaxlength": 64
         },
         {
-            "fieldName": "attributeName",
-            "javadoc": "属性名",
+            "fieldName": "alarmLevel",
+            "javadoc": "紧急度",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "startValue",
+            "javadoc": "起始值",
             "fieldType": "Double",
             "fieldValidateRules": [
                 "required"
             ]
         },
         {
-            "fieldName": "attributeValue",
-            "javadoc": "属性值",
-            "fieldType": "String",
+            "fieldName": "endValue",
+            "javadoc": "结束值",
+            "fieldType": "Double",
             "fieldValidateRules": [
-                "maxlength",
                 "required"
-            ],
-            "fieldValidateRulesMaxlength": 100
+            ]
         },
         {
             "fieldName": "createdBy",

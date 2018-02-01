@@ -1,5 +1,6 @@
 package com.emcloud.arc.service.impl;
 
+import com.emcloud.arc.domain.AlarmRule;
 import com.emcloud.arc.security.SecurityUtils;
 import com.emcloud.arc.service.MeterCategoryRuleService;
 import com.emcloud.arc.domain.MeterCategoryRule;
@@ -38,17 +39,15 @@ public class MeterCategoryRuleServiceImpl implements MeterCategoryRuleService{
     @Override
     public MeterCategoryRule save(MeterCategoryRule meterCategoryRule) {
         log.debug("Request to save MeterCategoryRule : {}", meterCategoryRule);
-      /*  return meterCategoryRuleRepository.save(meterCategoryRule);
-    }*/
- meterCategoryRule.setCreatedBy(SecurityUtils.getCurrentUserLogin());
+        meterCategoryRule.setCreatedBy(SecurityUtils.getCurrentUserLogin());
         meterCategoryRule.setCreateTime(Instant.now());
         meterCategoryRule.setUpdatedBy(SecurityUtils.getCurrentUserLogin());
         meterCategoryRule.setUpdateTime(Instant.now());
         return meterCategoryRuleRepository.save(meterCategoryRule);
-}
+    }
 
     /**
-     * update a MeterCategoryRule.
+     * update a meterCategoryRule.
      *
      * @param meterCategoryRule the entity to update
      * @return the persisted entity
@@ -60,6 +59,7 @@ public class MeterCategoryRuleServiceImpl implements MeterCategoryRuleService{
         meterCategoryRule.setUpdateTime(Instant.now());
         return meterCategoryRuleRepository.save(meterCategoryRule);
     }
+
     /**
      *  Get all the meterCategoryRules.
      *

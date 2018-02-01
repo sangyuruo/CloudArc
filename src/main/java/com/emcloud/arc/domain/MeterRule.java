@@ -64,6 +64,16 @@ public class MeterRule implements Serializable {
     private String ruleName;
 
     /**
+     * 分析器名
+     */
+    @NotNull
+    @Size(max = 64)
+    @ApiModelProperty(value = "分析器名", required = true)
+    @Column(name = "class_name", length = 64, nullable = false)
+    private String className;
+
+
+    /**
      * 是否有效
      */
     @NotNull
@@ -107,10 +117,6 @@ public class MeterRule implements Serializable {
     @ApiModelProperty(value = "设备分类id")
     @Column(name = "meter_category", nullable = false)
     private Integer meterCategory;
-
-
-    @ManyToOne
-    private MeterCategoryRule meterCategoryRule;
 
 
     public Integer getMeterCategory() {
@@ -187,6 +193,19 @@ public class MeterRule implements Serializable {
         this.ruleName = ruleName;
     }
 
+    public String getClassName() {
+        return className;
+    }
+
+    public MeterRule className(String className) {
+        this.className = className;
+        return this;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
     public Boolean isEnable() {
         return enable;
     }
@@ -248,20 +267,6 @@ public class MeterRule implements Serializable {
         return this;
     }
 
-    public MeterCategoryRule getMeterCategoryRule() {
-        return meterCategoryRule;
-    }
-
-    public MeterRule meterCategoryRule(MeterCategoryRule meterCategoryRule) {
-        this.meterCategoryRule = meterCategoryRule;
-        return this;
-    }
-
-    public void setMeterCategoryRule(MeterCategoryRule meterCategoryRule) {
-        this.meterCategoryRule = meterCategoryRule;
-    }
-
-
     public void setUpdateTime(Instant updateTime) {
         this.updateTime = updateTime;
     }
@@ -295,6 +300,7 @@ public class MeterRule implements Serializable {
             ", meterName='" + getMeterName() + "'" +
             ", ruleCode='" + getRuleCode() + "'" +
             ", ruleName='" + getRuleName() + "'" +
+            ", className='" + getClassName() + "'" +
             ", enable='" + isEnable() + "'" +
             ", createdBy='" + getCreatedBy() + "'" +
             ", createTime='" + getCreateTime() + "'" +

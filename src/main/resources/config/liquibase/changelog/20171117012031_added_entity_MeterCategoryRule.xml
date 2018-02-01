@@ -26,7 +26,15 @@
                 <constraints nullable="false" />
             </column>
 
+            <column name="rule_code" type="varchar(64)">
+                <constraints nullable="false" />
+            </column>
+
             <column name="rule_name" type="varchar(200)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="class_name" type="varchar(64)">
                 <constraints nullable="false" />
             </column>
 

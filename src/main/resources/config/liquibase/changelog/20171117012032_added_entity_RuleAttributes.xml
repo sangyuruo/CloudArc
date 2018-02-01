@@ -26,11 +26,15 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="attribute_name" type="double">
+            <column name="alarm_level" type="integer">
                 <constraints nullable="false" />
             </column>
 
-            <column name="attribute_value" type="varchar(100)">
+            <column name="start_value" type="double(100)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="end_value" type="double(100)">
                 <constraints nullable="false" />
             </column>
 
