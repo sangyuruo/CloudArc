@@ -219,6 +219,7 @@ public class MeterCategoryRule implements Serializable {
         return Objects.hashCode(getId());
     }
 
+
     @Override
     public String toString() {
         return "MeterCategoryRule{" +

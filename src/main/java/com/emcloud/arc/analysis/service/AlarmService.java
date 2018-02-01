@@ -4,7 +4,11 @@ package com.emcloud.arc.analysis.service;
 import com.emcloud.arc.analysis.analysis.DefaultAnalysisResult;
 import com.emcloud.arc.analysis.analysis.DefaultOneParamAnalysis;
 import com.emcloud.arc.analysis.impl.*;
+import com.emcloud.arc.domain.AlarmRule;
 import com.emcloud.arc.domain.SmartMeterData;
+import com.emcloud.arc.repository.AlarmRuleRepository;
+import com.emcloud.arc.repository.MeterCategoryRuleRepository;
+import com.emcloud.arc.repository.MeterRuleRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,30 +26,40 @@ public class AlarmService {
     VoltageAnalysis voltageAnalysis = new VoltageAnalysis();
     WaterLevelAnalysis waterLevelAnalysis = new WaterLevelAnalysis();
     WaterOutAnalysis waterOutAnalysis = new WaterOutAnalysis();
-//1  	雅达电表
-//2  	台州顶峰无功表
-//3  	指明无功表
-//4  	金来单相直通电表
-//5  	仪歌多功能直通电表
-//6  	仪歌单相直通电表
-//7  	安科瑞多功能电表
-//8  	DSSD332/DTSD342-1W电表
-//20	依泉水表
-//21	顺来达水表
-//22	GL-100液位计
-//30	KCMD-XJ4设备温度表
-//41	建大仁科温湿亮三合一
-//42	建大仁科温湿度
-//43	建大仁科PM2.5和PM10
-//44	建大仁科水浸检测
-//45	建大仁科红外探测
-//50	DL/T 645-2007 计量表
-//51	XYM2L-125M/3N 漏电保护开关
-//70	ZY112多路开关
-//40	建大仁科感烟探测
-//60	YDL-MACXX智能空调遥控器
 
+    private AlarmRuleRepository alarmRuleRepository;
+    private MeterCategoryRuleRepository meterCategoryRuleRepository;
+    private MeterRuleRepository meterRuleRepository;
 
+/**
+ * 1.查分析器列表(alarm_rule : )    Repository: 查分析器的方法；
+ *
+ * 2.查设备分类 的 规则列表
+ * 3.查设备 的 规则列表
+ * 4.合并规则列表
+ * list3 = new list;
+ * list3.add(list1)
+ * for(设备分类 list2 ){1，2，4
+ *     boolean ismatch = false;
+ *     for(设备 list1 ){2，3
+ *         if(设备分类.解析器（编码）==设备){
+ *             ismatch = true;
+ *         }
+ *     }
+ *
+ *     if(!isMatch){
+ *         list3.add
+ *     }
+ * }
+ * 5.循环解析
+ * for(规则列表){
+ *     1.找到分析器
+ *     2.查到紧急度属性列表
+ *     3.规则分析
+ *     4.输出结果
+ * }
+ * 6.输出总的分析结果
+ * */
     public List<DefaultAnalysisResult> analysis(SmartMeterData smartMeterData) {
         List<DefaultAnalysisResult> list = new ArrayList<>();
         List<DefaultOneParamAnalysis> analyses = new ArrayList<>();
@@ -69,13 +83,14 @@ public class AlarmService {
         }
 
 
-        Map<String, Float> data = smartMeterData.getData();
-        for (DefaultOneParamAnalysis dopa: analyses ){
-            DefaultAnalysisResult result =  dopa.handle( data );
-            if( result.isAlarm() ){
-                list.add(result);
-            }
-        }
+//        Map<String, Float> data = smartMeterData.getData();
+//        for (DefaultOneParamAnalysis dopa: analyses ){
+//            DefaultAnalysisResult result =  dopa.handle(data,);
+//            if( result.isAlarm() ){
+//
+//                list.add(result);
+//            }
+//        }
 
         return list;
     }
