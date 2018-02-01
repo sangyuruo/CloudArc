@@ -13,11 +13,11 @@ public class PowerAnalysis extends DefaultOneParamAnalysis {
 
         int alarmLevel = 0;
         boolean alarm = true;
-        if (power > 10 && power < 20) {
+        if (power > 1000 && power < 2000) {
             alarmLevel = 1;
-        } else if (power >= 20 && power < 30) {
+        } else if (power >= 2000 && power < 3000) {
             alarmLevel = 2;
-        } else if (power >= 30) {
+        } else if (power >= 3000) {
             alarmLevel = 3;
         }else{
             alarm = false;
