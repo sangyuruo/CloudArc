@@ -23,11 +23,11 @@ import java.net.URISyntaxException;
 public class SmartMeterDataResource {
 
 
-    private final Logger log = LoggerFactory.getLogger(AlarmRuleResource.class);
+    private constant Logger log = LoggerFactory.getLogger(AlarmRuleResource.class);
 
-    private static final String ENTITY_NAME = "alarmRule";
+    private static constant String ENTITY_NAME = "alarmRule";
 
-    private final SmartMeterDataResource smartMeterDataResource;
+    private constant SmartMeterDataResource smartMeterDataResource;
 
     public SmartMeterDataResource(SmartMeterDataResource SmartMeterDataResource) {
         this.smartMeterDataResource = SmartMeterDataResource;

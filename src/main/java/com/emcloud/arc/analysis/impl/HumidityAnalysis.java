@@ -7,17 +7,19 @@ import com.emcloud.arc.domain.RuleAttributes;
 import java.util.List;
 import java.util.Map;
 
-public class HumidityAnalysis extends DefaultOneParamAnalysis {
+public  abstract class HumidityAnalysis  extends DefaultOneParamAnalysis {
+
+
     @Override
     public DefaultAnalysisResult handle(Float hum, List<RuleAttributes> ruleAttributesList) {
         DefaultAnalysisResult defaultAnalysis = new DefaultAnalysisResult();
         int alarmLevel = 0;
         boolean alarm = true;
-        if (hum > 30 && hum < 45) {
+        if (hum > 200 && hum < 400) {
             alarmLevel = 1;
-        } else if (hum >= 50 && hum < 60) {
+        } else if (hum >400  && hum < 450) {
             alarmLevel = 2;
-        } else if (hum >= 60) {
+        } else if (hum > 450) {
             alarmLevel = 3;
         }else{
             alarm = false;
@@ -29,7 +31,7 @@ public class HumidityAnalysis extends DefaultOneParamAnalysis {
 
     @Override
     public DefaultAnalysisResult handle(Map<String, Float> data, List<RuleAttributes> ruleAttributesList) {
-        return handle(data.get(""),ruleAttributesList );
-
+        return handle(data.get(""), ruleAttributesList);
     }
+
 }

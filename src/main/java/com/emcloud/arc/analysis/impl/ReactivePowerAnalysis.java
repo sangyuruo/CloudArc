@@ -7,7 +7,8 @@ import com.emcloud.arc.domain.RuleAttributes;
 import java.util.List;
 import java.util.Map;
 
-public class ReactivePowerAnalysis extends DefaultOneParamAnalysis {
+public abstract class ReactivePowerAnalysis extends DefaultOneParamAnalysis {
+
     @Override
     public DefaultAnalysisResult handle(Float tem, List<RuleAttributes> ruleAttributesList) {
         DefaultAnalysisResult defaultAnalysis = new DefaultAnalysisResult();

@@ -7,7 +7,8 @@ import com.emcloud.arc.domain.RuleAttributes;
 import java.util.List;
 import java.util.Map;
 
-public class VoltageAnalysis  extends DefaultOneParamAnalysis {
+public  abstract class VoltageAnalysis  extends DefaultOneParamAnalysis {
+
 
     @Override
     public DefaultAnalysisResult handle(Float voltage, List<RuleAttributes> ruleAttributesList) {
