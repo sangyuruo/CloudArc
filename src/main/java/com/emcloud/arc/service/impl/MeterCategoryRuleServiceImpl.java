@@ -1,6 +1,6 @@
 package com.emcloud.arc.service.impl;
 
-import com.emcloud.arc.domain.AlarmRule;
+import com.emcloud.arc.domain.AnalysisEngine;
 import com.emcloud.arc.security.SecurityUtils;
 import com.emcloud.arc.service.MeterCategoryRuleService;
 import com.emcloud.arc.domain.MeterCategoryRule;
@@ -20,7 +20,7 @@ import java.time.Instant;
  */
 @Service
 @Transactional
-public class MeterCategoryRuleServiceImpl implements MeterCategoryRuleService{
+public class MeterCategoryRuleServiceImpl implements MeterCategoryRuleService {
 
     private final Logger log = LoggerFactory.getLogger(MeterCategoryRuleServiceImpl.class);
 
@@ -54,17 +54,17 @@ public class MeterCategoryRuleServiceImpl implements MeterCategoryRuleService{
      */
     @Override
     public MeterCategoryRule update(MeterCategoryRule meterCategoryRule) {
-        log.debug("Request to save Company : {}", meterCategoryRule);
+        log.debug("Request to update MeterCategoryRule : {}", meterCategoryRule);
         meterCategoryRule.setUpdatedBy(SecurityUtils.getCurrentUserLogin());
         meterCategoryRule.setUpdateTime(Instant.now());
         return meterCategoryRuleRepository.save(meterCategoryRule);
     }
 
     /**
-     *  Get all the meterCategoryRules.
+     * Get all the meterCategoryRules.
      *
-     *  @param pageable the pagination information
-     *  @return the list of entities
+     * @param pageable the pagination information
+     * @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
@@ -74,10 +74,10 @@ public class MeterCategoryRuleServiceImpl implements MeterCategoryRuleService{
     }
 
     /**
-     *  Get one meterCategoryRule by id.
+     * Get one meterCategoryRule by id.
      *
-     *  @param id the id of the entity
-     *  @return the entity
+     * @param id the id of the entity
+     * @return the entity
      */
     @Override
     @Transactional(readOnly = true)
@@ -87,9 +87,9 @@ public class MeterCategoryRuleServiceImpl implements MeterCategoryRuleService{
     }
 
     /**
-     *  Delete the  meterCategoryRule by id.
+     * Delete the meterCategoryRule by id.
      *
-     *  @param id the id of the entity
+     * @param id the id of the entity
      */
     @Override
     public void delete(Long id) {

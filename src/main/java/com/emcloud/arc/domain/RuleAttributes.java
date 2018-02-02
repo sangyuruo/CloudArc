@@ -92,9 +92,6 @@ public class RuleAttributes implements Serializable {
     @Column(name = "update_time", nullable = false)
     private Instant updateTime;
 
-    @ManyToOne
-    private AlarmRule alarmRule;
-
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -207,19 +204,7 @@ public class RuleAttributes implements Serializable {
     public void setUpdateTime(Instant updateTime) {
         this.updateTime = updateTime;
     }
-
-    public AlarmRule getAlarmRule() {
-        return alarmRule;
-    }
-
-    public RuleAttributes alarmRule(AlarmRule alarmRule) {
-        this.alarmRule = alarmRule;
-        return this;
-    }
-
-    public void setAlarmRule(AlarmRule alarmRule) {
-        this.alarmRule = alarmRule;
-    }
+    
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override

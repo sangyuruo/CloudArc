@@ -4,15 +4,13 @@ package com.emcloud.arc.analysis.service;
 import com.emcloud.arc.analysis.analysis.DefaultAnalysisResult;
 import com.emcloud.arc.analysis.analysis.DefaultOneParamAnalysis;
 import com.emcloud.arc.analysis.impl.*;
-import com.emcloud.arc.domain.AlarmRule;
 import com.emcloud.arc.domain.SmartMeterData;
-import com.emcloud.arc.repository.AlarmRuleRepository;
+import com.emcloud.arc.repository.AnalysisEngineRepository;
 import com.emcloud.arc.repository.MeterCategoryRuleRepository;
 import com.emcloud.arc.repository.MeterRuleRepository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class AlarmService {
     InfraredAnalysis infraredAnalysis = new InfraredAnalysis();
@@ -27,7 +25,7 @@ public class AlarmService {
     WaterLevelAnalysis waterLevelAnalysis = new WaterLevelAnalysis();
     WaterOutAnalysis waterOutAnalysis = new WaterOutAnalysis();
 
-    private AlarmRuleRepository alarmRuleRepository;
+    private AnalysisEngineRepository alarmRuleRepository;
     private MeterCategoryRuleRepository meterCategoryRuleRepository;
     private MeterRuleRepository meterRuleRepository;
 
@@ -81,7 +79,6 @@ public class AlarmService {
             analyses.add(waterLevelAnalysis);
             analyses.add(reactivePowerAnalysis);
         }
-
 
 //        Map<String, Float> data = smartMeterData.getData();
 //        for (DefaultOneParamAnalysis dopa: analyses ){

@@ -10,9 +10,9 @@ import org.slf4j.LoggerFactory
 import scala.concurrent.duration._
 
 /**
- * Performance test for the MeterCategoryRule entity.
+ * Performance test for the AnalysisEngine entity.
  */
-class MeterCategoryRuleGatlingTest extends Simulation {
+class AnalysisEngineGatlingTest extends Simulation {
 
     val context: LoggerContext = LoggerFactory.getILoggerFactory.asInstanceOf[LoggerContext]
     // Log all HTTP requests
@@ -48,7 +48,7 @@ class MeterCategoryRuleGatlingTest extends Simulation {
         "Authorization" -> "Bearer ${access_token}"
     )
 
-    val scn = scenario("Test the MeterCategoryRule entity")
+    val scn = scenario("Test the AnalysisEngine entity")
         .exec(http("First unauthenticated request")
         .get("/api/account")
         .headers(headers_http)
@@ -72,26 +72,26 @@ class MeterCategoryRuleGatlingTest extends Simulation {
         .check(status.is(200)))
         .pause(10)
         .repeat(2) {
-            exec(http("Get all meterCategoryRules")
-            .get("/emcloudarc/api/meter-category-rules")
+            exec(http("Get all analysisEngines")
+            .get("/emcloudarc/api/analysis-engines")
             .headers(headers_http_authenticated)
             .check(status.is(200)))
             .pause(10 seconds, 20 seconds)
-            .exec(http("Create new meterCategoryRule")
-            .post("/emcloudarc/api/meter-category-rules")
+            .exec(http("Create new analysisEngine")
+            .post("/emcloudarc/api/analysis-engines")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "meterCategoryCode":"0", "ruleCode":"SAMPLE_TEXT", "ruleName":"SAMPLE_TEXT", "analysis":"SAMPLE_TEXT", "createdBy":"SAMPLE_TEXT", "createTime":"2020-01-01T00:00:00.000Z", "updatedBy":"SAMPLE_TEXT", "updateTime":"2020-01-01T00:00:00.000Z"}""")).asJSON
+            .body(StringBody("""{"id":null, "name":"SAMPLE_TEXT", "analysis":"SAMPLE_TEXT", "enable":null, "createdBy":"SAMPLE_TEXT", "createTime":"2020-01-01T00:00:00.000Z", "updatedBy":"SAMPLE_TEXT", "updateTime":"2020-01-01T00:00:00.000Z"}""")).asJSON
             .check(status.is(201))
-            .check(headerRegex("Location", "(.*)").saveAs("new_meterCategoryRule_url"))).exitHereIfFailed
+            .check(headerRegex("Location", "(.*)").saveAs("new_analysisEngine_url"))).exitHereIfFailed
             .pause(10)
             .repeat(5) {
-                exec(http("Get created meterCategoryRule")
-                .get("/emcloudarc${new_meterCategoryRule_url}")
+                exec(http("Get created analysisEngine")
+                .get("/emcloudarc${new_analysisEngine_url}")
                 .headers(headers_http_authenticated))
                 .pause(10)
             }
-            .exec(http("Delete created meterCategoryRule")
-            .delete("/emcloudarc${new_meterCategoryRule_url}")
+            .exec(http("Delete created analysisEngine")
+            .delete("/emcloudarc${new_analysisEngine_url}")
             .headers(headers_http_authenticated))
             .pause(10)
         }
