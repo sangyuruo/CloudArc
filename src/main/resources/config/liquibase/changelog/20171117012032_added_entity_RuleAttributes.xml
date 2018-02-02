@@ -34,11 +34,11 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="start_value" type="double">
+            <column name="start_value" type="float">
                 <constraints nullable="false" />
             </column>
 
-            <column name="end_value" type="double">
+            <column name="end_value" type="float">
                 <constraints nullable="false" />
             </column>
 

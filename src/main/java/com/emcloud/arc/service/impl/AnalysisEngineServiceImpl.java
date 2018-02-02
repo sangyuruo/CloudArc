@@ -1,5 +1,6 @@
 package com.emcloud.arc.service.impl;
 
+import com.emcloud.arc.security.SecurityUtils;
 import com.emcloud.arc.service.AnalysisEngineService;
 import com.emcloud.arc.domain.AnalysisEngine;
 import com.emcloud.arc.repository.AnalysisEngineRepository;
@@ -9,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.Instant;
 
 
 /**
@@ -35,6 +38,24 @@ public class AnalysisEngineServiceImpl implements AnalysisEngineService{
     @Override
     public AnalysisEngine save(AnalysisEngine analysisEngine) {
         log.debug("Request to save AnalysisEngine : {}", analysisEngine);
+        analysisEngine.setCreatedBy(SecurityUtils.getCurrentUserLogin());
+        analysisEngine.setCreateTime(Instant.now());
+        analysisEngine.setUpdatedBy(SecurityUtils.getCurrentUserLogin());
+        analysisEngine.setUpdateTime(Instant.now());
+        return analysisEngineRepository.save(analysisEngine);
+    }
+
+    /**
+     * update a analysisEngine.
+     *
+     * @param analysisEngine the entity to update
+     * @return the persisted entity
+     */
+    @Override
+    public AnalysisEngine update(AnalysisEngine analysisEngine) {
+        log.debug("Request to update AnalysisEngine : {}", analysisEngine);
+        analysisEngine.setUpdatedBy(SecurityUtils.getCurrentUserLogin());
+        analysisEngine.setUpdateTime(Instant.now());
         return analysisEngineRepository.save(analysisEngine);
     }
 

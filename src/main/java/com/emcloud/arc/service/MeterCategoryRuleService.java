@@ -18,6 +18,14 @@ public interface MeterCategoryRuleService {
     MeterCategoryRule save(MeterCategoryRule meterCategoryRule);
 
     /**
+     * update a meterCategoryRule.
+     *
+     * @param meterCategoryRule the entity to update
+     * @return the persisted entity
+     */
+    MeterCategoryRule update(MeterCategoryRule meterCategoryRule);
+
+    /**
      *  Get all the meterCategoryRules.
      *
      *  @param pageable the pagination information

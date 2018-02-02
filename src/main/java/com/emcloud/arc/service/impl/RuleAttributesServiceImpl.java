@@ -1,5 +1,6 @@
 package com.emcloud.arc.service.impl;
 
+import com.emcloud.arc.security.SecurityUtils;
 import com.emcloud.arc.service.RuleAttributesService;
 import com.emcloud.arc.domain.RuleAttributes;
 import com.emcloud.arc.repository.RuleAttributesRepository;
@@ -9,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.Instant;
 
 
 /**
@@ -35,8 +38,27 @@ public class RuleAttributesServiceImpl implements RuleAttributesService{
     @Override
     public RuleAttributes save(RuleAttributes ruleAttributes) {
         log.debug("Request to save RuleAttributes : {}", ruleAttributes);
+        ruleAttributes.setCreatedBy(SecurityUtils.getCurrentUserLogin());
+        ruleAttributes.setCreateTime(Instant.now());
+        ruleAttributes.setUpdatedBy(SecurityUtils.getCurrentUserLogin());
+        ruleAttributes.setUpdateTime(Instant.now());
         return ruleAttributesRepository.save(ruleAttributes);
     }
+
+    /**
+     * update a ruleAttributes.
+     *
+     * @param ruleAttributes the entity to update
+     * @return the persisted entity
+     */
+    @Override
+    public RuleAttributes update(RuleAttributes ruleAttributes) {
+        log.debug("Request to save Company : {}", ruleAttributes);
+        ruleAttributes.setUpdatedBy(SecurityUtils.getCurrentUserLogin());
+        ruleAttributes.setUpdateTime(Instant.now());
+        return ruleAttributesRepository.save(ruleAttributes);
+    }
+
 
     /**
      *  Get all the ruleAttributes.

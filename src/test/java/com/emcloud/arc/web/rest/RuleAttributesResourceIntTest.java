@@ -52,11 +52,11 @@ public class RuleAttributesResourceIntTest {
     private static final Integer DEFAULT_ALARM_LEVEL = 1;
     private static final Integer UPDATED_ALARM_LEVEL = 2;
 
-    private static final Double DEFAULT_START_VALUE = 1D;
-    private static final Double UPDATED_START_VALUE = 2D;
+    private static final Float DEFAULT_START_VALUE = 1F;
+    private static final Float UPDATED_START_VALUE = 2F;
 
-    private static final Double DEFAULT_END_VALUE = 1D;
-    private static final Double UPDATED_END_VALUE = 2D;
+    private static final Float DEFAULT_END_VALUE = 1F;
+    private static final Float UPDATED_END_VALUE = 2F;
 
     private static final String DEFAULT_CREATED_BY = "AAAAAAAAAA";
     private static final String UPDATED_CREATED_BY = "BBBBBBBBBB";

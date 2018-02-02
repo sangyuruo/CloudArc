@@ -31,9 +31,9 @@ entity RuleAttributes {
   /**紧急度*/
   alarmLevel Integer required,
   /** 起始值*/
-  startValue Double required,
+  startValue Float required,
   /** 结束值*/
-  endValue Double required,
+  endValue Float required,
   /** 创建人*/
   createdBy String maxlength(20) required,
   /** 创建时间*/

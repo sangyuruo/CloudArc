@@ -18,6 +18,14 @@ public interface AnalysisEngineService {
     AnalysisEngine save(AnalysisEngine analysisEngine);
 
     /**
+     * update a analysisEngine.
+     *
+     * @param analysisEngine the entity to update
+     * @return the persisted entity
+     */
+    AnalysisEngine update(AnalysisEngine analysisEngine);
+
+    /**
      *  Get all the analysisEngines.
      *
      *  @param pageable the pagination information
