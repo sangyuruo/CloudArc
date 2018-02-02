@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.util.UUID;
 
 
 /**
@@ -42,6 +43,7 @@ public class RuleAttributesServiceImpl implements RuleAttributesService{
         ruleAttributes.setCreateTime(Instant.now());
         ruleAttributes.setUpdatedBy(SecurityUtils.getCurrentUserLogin());
         ruleAttributes.setUpdateTime(Instant.now());
+        ruleAttributes.setRuleCode( UUID.randomUUID().toString() );
         return ruleAttributesRepository.save(ruleAttributes);
     }
 

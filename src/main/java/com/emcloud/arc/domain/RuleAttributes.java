@@ -30,7 +30,6 @@ public class RuleAttributes implements Serializable {
     /**
      * 规则编码
      */
-    @NotNull
     @Size(max = 64)
     @ApiModelProperty(value = "规则编码", required = true)
     @Column(name = "rule_code", length = 64, nullable = false)
