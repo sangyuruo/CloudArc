@@ -68,9 +68,7 @@ entity MeterRule {
   /** 修改人*/
   updatedBy String maxlength(20) required,
   /** 修改时间*/
-  updateTime Instant required,
-  /** 设备分类id*/
-  meterCategory Integer
+  updateTime Instant required
 }
 
  /**
