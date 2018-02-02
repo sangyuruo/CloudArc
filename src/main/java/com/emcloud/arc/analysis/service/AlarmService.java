@@ -9,11 +9,7 @@ import com.emcloud.arc.domain.*;
 import com.emcloud.arc.repository.MeterCategoryRuleRepository;
 import com.emcloud.arc.repository.MeterRuleRepository;
 import com.emcloud.arc.repository.RuleAttributesRepository;
-<<<<<<< HEAD
 import org.springframework.stereotype.Service;
-
-=======
->>>>>>> d52488f7e8b5d26f3cc927eac5f40a60fceca28d
 import java.util.ArrayList;
 import java.util.List;
 
