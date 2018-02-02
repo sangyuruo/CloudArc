@@ -77,7 +77,7 @@ public class MeterRuleResource {
         if (meterRule.getId() == null) {
             return createMeterRule(meterRule);
         }
-        MeterRule result = meterRuleService.save(meterRule);
+        MeterRule result = meterRuleService.update(meterRule);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, meterRule.getId().toString()))
             .body(result);

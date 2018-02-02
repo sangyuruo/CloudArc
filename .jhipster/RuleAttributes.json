@@ -33,7 +33,7 @@
         {
             "fieldName": "startValue",
             "javadoc": "起始值",
-            "fieldType": "Double",
+            "fieldType": "Float",
             "fieldValidateRules": [
                 "required"
             ]
@@ -41,7 +41,7 @@
         {
             "fieldName": "endValue",
             "javadoc": "结束值",
-            "fieldType": "Double",
+            "fieldType": "Float",
             "fieldValidateRules": [
                 "required"
             ]

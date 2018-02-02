@@ -56,7 +56,6 @@ public class AnalysisEngine implements Serializable {
     /**
      * 创建人
      */
-    @NotNull
     @Size(max = 20)
     @ApiModelProperty(value = "创建人", required = true)
     @Column(name = "created_by", length = 20, nullable = false)
@@ -65,7 +64,6 @@ public class AnalysisEngine implements Serializable {
     /**
      * 创建时间
      */
-    @NotNull
     @ApiModelProperty(value = "创建时间", required = true)
     @Column(name = "create_time", nullable = false)
     private Instant createTime;
@@ -73,7 +71,6 @@ public class AnalysisEngine implements Serializable {
     /**
      * 修改人
      */
-    @NotNull
     @Size(max = 20)
     @ApiModelProperty(value = "修改人", required = true)
     @Column(name = "updated_by", length = 20, nullable = false)
@@ -82,7 +79,6 @@ public class AnalysisEngine implements Serializable {
     /**
      * 修改时间
      */
-    @NotNull
     @ApiModelProperty(value = "修改时间", required = true)
     @Column(name = "update_time", nullable = false)
     private Instant updateTime;

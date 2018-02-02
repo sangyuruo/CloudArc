@@ -59,7 +59,7 @@ public class RuleAttributes implements Serializable {
     @NotNull
     @ApiModelProperty(value = "起始值", required = true)
     @Column(name = "start_value", nullable = false)
-    private Double startValue;
+    private Float startValue;
 
     /**
      * 结束值
@@ -67,12 +67,11 @@ public class RuleAttributes implements Serializable {
     @NotNull
     @ApiModelProperty(value = "结束值", required = true)
     @Column(name = "end_value", nullable = false)
-    private Double endValue;
+    private Float endValue;
 
     /**
      * 创建人
      */
-    @NotNull
     @Size(max = 20)
     @ApiModelProperty(value = "创建人", required = true)
     @Column(name = "created_by", length = 20, nullable = false)
@@ -81,7 +80,6 @@ public class RuleAttributes implements Serializable {
     /**
      * 创建时间
      */
-    @NotNull
     @ApiModelProperty(value = "创建时间", required = true)
     @Column(name = "create_time", nullable = false)
     private Instant createTime;
@@ -89,7 +87,6 @@ public class RuleAttributes implements Serializable {
     /**
      * 修改人
      */
-    @NotNull
     @Size(max = 20)
     @ApiModelProperty(value = "修改人", required = true)
     @Column(name = "updated_by", length = 20, nullable = false)
@@ -98,7 +95,6 @@ public class RuleAttributes implements Serializable {
     /**
      * 修改时间
      */
-    @NotNull
     @ApiModelProperty(value = "修改时间", required = true)
     @Column(name = "update_time", nullable = false)
     private Instant updateTime;
@@ -151,29 +147,29 @@ public class RuleAttributes implements Serializable {
         this.alarmLevel = alarmLevel;
     }
 
-    public Double getStartValue() {
+    public Float getStartValue() {
         return startValue;
     }
 
-    public RuleAttributes startValue(Double startValue) {
+    public RuleAttributes startValue(Float startValue) {
         this.startValue = startValue;
         return this;
     }
 
-    public void setStartValue(Double startValue) {
+    public void setStartValue(Float startValue) {
         this.startValue = startValue;
     }
 
-    public Double getEndValue() {
+    public Float getEndValue() {
         return endValue;
     }
 
-    public RuleAttributes endValue(Double endValue) {
+    public RuleAttributes endValue(Float endValue) {
         this.endValue = endValue;
         return this;
     }
 
-    public void setEndValue(Double endValue) {
+    public void setEndValue(Float endValue) {
         this.endValue = endValue;
     }
 

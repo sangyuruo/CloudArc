@@ -77,7 +77,7 @@ public class MeterCategoryRuleResource {
         if (meterCategoryRule.getId() == null) {
             return createMeterCategoryRule(meterCategoryRule);
         }
-        MeterCategoryRule result = meterCategoryRuleService.save(meterCategoryRule);
+        MeterCategoryRule result = meterCategoryRuleService.update(meterCategoryRule);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, meterCategoryRule.getId().toString()))
             .body(result);

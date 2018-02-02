@@ -77,7 +77,7 @@ public class AnalysisEngineResource {
         if (analysisEngine.getId() == null) {
             return createAnalysisEngine(analysisEngine);
         }
-        AnalysisEngine result = analysisEngineService.save(analysisEngine);
+        AnalysisEngine result = analysisEngineService.update(analysisEngine);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, analysisEngine.getId().toString()))
             .body(result);

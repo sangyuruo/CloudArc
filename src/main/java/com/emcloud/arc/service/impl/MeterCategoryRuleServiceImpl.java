@@ -1,5 +1,6 @@
 package com.emcloud.arc.service.impl;
 
+import com.emcloud.arc.security.SecurityUtils;
 import com.emcloud.arc.service.MeterCategoryRuleService;
 import com.emcloud.arc.domain.MeterCategoryRule;
 import com.emcloud.arc.repository.MeterCategoryRuleRepository;
@@ -9,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.Instant;
 
 
 /**
@@ -35,6 +38,24 @@ public class MeterCategoryRuleServiceImpl implements MeterCategoryRuleService{
     @Override
     public MeterCategoryRule save(MeterCategoryRule meterCategoryRule) {
         log.debug("Request to save MeterCategoryRule : {}", meterCategoryRule);
+        meterCategoryRule.setCreatedBy(SecurityUtils.getCurrentUserLogin());
+        meterCategoryRule.setCreateTime(Instant.now());
+        meterCategoryRule.setUpdatedBy(SecurityUtils.getCurrentUserLogin());
+        meterCategoryRule.setUpdateTime(Instant.now());
+        return meterCategoryRuleRepository.save(meterCategoryRule);
+    }
+
+    /**
+     * update a meterCategoryRule.
+     *
+     * @param meterCategoryRule the entity to update
+     * @return the persisted entity
+     */
+    @Override
+    public MeterCategoryRule update(MeterCategoryRule meterCategoryRule) {
+        log.debug("Request to update MeterCategoryRule : {}", meterCategoryRule);
+        meterCategoryRule.setUpdatedBy(SecurityUtils.getCurrentUserLogin());
+        meterCategoryRule.setUpdateTime(Instant.now());
         return meterCategoryRuleRepository.save(meterCategoryRule);
     }
 
