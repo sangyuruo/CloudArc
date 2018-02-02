@@ -15,7 +15,7 @@ import java.util.List;
 public class AlarmService {
 
 
-    private AnalysisEngineRepository alarmRuleRepository;
+    private AnalysisEngineRepository analysisEngineRepository;
 
 
     private AnalysisFactory analysisFactory = new AnalysisFactory();
@@ -26,11 +26,11 @@ public class AlarmService {
 
     private MeterRuleRepository meterRuleRepository;
 
-    public AlarmService(AnalysisEngineRepository alarmRuleRepository,
+    public AlarmService(AnalysisEngineRepository analysisEngineRepository,
                         RuleAttributesRepository ruleAttributesRepository,
                         MeterCategoryRuleRepository meterCategoryRuleRepository,
                         MeterRuleRepository meterRuleRepository) {
-        this.alarmRuleRepository = alarmRuleRepository;
+        this.analysisEngineRepository = analysisEngineRepository;
         this.ruleAttributesRepository = ruleAttributesRepository;
         this.meterCategoryRuleRepository = meterCategoryRuleRepository;
         this.meterRuleRepository = meterRuleRepository;
