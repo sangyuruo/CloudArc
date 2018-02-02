@@ -11,7 +11,7 @@ public class AnalysisFactory {
     static InfraredAnalysis infraredAnalysis = new InfraredAnalysis() {
         @Override
         public String getKey() {
-            return "St";
+            return "";
         }
     };
 
@@ -127,7 +127,7 @@ public class AnalysisFactory {
         }
     };
 
-   
+
     public AnalysisFactory(){
     }
     public DefaultOneParamAnalysis getAnalysis(String key ){
