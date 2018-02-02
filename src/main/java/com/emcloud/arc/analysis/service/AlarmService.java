@@ -1,5 +1,6 @@
 package com.emcloud.arc.analysis.service;
 
+import com.emcloud.arc.EmCloudArcApp;
 import com.emcloud.arc.analysis.analysis.AnalysisFactory;
 import com.emcloud.arc.analysis.analysis.DefaultAnalysisResult;
 import com.emcloud.arc.analysis.analysis.DefaultOneParamAnalysis;
@@ -9,6 +10,10 @@ import com.emcloud.arc.domain.*;
 import com.emcloud.arc.repository.MeterCategoryRuleRepository;
 import com.emcloud.arc.repository.MeterRuleRepository;
 import com.emcloud.arc.repository.RuleAttributesRepository;
+import com.mysql.jdbc.log.Log;
+import com.sun.media.jfxmedia.logging.Logger;
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +70,7 @@ public class AlarmService {
      * }
      * 6.输出总的分析结果
      */
+    private static final org.slf4j.Logger log = LoggerFactory.getLogger(EmCloudArcApp.class);
 
     public List<DefaultAnalysisResult> analysis(SmartMeterData smartMeterData) {
 
@@ -81,14 +87,14 @@ public class AlarmService {
             rules.add(ruleDTO);
         }
         for (MeterCategoryRule meterCategoryRule : meterCategoryRuleList) {
-            boolean ismatch = false;
+            boolean isMatch = false;
             for (MeterRule meterRule : meterRuleList) {
                 if (meterRule.getAnalysis().equals(meterCategoryRule.getAnalysis())) {
-                    ismatch = true;
+                    isMatch = true;
                     break;
                 }
             }
-            if (!ismatch) {
+            if (!isMatch) {
                 //转换
                 RuleDTO ruleDTO = covertToRuleDTO(meterCategoryRule);
                 rules.add(ruleDTO);
@@ -98,7 +104,15 @@ public class AlarmService {
         for (RuleDTO ruleDTO : rules) {
             //从数据库获取警告级别设置属性
             List<RuleAttributes> attributes = getRuleAttributes(ruleDTO.getRuleCode());
+
+
+            //判断是否有这个analysis 没有则抛异常(log.ERRO())
             DefaultOneParamAnalysis analysis = analysisFactory.getAnalysis(ruleDTO.getClassName());
+            if(StringUtils.isBlank(analysis+"")){
+
+                log.error("没有这个分析器",new NullPointerException("NUll"));
+            }
+
             DefaultAnalysisResult result = analysis.handle(smartMeterData.getData(), attributes);
             if (result.isAlarm()) {
                 results.add(result);

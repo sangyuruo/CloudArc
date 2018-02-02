@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AnalysisFactory {
-//
+
     Map<String, DefaultOneParamAnalysis> analysisMap = new HashMap<>();
 
     public  Map<String, DefaultOneParamAnalysis> put() {

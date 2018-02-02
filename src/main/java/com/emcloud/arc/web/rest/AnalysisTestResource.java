@@ -15,7 +15,6 @@ public class AnalysisTestResource {
     @Autowired
     private final AlarmService alarmService;
 
-
     public AnalysisTestResource(AlarmService alarmService) {
         this.alarmService = alarmService;
     }
@@ -24,9 +23,8 @@ public class AnalysisTestResource {
     @Timed
     public String json(@Valid @RequestBody SmartMeterData smartMeterData) throws URISyntaxException {
 
-        if (smartMeterData.getId() != null) {
-        }
-        System.out.println(alarmService.analysis(smartMeterData));
+        alarmService.analysis(smartMeterData);
+
         return "成功";
     }
 }
