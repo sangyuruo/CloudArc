@@ -17,15 +17,6 @@ public interface RuleAttributesService {
      */
     RuleAttributes save(RuleAttributes ruleAttributes);
 
-
-    /**
-     * update a ruleAttributes.
-     *
-     * @param ruleAttributes the entity to update
-     * @return the persisted entity
-     */
-    RuleAttributes update(RuleAttributes ruleAttributes);
-
     /**
      *  Get all the ruleAttributes.
      *

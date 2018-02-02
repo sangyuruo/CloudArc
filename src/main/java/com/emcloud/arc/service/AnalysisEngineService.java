@@ -18,33 +18,25 @@ public interface AnalysisEngineService {
     AnalysisEngine save(AnalysisEngine analysisEngine);
 
     /**
-     * update a analysisEngine.
+     *  Get all the analysisEngines.
      *
-     * @param analysisEngine the entity to update
-     * @return the persisted entity
-     */
-    AnalysisEngine update(AnalysisEngine analysisEngine);
-
-    /**
-     * Get all the analysisEngines.
-     *
-     * @param pageable the pagination information
-     * @return the list of entities
+     *  @param pageable the pagination information
+     *  @return the list of entities
      */
     Page<AnalysisEngine> findAll(Pageable pageable);
 
     /**
-     * Get the "id" analysisEngine.
+     *  Get the "id" analysisEngine.
      *
-     * @param id the id of the entity
-     * @return the entity
+     *  @param id the id of the entity
+     *  @return the entity
      */
     AnalysisEngine findOne(Long id);
 
     /**
-     * Delete the "id" analysisEngine.
+     *  Delete the "id" analysisEngine.
      *
-     * @param id the id of the entity
+     *  @param id the id of the entity
      */
     void delete(Long id);
 }

@@ -13,6 +13,16 @@
             "fieldValidateRulesMaxlength": 64
         },
         {
+            "fieldName": "ruleName",
+            "javadoc": "规则名称",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength",
+                "required"
+            ],
+            "fieldValidateRulesMaxlength": 200
+        },
+        {
             "fieldName": "alarmLevel",
             "javadoc": "紧急度",
             "fieldType": "Integer",

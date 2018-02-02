@@ -50,10 +50,6 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="meter_category_rule_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
-
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="analysis_engine" columnName="create_time" columnDataType="datetime"/>

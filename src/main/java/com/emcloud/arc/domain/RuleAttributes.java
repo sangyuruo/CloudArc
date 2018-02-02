@@ -37,6 +37,15 @@ public class RuleAttributes implements Serializable {
     private String ruleCode;
 
     /**
+     * 规则名称
+     */
+    @NotNull
+    @Size(max = 200)
+    @ApiModelProperty(value = "规则名称", required = true)
+    @Column(name = "rule_name", length = 200, nullable = false)
+    private String ruleName;
+
+    /**
      * 紧急度
      */
     @NotNull
@@ -48,7 +57,6 @@ public class RuleAttributes implements Serializable {
      * 起始值
      */
     @NotNull
-    @Size(max = 100)
     @ApiModelProperty(value = "起始值", required = true)
     @Column(name = "start_value", nullable = false)
     private Double startValue;
@@ -57,7 +65,6 @@ public class RuleAttributes implements Serializable {
      * 结束值
      */
     @NotNull
-    @Size(max = 100)
     @ApiModelProperty(value = "结束值", required = true)
     @Column(name = "end_value", nullable = false)
     private Double endValue;
@@ -65,6 +72,7 @@ public class RuleAttributes implements Serializable {
     /**
      * 创建人
      */
+    @NotNull
     @Size(max = 20)
     @ApiModelProperty(value = "创建人", required = true)
     @Column(name = "created_by", length = 20, nullable = false)
@@ -73,6 +81,7 @@ public class RuleAttributes implements Serializable {
     /**
      * 创建时间
      */
+    @NotNull
     @ApiModelProperty(value = "创建时间", required = true)
     @Column(name = "create_time", nullable = false)
     private Instant createTime;
@@ -80,6 +89,7 @@ public class RuleAttributes implements Serializable {
     /**
      * 修改人
      */
+    @NotNull
     @Size(max = 20)
     @ApiModelProperty(value = "修改人", required = true)
     @Column(name = "updated_by", length = 20, nullable = false)
@@ -88,6 +98,7 @@ public class RuleAttributes implements Serializable {
     /**
      * 修改时间
      */
+    @NotNull
     @ApiModelProperty(value = "修改时间", required = true)
     @Column(name = "update_time", nullable = false)
     private Instant updateTime;
@@ -112,6 +123,19 @@ public class RuleAttributes implements Serializable {
 
     public void setRuleCode(String ruleCode) {
         this.ruleCode = ruleCode;
+    }
+
+    public String getRuleName() {
+        return ruleName;
+    }
+
+    public RuleAttributes ruleName(String ruleName) {
+        this.ruleName = ruleName;
+        return this;
+    }
+
+    public void setRuleName(String ruleName) {
+        this.ruleName = ruleName;
     }
 
     public Integer getAlarmLevel() {
@@ -204,7 +228,6 @@ public class RuleAttributes implements Serializable {
     public void setUpdateTime(Instant updateTime) {
         this.updateTime = updateTime;
     }
-    
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -232,6 +255,7 @@ public class RuleAttributes implements Serializable {
         return "RuleAttributes{" +
             "id=" + getId() +
             ", ruleCode='" + getRuleCode() + "'" +
+            ", ruleName='" + getRuleName() + "'" +
             ", alarmLevel='" + getAlarmLevel() + "'" +
             ", startValue='" + getStartValue() + "'" +
             ", endValue='" + getEndValue() + "'" +

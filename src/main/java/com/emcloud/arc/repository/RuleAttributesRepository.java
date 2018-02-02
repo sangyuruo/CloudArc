@@ -14,7 +14,5 @@ import java.util.List;
 @SuppressWarnings("unused")
 @Repository
 public interface RuleAttributesRepository extends JpaRepository<RuleAttributes, Long> {
-    List<RuleAttributes> findAll();
-    List<RuleAttributes> findByRuleCode(String ruleCode );
-
+        List<RuleAttributes> findByRuleCode(String c);
 }

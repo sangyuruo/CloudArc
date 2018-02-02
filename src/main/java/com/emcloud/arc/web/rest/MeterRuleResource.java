@@ -1,9 +1,7 @@
 package com.emcloud.arc.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import com.emcloud.arc.analysis.service.AlarmService;
 import com.emcloud.arc.domain.MeterRule;
-import com.emcloud.arc.domain.SmartMeterData;
 import com.emcloud.arc.service.MeterRuleService;
 import com.emcloud.arc.web.rest.errors.BadRequestAlertException;
 import com.emcloud.arc.web.rest.util.HeaderUtil;
@@ -17,7 +15,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -40,10 +37,8 @@ public class MeterRuleResource {
 
     private final MeterRuleService meterRuleService;
 
-    private final  AlarmService alarmService;
-    public MeterRuleResource(MeterRuleService meterRuleService, AlarmService alarmService) {
+    public MeterRuleResource(MeterRuleService meterRuleService) {
         this.meterRuleService = meterRuleService;
-        this.alarmService = alarmService;
     }
 
     /**
@@ -66,17 +61,6 @@ public class MeterRuleResource {
             .body(result);
     }
 
-    @PostMapping("/meter-rules/json")
-    @Timed
-    public String json(@Valid @RequestBody SmartMeterData smartMeterData) throws URISyntaxException {
-
-        if (smartMeterData.getId() != null) {
-            throw new BadRequestAlertException("A new meterRule cannot already have an ID", ENTITY_NAME, "idexists");
-        }
-        System.out.println(alarmService.analysis(smartMeterData));
-        return "成功";
-    }
-
     /**
      * PUT  /meter-rules : Updates an existing meterRule.
      *
@@ -93,7 +77,7 @@ public class MeterRuleResource {
         if (meterRule.getId() == null) {
             return createMeterRule(meterRule);
         }
-        MeterRule result = meterRuleService.update(meterRule);
+        MeterRule result = meterRuleService.save(meterRule);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, meterRule.getId().toString()))
             .body(result);

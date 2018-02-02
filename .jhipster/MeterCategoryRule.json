@@ -1,13 +1,6 @@
 {
     "fluentMethods": true,
-    "relationships": [
-        {
-            "relationshipType": "one-to-many",
-            "relationshipName": "analysisEngine",
-            "otherEntityName": "analysisEngine",
-            "otherEntityRelationshipName": "meterCategoryRule"
-        }
-    ],
+    "relationships": [],
     "fields": [
         {
             "fieldName": "meterCategoryCode",
@@ -16,6 +9,16 @@
             "fieldValidateRules": [
                 "required"
             ]
+        },
+        {
+            "fieldName": "meterCategoryName",
+            "javadoc": "设备分类名称",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength",
+                "required"
+            ],
+            "fieldValidateRulesMaxlength": 100
         },
         {
             "fieldName": "ruleCode",
@@ -39,7 +42,7 @@
         },
         {
             "fieldName": "analysis",
-            "javadoc": "分析器名",
+            "javadoc": "分析器代码",
             "fieldType": "String",
             "fieldValidateRules": [
                 "maxlength",

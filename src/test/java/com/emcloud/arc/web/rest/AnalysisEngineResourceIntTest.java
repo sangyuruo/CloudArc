@@ -347,8 +347,6 @@ public class AnalysisEngineResourceIntTest {
 
         // Update the analysisEngine
         AnalysisEngine updatedAnalysisEngine = analysisEngineRepository.findOne(analysisEngine.getId());
-        // Disconnect from session so that the updates on updatedAnalysisEngine are not directly saved in db
-        em.detach(updatedAnalysisEngine);
         updatedAnalysisEngine
             .name(UPDATED_NAME)
             .analysis(UPDATED_ANALYSIS)

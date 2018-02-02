@@ -1,6 +1,5 @@
 package com.emcloud.arc.service.impl;
 
-import com.emcloud.arc.security.SecurityUtils;
 import com.emcloud.arc.service.AnalysisEngineService;
 import com.emcloud.arc.domain.AnalysisEngine;
 import com.emcloud.arc.repository.AnalysisEngineRepository;
@@ -11,15 +10,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
-
 
 /**
  * Service Implementation for managing AnalysisEngine.
  */
 @Service
 @Transactional
-public class AnalysisEngineServiceImpl implements AnalysisEngineService {
+public class AnalysisEngineServiceImpl implements AnalysisEngineService{
 
     private final Logger log = LoggerFactory.getLogger(AnalysisEngineServiceImpl.class);
 
@@ -38,32 +35,14 @@ public class AnalysisEngineServiceImpl implements AnalysisEngineService {
     @Override
     public AnalysisEngine save(AnalysisEngine analysisEngine) {
         log.debug("Request to save AnalysisEngine : {}", analysisEngine);
-        analysisEngine.setCreatedBy(SecurityUtils.getCurrentUserLogin());
-        analysisEngine.setCreateTime(Instant.now());
-        analysisEngine.setUpdatedBy(SecurityUtils.getCurrentUserLogin());
-        analysisEngine.setUpdateTime(Instant.now());
         return analysisEngineRepository.save(analysisEngine);
     }
 
     /**
-     * update a analysisEngine.
+     *  Get all the analysisEngines.
      *
-     * @param analysisEngine the entity to update
-     * @return the persisted entity
-     */
-    @Override
-    public AnalysisEngine update(AnalysisEngine analysisEngine) {
-        log.debug("Request to update AnalysisEngine : {}", analysisEngine);
-        analysisEngine.setUpdatedBy(SecurityUtils.getCurrentUserLogin());
-        analysisEngine.setUpdateTime(Instant.now());
-        return analysisEngineRepository.save(analysisEngine);
-    }
-
-    /**
-     * Get all the analysisEngines.
-     *
-     * @param pageable the pagination information
-     * @return the list of entities
+     *  @param pageable the pagination information
+     *  @return the list of entities
      */
     @Override
     @Transactional(readOnly = true)
@@ -73,10 +52,10 @@ public class AnalysisEngineServiceImpl implements AnalysisEngineService {
     }
 
     /**
-     * Get one analysisEngine by id.
+     *  Get one analysisEngine by id.
      *
-     * @param id the id of the entity
-     * @return the entity
+     *  @param id the id of the entity
+     *  @return the entity
      */
     @Override
     @Transactional(readOnly = true)
@@ -86,9 +65,9 @@ public class AnalysisEngineServiceImpl implements AnalysisEngineService {
     }
 
     /**
-     * Delete the analysisEngine by id.
+     *  Delete the  analysisEngine by id.
      *
-     * @param id the id of the entity
+     *  @param id the id of the entity
      */
     @Override
     public void delete(Long id) {

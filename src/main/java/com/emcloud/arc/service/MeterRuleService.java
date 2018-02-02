@@ -17,15 +17,6 @@ public interface MeterRuleService {
      */
     MeterRule save(MeterRule meterRule);
 
-
-    /**
-     * update a meterRule.
-     *
-     * @param meterRule the entity to update
-     * @return the persisted entity
-     */
-    MeterRule update(MeterRule meterRule);
-
     /**
      *  Get all the meterRules.
      *

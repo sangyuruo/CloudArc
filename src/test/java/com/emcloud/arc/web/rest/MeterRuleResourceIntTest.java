@@ -2,7 +2,6 @@ package com.emcloud.arc.web.rest;
 
 import com.emcloud.arc.EmCloudArcApp;
 
-import com.emcloud.arc.analysis.service.AlarmService;
 import com.emcloud.arc.config.SecurityBeanOverrideConfiguration;
 
 import com.emcloud.arc.domain.MeterRule;
@@ -56,6 +55,9 @@ public class MeterRuleResourceIntTest {
     private static final String DEFAULT_RULE_NAME = "AAAAAAAAAA";
     private static final String UPDATED_RULE_NAME = "BBBBBBBBBB";
 
+    private static final String DEFAULT_ANALYSIS = "AAAAAAAAAA";
+    private static final String UPDATED_ANALYSIS = "BBBBBBBBBB";
+
     private static final Boolean DEFAULT_ENABLE = false;
     private static final Boolean UPDATED_ENABLE = true;
 
@@ -74,8 +76,6 @@ public class MeterRuleResourceIntTest {
     @Autowired
     private MeterRuleRepository meterRuleRepository;
 
-    @Autowired
-    private AlarmService alarmService;
     @Autowired
     private MeterRuleService meterRuleService;
 
@@ -98,7 +98,7 @@ public class MeterRuleResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final MeterRuleResource meterRuleResource = new MeterRuleResource(meterRuleService, alarmService);
+        final MeterRuleResource meterRuleResource = new MeterRuleResource(meterRuleService);
         this.restMeterRuleMockMvc = MockMvcBuilders.standaloneSetup(meterRuleResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -118,6 +118,7 @@ public class MeterRuleResourceIntTest {
             .meterName(DEFAULT_METER_NAME)
             .ruleCode(DEFAULT_RULE_CODE)
             .ruleName(DEFAULT_RULE_NAME)
+            .analysis(DEFAULT_ANALYSIS)
             .enable(DEFAULT_ENABLE)
             .createdBy(DEFAULT_CREATED_BY)
             .createTime(DEFAULT_CREATE_TIME)
@@ -150,6 +151,7 @@ public class MeterRuleResourceIntTest {
         assertThat(testMeterRule.getMeterName()).isEqualTo(DEFAULT_METER_NAME);
         assertThat(testMeterRule.getRuleCode()).isEqualTo(DEFAULT_RULE_CODE);
         assertThat(testMeterRule.getRuleName()).isEqualTo(DEFAULT_RULE_NAME);
+        assertThat(testMeterRule.getAnalysis()).isEqualTo(DEFAULT_ANALYSIS);
         assertThat(testMeterRule.isEnable()).isEqualTo(DEFAULT_ENABLE);
         assertThat(testMeterRule.getCreatedBy()).isEqualTo(DEFAULT_CREATED_BY);
         assertThat(testMeterRule.getCreateTime()).isEqualTo(DEFAULT_CREATE_TIME);
@@ -236,6 +238,24 @@ public class MeterRuleResourceIntTest {
         int databaseSizeBeforeTest = meterRuleRepository.findAll().size();
         // set the field null
         meterRule.setRuleName(null);
+
+        // Create the MeterRule, which fails.
+
+        restMeterRuleMockMvc.perform(post("/api/meter-rules")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(meterRule)))
+            .andExpect(status().isBadRequest());
+
+        List<MeterRule> meterRuleList = meterRuleRepository.findAll();
+        assertThat(meterRuleList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkAnalysisIsRequired() throws Exception {
+        int databaseSizeBeforeTest = meterRuleRepository.findAll().size();
+        // set the field null
+        meterRule.setAnalysis(null);
 
         // Create the MeterRule, which fails.
 
@@ -353,6 +373,7 @@ public class MeterRuleResourceIntTest {
             .andExpect(jsonPath("$.[*].meterName").value(hasItem(DEFAULT_METER_NAME.toString())))
             .andExpect(jsonPath("$.[*].ruleCode").value(hasItem(DEFAULT_RULE_CODE.toString())))
             .andExpect(jsonPath("$.[*].ruleName").value(hasItem(DEFAULT_RULE_NAME.toString())))
+            .andExpect(jsonPath("$.[*].analysis").value(hasItem(DEFAULT_ANALYSIS.toString())))
             .andExpect(jsonPath("$.[*].enable").value(hasItem(DEFAULT_ENABLE.booleanValue())))
             .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY.toString())))
             .andExpect(jsonPath("$.[*].createTime").value(hasItem(DEFAULT_CREATE_TIME.toString())))
@@ -375,6 +396,7 @@ public class MeterRuleResourceIntTest {
             .andExpect(jsonPath("$.meterName").value(DEFAULT_METER_NAME.toString()))
             .andExpect(jsonPath("$.ruleCode").value(DEFAULT_RULE_CODE.toString()))
             .andExpect(jsonPath("$.ruleName").value(DEFAULT_RULE_NAME.toString()))
+            .andExpect(jsonPath("$.analysis").value(DEFAULT_ANALYSIS.toString()))
             .andExpect(jsonPath("$.enable").value(DEFAULT_ENABLE.booleanValue()))
             .andExpect(jsonPath("$.createdBy").value(DEFAULT_CREATED_BY.toString()))
             .andExpect(jsonPath("$.createTime").value(DEFAULT_CREATE_TIME.toString()))
@@ -405,6 +427,7 @@ public class MeterRuleResourceIntTest {
             .meterName(UPDATED_METER_NAME)
             .ruleCode(UPDATED_RULE_CODE)
             .ruleName(UPDATED_RULE_NAME)
+            .analysis(UPDATED_ANALYSIS)
             .enable(UPDATED_ENABLE)
             .createdBy(UPDATED_CREATED_BY)
             .createTime(UPDATED_CREATE_TIME)
@@ -424,6 +447,7 @@ public class MeterRuleResourceIntTest {
         assertThat(testMeterRule.getMeterName()).isEqualTo(UPDATED_METER_NAME);
         assertThat(testMeterRule.getRuleCode()).isEqualTo(UPDATED_RULE_CODE);
         assertThat(testMeterRule.getRuleName()).isEqualTo(UPDATED_RULE_NAME);
+        assertThat(testMeterRule.getAnalysis()).isEqualTo(UPDATED_ANALYSIS);
         assertThat(testMeterRule.isEnable()).isEqualTo(UPDATED_ENABLE);
         assertThat(testMeterRule.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
         assertThat(testMeterRule.getCreateTime()).isEqualTo(UPDATED_CREATE_TIME);

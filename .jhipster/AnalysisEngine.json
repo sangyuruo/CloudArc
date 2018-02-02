@@ -1,13 +1,6 @@
 {
     "fluentMethods": true,
-    "relationships": [
-        {
-            "relationshipType": "many-to-one",
-            "relationshipName": "meterCategoryRule",
-            "otherEntityName": "meterCategoryRule",
-            "otherEntityField": "id"
-        }
-    ],
+    "relationships": [],
     "fields": [
         {
             "fieldName": "name",
@@ -21,7 +14,7 @@
         },
         {
             "fieldName": "analysis",
-            "javadoc": "分析器",
+            "javadoc": "分析器代码",
             "fieldType": "String",
             "fieldValidateRules": [
                 "maxlength",

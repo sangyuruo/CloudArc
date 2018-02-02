@@ -46,6 +46,9 @@ public class MeterCategoryRuleResourceIntTest {
     private static final Integer DEFAULT_METER_CATEGORY_CODE = 1;
     private static final Integer UPDATED_METER_CATEGORY_CODE = 2;
 
+    private static final String DEFAULT_METER_CATEGORY_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_METER_CATEGORY_NAME = "BBBBBBBBBB";
+
     private static final String DEFAULT_RULE_CODE = "AAAAAAAAAA";
     private static final String UPDATED_RULE_CODE = "BBBBBBBBBB";
 
@@ -109,6 +112,7 @@ public class MeterCategoryRuleResourceIntTest {
     public static MeterCategoryRule createEntity(EntityManager em) {
         MeterCategoryRule meterCategoryRule = new MeterCategoryRule()
             .meterCategoryCode(DEFAULT_METER_CATEGORY_CODE)
+            .meterCategoryName(DEFAULT_METER_CATEGORY_NAME)
             .ruleCode(DEFAULT_RULE_CODE)
             .ruleName(DEFAULT_RULE_NAME)
             .analysis(DEFAULT_ANALYSIS)
@@ -140,6 +144,7 @@ public class MeterCategoryRuleResourceIntTest {
         assertThat(meterCategoryRuleList).hasSize(databaseSizeBeforeCreate + 1);
         MeterCategoryRule testMeterCategoryRule = meterCategoryRuleList.get(meterCategoryRuleList.size() - 1);
         assertThat(testMeterCategoryRule.getMeterCategoryCode()).isEqualTo(DEFAULT_METER_CATEGORY_CODE);
+        assertThat(testMeterCategoryRule.getMeterCategoryName()).isEqualTo(DEFAULT_METER_CATEGORY_NAME);
         assertThat(testMeterCategoryRule.getRuleCode()).isEqualTo(DEFAULT_RULE_CODE);
         assertThat(testMeterCategoryRule.getRuleName()).isEqualTo(DEFAULT_RULE_NAME);
         assertThat(testMeterCategoryRule.getAnalysis()).isEqualTo(DEFAULT_ANALYSIS);
@@ -174,6 +179,24 @@ public class MeterCategoryRuleResourceIntTest {
         int databaseSizeBeforeTest = meterCategoryRuleRepository.findAll().size();
         // set the field null
         meterCategoryRule.setMeterCategoryCode(null);
+
+        // Create the MeterCategoryRule, which fails.
+
+        restMeterCategoryRuleMockMvc.perform(post("/api/meter-category-rules")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(meterCategoryRule)))
+            .andExpect(status().isBadRequest());
+
+        List<MeterCategoryRule> meterCategoryRuleList = meterCategoryRuleRepository.findAll();
+        assertThat(meterCategoryRuleList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkMeterCategoryNameIsRequired() throws Exception {
+        int databaseSizeBeforeTest = meterCategoryRuleRepository.findAll().size();
+        // set the field null
+        meterCategoryRule.setMeterCategoryName(null);
 
         // Create the MeterCategoryRule, which fails.
 
@@ -324,6 +347,7 @@ public class MeterCategoryRuleResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(meterCategoryRule.getId().intValue())))
             .andExpect(jsonPath("$.[*].meterCategoryCode").value(hasItem(DEFAULT_METER_CATEGORY_CODE)))
+            .andExpect(jsonPath("$.[*].meterCategoryName").value(hasItem(DEFAULT_METER_CATEGORY_NAME.toString())))
             .andExpect(jsonPath("$.[*].ruleCode").value(hasItem(DEFAULT_RULE_CODE.toString())))
             .andExpect(jsonPath("$.[*].ruleName").value(hasItem(DEFAULT_RULE_NAME.toString())))
             .andExpect(jsonPath("$.[*].analysis").value(hasItem(DEFAULT_ANALYSIS.toString())))
@@ -345,6 +369,7 @@ public class MeterCategoryRuleResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(meterCategoryRule.getId().intValue()))
             .andExpect(jsonPath("$.meterCategoryCode").value(DEFAULT_METER_CATEGORY_CODE))
+            .andExpect(jsonPath("$.meterCategoryName").value(DEFAULT_METER_CATEGORY_NAME.toString()))
             .andExpect(jsonPath("$.ruleCode").value(DEFAULT_RULE_CODE.toString()))
             .andExpect(jsonPath("$.ruleName").value(DEFAULT_RULE_NAME.toString()))
             .andExpect(jsonPath("$.analysis").value(DEFAULT_ANALYSIS.toString()))
@@ -372,10 +397,9 @@ public class MeterCategoryRuleResourceIntTest {
 
         // Update the meterCategoryRule
         MeterCategoryRule updatedMeterCategoryRule = meterCategoryRuleRepository.findOne(meterCategoryRule.getId());
-        // Disconnect from session so that the updates on updatedMeterCategoryRule are not directly saved in db
-        em.detach(updatedMeterCategoryRule);
         updatedMeterCategoryRule
             .meterCategoryCode(UPDATED_METER_CATEGORY_CODE)
+            .meterCategoryName(UPDATED_METER_CATEGORY_NAME)
             .ruleCode(UPDATED_RULE_CODE)
             .ruleName(UPDATED_RULE_NAME)
             .analysis(UPDATED_ANALYSIS)
@@ -394,6 +418,7 @@ public class MeterCategoryRuleResourceIntTest {
         assertThat(meterCategoryRuleList).hasSize(databaseSizeBeforeUpdate);
         MeterCategoryRule testMeterCategoryRule = meterCategoryRuleList.get(meterCategoryRuleList.size() - 1);
         assertThat(testMeterCategoryRule.getMeterCategoryCode()).isEqualTo(UPDATED_METER_CATEGORY_CODE);
+        assertThat(testMeterCategoryRule.getMeterCategoryName()).isEqualTo(UPDATED_METER_CATEGORY_NAME);
         assertThat(testMeterCategoryRule.getRuleCode()).isEqualTo(UPDATED_RULE_CODE);
         assertThat(testMeterCategoryRule.getRuleName()).isEqualTo(UPDATED_RULE_NAME);
         assertThat(testMeterCategoryRule.getAnalysis()).isEqualTo(UPDATED_ANALYSIS);

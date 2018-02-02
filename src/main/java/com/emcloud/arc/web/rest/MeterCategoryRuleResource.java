@@ -6,6 +6,7 @@ import com.emcloud.arc.service.MeterCategoryRuleService;
 import com.emcloud.arc.web.rest.errors.BadRequestAlertException;
 import com.emcloud.arc.web.rest.util.HeaderUtil;
 import com.emcloud.arc.web.rest.util.PaginationUtil;
+import io.swagger.annotations.ApiParam;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,7 +77,7 @@ public class MeterCategoryRuleResource {
         if (meterCategoryRule.getId() == null) {
             return createMeterCategoryRule(meterCategoryRule);
         }
-        MeterCategoryRule result = meterCategoryRuleService.update(meterCategoryRule);
+        MeterCategoryRule result = meterCategoryRuleService.save(meterCategoryRule);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, meterCategoryRule.getId().toString()))
             .body(result);
@@ -90,7 +91,7 @@ public class MeterCategoryRuleResource {
      */
     @GetMapping("/meter-category-rules")
     @Timed
-    public ResponseEntity<List<MeterCategoryRule>> getAllMeterCategoryRules(Pageable pageable) {
+    public ResponseEntity<List<MeterCategoryRule>> getAllMeterCategoryRules(@ApiParam Pageable pageable) {
         log.debug("REST request to get a page of MeterCategoryRules");
         Page<MeterCategoryRule> page = meterCategoryRuleService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/meter-category-rules");

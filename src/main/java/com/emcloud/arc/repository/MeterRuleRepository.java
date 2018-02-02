@@ -1,4 +1,5 @@
 package com.emcloud.arc.repository;
+
 import com.emcloud.arc.domain.MeterRule;
 import org.springframework.stereotype.Repository;
 
@@ -13,5 +14,5 @@ import java.util.List;
 @SuppressWarnings("unused")
 @Repository
 public interface MeterRuleRepository extends JpaRepository<MeterRule, Long> {
-    List<MeterRule> findAll();
+            List<MeterRule> findByMeterCode(String m);
 }

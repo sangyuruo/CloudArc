@@ -6,21 +6,42 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AnalysisFactory {
+//
+    Map<String, DefaultOneParamAnalysis> analysisMap = new HashMap<>();
 
-    static Map<String, DefaultOneParamAnalysis> analysisMap = new HashMap<>();
-    static InfraredAnalysis infraredAnalysis = new InfraredAnalysis() {
-        @Override
-        public String getKey() {
-            return "";
-        }
-    };
+    public  Map<String, DefaultOneParamAnalysis> put() {
+        analysisMap.put(Electricity_A_Analysis.getKey(), getAnalysis(Electricity_A_Analysis.getKey()));
+        analysisMap.put(Electricity_B_Analysis.getKey(), getAnalysis(Electricity_B_Analysis.getKey()));
+        analysisMap.put(Electricity_C_Analysis.getKey(), getAnalysis(Electricity_C_Analysis.getKey()));
+        analysisMap.put(humidityAnalysis.getKey(), getAnalysis(humidityAnalysis.getKey()));
+        analysisMap.put(temperatureAnalysis.getKey(), getAnalysis(temperatureAnalysis.getKey()));
+        analysisMap.put(Power_A_Analysis.getKey(), getAnalysis(Power_A_Analysis.getKey()));
+        analysisMap.put(Power_B_Analysis.getKey(), getAnalysis(Power_B_Analysis.getKey()));
+        analysisMap.put(Power_C_Analysis.getKey(), getAnalysis(Power_C_Analysis.getKey()));
+        analysisMap.put(Power_Fs_Analysis.getKey(), getAnalysis(Power_Fs_Analysis.getKey()));
+        analysisMap.put(Power_S_Analysis.getKey(), getAnalysis(Power_S_Analysis.getKey()));
+        analysisMap.put(Voltage_A_Analysis.getKey(), getAnalysis(Voltage_A_Analysis.getKey()));
+        analysisMap.put(Voltage_B_Analysis.getKey(), getAnalysis(Voltage_B_Analysis.getKey()));
+        analysisMap.put(Voltage_C_Analysis.getKey(), getAnalysis(Voltage_C_Analysis.getKey()));
+   //       for(int i=0;i<AnalysisFactory.class.getDeclaredFields().length;i++){ }
+        for (String key : analysisMap.keySet()) {
+             System.out.println("key= "+ key + " and value= " + analysisMap.get(key));
+              }
+        return analysisMap;
 
+    }
+
+
+    public DefaultOneParamAnalysis getAnalysis(String key) {
+        return analysisMap.get(key);
+    }
 
     static ElectricityAnalysis Electricity_A_Analysis = new ElectricityAnalysis() {
         @Override
         public String getKey() {
             return "I_a";
         }
+
     };
     static ElectricityAnalysis Electricity_B_Analysis = new ElectricityAnalysis() {
         @Override
@@ -34,8 +55,12 @@ public class AnalysisFactory {
             return "I_c";
         }
     };
-
-
+    static InfraredAnalysis infraredAnalysis = new InfraredAnalysis() {
+        @Override
+        public String getKey() {
+            return "";
+        }
+    };
     static HumidityAnalysis humidityAnalysis = new HumidityAnalysis() {
         @Override
         public String getKey() {
@@ -72,7 +97,7 @@ public class AnalysisFactory {
             return "P_c";
         }
     };
-    static PowerAnalysis Power__Fs_Analysis = new PowerAnalysis() {
+    static PowerAnalysis Power_Fs_Analysis = new PowerAnalysis() {
         @Override
         public String getKey() {
             return "P_f_s";
@@ -123,16 +148,14 @@ public class AnalysisFactory {
     static WaterOutAnalysis waterOutAnalysis = new WaterOutAnalysis() {
         @Override
         public String getKey() {
-            return "St";
+            return "";
         }
     };
 
+    public AnalysisFactory() {
+    }
 
-    public AnalysisFactory(){
-    }
-    public DefaultOneParamAnalysis getAnalysis(String key ){
-       return analysisMap.get(key);
-    }
+
 }
 
 

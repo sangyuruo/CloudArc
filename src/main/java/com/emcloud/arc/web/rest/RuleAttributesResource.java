@@ -77,7 +77,7 @@ public class RuleAttributesResource {
         if (ruleAttributes.getId() == null) {
             return createRuleAttributes(ruleAttributes);
         }
-        RuleAttributes result = ruleAttributesService.update(ruleAttributes);
+        RuleAttributes result = ruleAttributesService.save(ruleAttributes);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, ruleAttributes.getId().toString()))
             .body(result);

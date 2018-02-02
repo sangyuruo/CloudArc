@@ -37,8 +37,6 @@ public class AlarmService {
         this.meterCategoryRuleRepository = meterCategoryRuleRepository;
         this.meterRuleRepository = meterRuleRepository;
     }
-
-
     /**
      * 1.查分析器列表(alarm_rule : )    Repository: 查分析器的方法；
      * <p>
@@ -67,18 +65,18 @@ public class AlarmService {
      * }
      * 6.输出总的分析结果
      */
+
     public List<DefaultAnalysisResult> analysis(SmartMeterData smartMeterData) {
 
         List<RuleDTO> rules = new ArrayList<>();
 
-        List<MeterRule> meterRuleList = meterRuleRepository.findAll();
-        List<MeterCategoryRule> meterCategoryRuleList = meterCategoryRuleRepository.findAll();
-
-
+        List<MeterRule> meterRuleList =
+            meterRuleRepository.findByMeterCode(smartMeterData.getMeterId().toString());
+        List<MeterCategoryRule> meterCategoryRuleList =
+            meterCategoryRuleRepository.findByMeterCategoryCode(smartMeterData.getCategory());
         //* 4.合并规则列表
         for (MeterRule meterRule : meterRuleList) {
             //转换
-
             RuleDTO ruleDTO = covertToRuleDTO(meterRule);
             rules.add(ruleDTO);
         }
@@ -90,15 +88,12 @@ public class AlarmService {
                     break;
                 }
             }
-
             if (!ismatch) {
                 //转换
                 RuleDTO ruleDTO = covertToRuleDTO(meterCategoryRule);
                 rules.add(ruleDTO);
             }
         }
-
-
         List<DefaultAnalysisResult> results = new ArrayList<>();
         for (RuleDTO ruleDTO : rules) {
             //从数据库获取警告级别设置属性

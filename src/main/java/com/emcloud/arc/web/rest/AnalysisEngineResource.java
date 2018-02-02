@@ -6,6 +6,7 @@ import com.emcloud.arc.service.AnalysisEngineService;
 import com.emcloud.arc.web.rest.errors.BadRequestAlertException;
 import com.emcloud.arc.web.rest.util.HeaderUtil;
 import com.emcloud.arc.web.rest.util.PaginationUtil;
+import io.swagger.annotations.ApiParam;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,7 +77,7 @@ public class AnalysisEngineResource {
         if (analysisEngine.getId() == null) {
             return createAnalysisEngine(analysisEngine);
         }
-        AnalysisEngine result = analysisEngineService.update(analysisEngine);
+        AnalysisEngine result = analysisEngineService.save(analysisEngine);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, analysisEngine.getId().toString()))
             .body(result);
@@ -90,7 +91,7 @@ public class AnalysisEngineResource {
      */
     @GetMapping("/analysis-engines")
     @Timed
-    public ResponseEntity<List<AnalysisEngine>> getAllAnalysisEngines(Pageable pageable) {
+    public ResponseEntity<List<AnalysisEngine>> getAllAnalysisEngines(@ApiParam Pageable pageable) {
         log.debug("REST request to get a page of AnalysisEngines");
         Page<AnalysisEngine> page = analysisEngineService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/analysis-engines");

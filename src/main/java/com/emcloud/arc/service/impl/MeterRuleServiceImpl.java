@@ -1,6 +1,5 @@
 package com.emcloud.arc.service.impl;
 
-import com.emcloud.arc.security.SecurityUtils;
 import com.emcloud.arc.service.MeterRuleService;
 import com.emcloud.arc.domain.MeterRule;
 import com.emcloud.arc.repository.MeterRuleRepository;
@@ -10,8 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.Instant;
 
 
 /**
@@ -38,27 +35,8 @@ public class MeterRuleServiceImpl implements MeterRuleService{
     @Override
     public MeterRule save(MeterRule meterRule) {
         log.debug("Request to save MeterRule : {}", meterRule);
-        meterRule.setCreatedBy(SecurityUtils.getCurrentUserLogin());
-        meterRule.setCreateTime(Instant.now());
-        meterRule.setUpdatedBy(SecurityUtils.getCurrentUserLogin());
-        meterRule.setUpdateTime(Instant.now());
         return meterRuleRepository.save(meterRule);
     }
-
-    /**
-     * update a meterRule.
-     *
-     * @param meterRule the entity to update
-     * @return the persisted entity
-     */
-    @Override
-    public MeterRule update(MeterRule meterRule) {
-        log.debug("Request to save Company : {}", meterRule);
-        meterRule.setUpdatedBy(SecurityUtils.getCurrentUserLogin());
-        meterRule.setUpdateTime(Instant.now());
-        return meterRuleRepository.save(meterRule);
-    }
-
 
     /**
      *  Get all the meterRules.

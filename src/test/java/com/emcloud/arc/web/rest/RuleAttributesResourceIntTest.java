@@ -46,11 +46,17 @@ public class RuleAttributesResourceIntTest {
     private static final String DEFAULT_RULE_CODE = "AAAAAAAAAA";
     private static final String UPDATED_RULE_CODE = "BBBBBBBBBB";
 
-    private static final Double DEFAULT_ATTRIBUTE_NAME = 1D;
-    private static final Double UPDATED_ATTRIBUTE_NAME = 2D;
+    private static final String DEFAULT_RULE_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_RULE_NAME = "BBBBBBBBBB";
 
-    private static final String DEFAULT_ATTRIBUTE_VALUE = "AAAAAAAAAA";
-    private static final String UPDATED_ATTRIBUTE_VALUE = "BBBBBBBBBB";
+    private static final Integer DEFAULT_ALARM_LEVEL = 1;
+    private static final Integer UPDATED_ALARM_LEVEL = 2;
+
+    private static final Double DEFAULT_START_VALUE = 1D;
+    private static final Double UPDATED_START_VALUE = 2D;
+
+    private static final Double DEFAULT_END_VALUE = 1D;
+    private static final Double UPDATED_END_VALUE = 2D;
 
     private static final String DEFAULT_CREATED_BY = "AAAAAAAAAA";
     private static final String UPDATED_CREATED_BY = "BBBBBBBBBB";
@@ -106,6 +112,10 @@ public class RuleAttributesResourceIntTest {
     public static RuleAttributes createEntity(EntityManager em) {
         RuleAttributes ruleAttributes = new RuleAttributes()
             .ruleCode(DEFAULT_RULE_CODE)
+            .ruleName(DEFAULT_RULE_NAME)
+            .alarmLevel(DEFAULT_ALARM_LEVEL)
+            .startValue(DEFAULT_START_VALUE)
+            .endValue(DEFAULT_END_VALUE)
             .createdBy(DEFAULT_CREATED_BY)
             .createTime(DEFAULT_CREATE_TIME)
             .updatedBy(DEFAULT_UPDATED_BY)
@@ -134,6 +144,10 @@ public class RuleAttributesResourceIntTest {
         assertThat(ruleAttributesList).hasSize(databaseSizeBeforeCreate + 1);
         RuleAttributes testRuleAttributes = ruleAttributesList.get(ruleAttributesList.size() - 1);
         assertThat(testRuleAttributes.getRuleCode()).isEqualTo(DEFAULT_RULE_CODE);
+        assertThat(testRuleAttributes.getRuleName()).isEqualTo(DEFAULT_RULE_NAME);
+        assertThat(testRuleAttributes.getAlarmLevel()).isEqualTo(DEFAULT_ALARM_LEVEL);
+        assertThat(testRuleAttributes.getStartValue()).isEqualTo(DEFAULT_START_VALUE);
+        assertThat(testRuleAttributes.getEndValue()).isEqualTo(DEFAULT_END_VALUE);
         assertThat(testRuleAttributes.getCreatedBy()).isEqualTo(DEFAULT_CREATED_BY);
         assertThat(testRuleAttributes.getCreateTime()).isEqualTo(DEFAULT_CREATE_TIME);
         assertThat(testRuleAttributes.getUpdatedBy()).isEqualTo(DEFAULT_UPDATED_BY);
@@ -179,10 +193,10 @@ public class RuleAttributesResourceIntTest {
 
     @Test
     @Transactional
-    public void checkAttributeNameIsRequired() throws Exception {
+    public void checkRuleNameIsRequired() throws Exception {
         int databaseSizeBeforeTest = ruleAttributesRepository.findAll().size();
         // set the field null
-
+        ruleAttributes.setRuleName(null);
 
         // Create the RuleAttributes, which fails.
 
@@ -197,9 +211,46 @@ public class RuleAttributesResourceIntTest {
 
     @Test
     @Transactional
-    public void checkAttributeValueIsRequired() throws Exception {
+    public void checkAlarmLevelIsRequired() throws Exception {
         int databaseSizeBeforeTest = ruleAttributesRepository.findAll().size();
         // set the field null
+        ruleAttributes.setAlarmLevel(null);
+
+        // Create the RuleAttributes, which fails.
+
+        restRuleAttributesMockMvc.perform(post("/api/rule-attributes")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(ruleAttributes)))
+            .andExpect(status().isBadRequest());
+
+        List<RuleAttributes> ruleAttributesList = ruleAttributesRepository.findAll();
+        assertThat(ruleAttributesList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkStartValueIsRequired() throws Exception {
+        int databaseSizeBeforeTest = ruleAttributesRepository.findAll().size();
+        // set the field null
+        ruleAttributes.setStartValue(null);
+
+        // Create the RuleAttributes, which fails.
+
+        restRuleAttributesMockMvc.perform(post("/api/rule-attributes")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(ruleAttributes)))
+            .andExpect(status().isBadRequest());
+
+        List<RuleAttributes> ruleAttributesList = ruleAttributesRepository.findAll();
+        assertThat(ruleAttributesList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkEndValueIsRequired() throws Exception {
+        int databaseSizeBeforeTest = ruleAttributesRepository.findAll().size();
+        // set the field null
+        ruleAttributes.setEndValue(null);
 
         // Create the RuleAttributes, which fails.
 
@@ -296,8 +347,10 @@ public class RuleAttributesResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(ruleAttributes.getId().intValue())))
             .andExpect(jsonPath("$.[*].ruleCode").value(hasItem(DEFAULT_RULE_CODE.toString())))
-            .andExpect(jsonPath("$.[*].attributeName").value(hasItem(DEFAULT_ATTRIBUTE_NAME.doubleValue())))
-            .andExpect(jsonPath("$.[*].attributeValue").value(hasItem(DEFAULT_ATTRIBUTE_VALUE.toString())))
+            .andExpect(jsonPath("$.[*].ruleName").value(hasItem(DEFAULT_RULE_NAME.toString())))
+            .andExpect(jsonPath("$.[*].alarmLevel").value(hasItem(DEFAULT_ALARM_LEVEL)))
+            .andExpect(jsonPath("$.[*].startValue").value(hasItem(DEFAULT_START_VALUE.doubleValue())))
+            .andExpect(jsonPath("$.[*].endValue").value(hasItem(DEFAULT_END_VALUE.doubleValue())))
             .andExpect(jsonPath("$.[*].createdBy").value(hasItem(DEFAULT_CREATED_BY.toString())))
             .andExpect(jsonPath("$.[*].createTime").value(hasItem(DEFAULT_CREATE_TIME.toString())))
             .andExpect(jsonPath("$.[*].updatedBy").value(hasItem(DEFAULT_UPDATED_BY.toString())))
@@ -316,8 +369,10 @@ public class RuleAttributesResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(ruleAttributes.getId().intValue()))
             .andExpect(jsonPath("$.ruleCode").value(DEFAULT_RULE_CODE.toString()))
-            .andExpect(jsonPath("$.attributeName").value(DEFAULT_ATTRIBUTE_NAME.doubleValue()))
-            .andExpect(jsonPath("$.attributeValue").value(DEFAULT_ATTRIBUTE_VALUE.toString()))
+            .andExpect(jsonPath("$.ruleName").value(DEFAULT_RULE_NAME.toString()))
+            .andExpect(jsonPath("$.alarmLevel").value(DEFAULT_ALARM_LEVEL))
+            .andExpect(jsonPath("$.startValue").value(DEFAULT_START_VALUE.doubleValue()))
+            .andExpect(jsonPath("$.endValue").value(DEFAULT_END_VALUE.doubleValue()))
             .andExpect(jsonPath("$.createdBy").value(DEFAULT_CREATED_BY.toString()))
             .andExpect(jsonPath("$.createTime").value(DEFAULT_CREATE_TIME.toString()))
             .andExpect(jsonPath("$.updatedBy").value(DEFAULT_UPDATED_BY.toString()))
@@ -344,6 +399,10 @@ public class RuleAttributesResourceIntTest {
         RuleAttributes updatedRuleAttributes = ruleAttributesRepository.findOne(ruleAttributes.getId());
         updatedRuleAttributes
             .ruleCode(UPDATED_RULE_CODE)
+            .ruleName(UPDATED_RULE_NAME)
+            .alarmLevel(UPDATED_ALARM_LEVEL)
+            .startValue(UPDATED_START_VALUE)
+            .endValue(UPDATED_END_VALUE)
             .createdBy(UPDATED_CREATED_BY)
             .createTime(UPDATED_CREATE_TIME)
             .updatedBy(UPDATED_UPDATED_BY)
@@ -359,6 +418,10 @@ public class RuleAttributesResourceIntTest {
         assertThat(ruleAttributesList).hasSize(databaseSizeBeforeUpdate);
         RuleAttributes testRuleAttributes = ruleAttributesList.get(ruleAttributesList.size() - 1);
         assertThat(testRuleAttributes.getRuleCode()).isEqualTo(UPDATED_RULE_CODE);
+        assertThat(testRuleAttributes.getRuleName()).isEqualTo(UPDATED_RULE_NAME);
+        assertThat(testRuleAttributes.getAlarmLevel()).isEqualTo(UPDATED_ALARM_LEVEL);
+        assertThat(testRuleAttributes.getStartValue()).isEqualTo(UPDATED_START_VALUE);
+        assertThat(testRuleAttributes.getEndValue()).isEqualTo(UPDATED_END_VALUE);
         assertThat(testRuleAttributes.getCreatedBy()).isEqualTo(UPDATED_CREATED_BY);
         assertThat(testRuleAttributes.getCreateTime()).isEqualTo(UPDATED_CREATE_TIME);
         assertThat(testRuleAttributes.getUpdatedBy()).isEqualTo(UPDATED_UPDATED_BY);

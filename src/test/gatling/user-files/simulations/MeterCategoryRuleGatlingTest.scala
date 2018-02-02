@@ -80,7 +80,7 @@ class MeterCategoryRuleGatlingTest extends Simulation {
             .exec(http("Create new meterCategoryRule")
             .post("/emcloudarc/api/meter-category-rules")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "meterCategoryCode":"0", "ruleCode":"SAMPLE_TEXT", "ruleName":"SAMPLE_TEXT", "analysis":"SAMPLE_TEXT", "createdBy":"SAMPLE_TEXT", "createTime":"2020-01-01T00:00:00.000Z", "updatedBy":"SAMPLE_TEXT", "updateTime":"2020-01-01T00:00:00.000Z"}""")).asJSON
+            .body(StringBody("""{"id":null, "meterCategoryCode":"0", "meterCategoryName":"SAMPLE_TEXT", "ruleCode":"SAMPLE_TEXT", "ruleName":"SAMPLE_TEXT", "analysis":"SAMPLE_TEXT", "createdBy":"SAMPLE_TEXT", "createTime":"2020-01-01T00:00:00.000Z", "updatedBy":"SAMPLE_TEXT", "updateTime":"2020-01-01T00:00:00.000Z"}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_meterCategoryRule_url"))).exitHereIfFailed
             .pause(10)

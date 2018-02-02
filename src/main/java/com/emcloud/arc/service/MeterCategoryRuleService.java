@@ -18,34 +18,25 @@ public interface MeterCategoryRuleService {
     MeterCategoryRule save(MeterCategoryRule meterCategoryRule);
 
     /**
-     * update a meterCategoryRule.
+     *  Get all the meterCategoryRules.
      *
-     * @param meterCategoryRule the entity to update
-     * @return the persisted entity
-     */
-    MeterCategoryRule update(MeterCategoryRule meterCategoryRule);
-
-
-    /**
-     * Get all the meterCategoryRules.
-     *
-     * @param pageable the pagination information
-     * @return the list of entities
+     *  @param pageable the pagination information
+     *  @return the list of entities
      */
     Page<MeterCategoryRule> findAll(Pageable pageable);
 
     /**
-     * Get the "id" meterCategoryRule.
+     *  Get the "id" meterCategoryRule.
      *
-     * @param id the id of the entity
-     * @return the entity
+     *  @param id the id of the entity
+     *  @return the entity
      */
     MeterCategoryRule findOne(Long id);
 
     /**
-     * Delete the "id" meterCategoryRule.
+     *  Delete the "id" meterCategoryRule.
      *
-     * @param id the id of the entity
+     *  @param id the id of the entity
      */
     void delete(Long id);
 }

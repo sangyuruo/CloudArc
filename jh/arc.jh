@@ -3,9 +3,9 @@
  * @author youhong
  */
 entity AnalysisEngine {
-  /** 名称*/
+  /** 名称 */
   name String maxlength(200) required,
-  /** 分析器*/
+  /** 分析器代码*/
   analysis String maxlength(64)  required,
   /** 是否有效 */
   enable Boolean required,
@@ -26,6 +26,8 @@ entity AnalysisEngine {
 entity RuleAttributes {
   /** 规则编码*/
   ruleCode String maxlength(64)  required,
+  /** 规则名称*/
+  ruleName String maxlength(200)  required,
   /**紧急度*/
   alarmLevel Integer required,
   /** 起始值*/
@@ -55,7 +57,7 @@ entity MeterRule {
   ruleCode String maxlength(64)  required,
   /** 规则名称*/
   ruleName String maxlength(200) required,
-  /** 分析器名*/
+  /** 分析器代码 */
   analysis String maxlength(64)  required,
   /** 是否有效 */
   enable Boolean required ,
@@ -76,11 +78,13 @@ entity MeterRule {
 entity MeterCategoryRule {
   /** 设备分类编码*/
   meterCategoryCode Integer  required,
+  /** 设备分类名称*/
+  meterCategoryName String maxlength(100)  required,
   /** 规则编码*/
   ruleCode String maxlength(64)  required,
   /** 规则名称*/
   ruleName String maxlength(200) required,
- /** 分析器名*/
+ /** 分析器代码*/
   analysis String maxlength(64)  required,
   /** 创建人*/
   createdBy String maxlength(20) required,
@@ -92,6 +96,3 @@ entity MeterCategoryRule {
   updateTime Instant  required
 }
 
-relationship OneToMany {
-  MeterCategoryRule{AnalysisEngine} to AnalysisEngine{MeterCategoryRule}
-}

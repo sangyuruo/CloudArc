@@ -26,6 +26,10 @@
                 <constraints nullable="false" />
             </column>
 
+            <column name="meter_category_name" type="varchar(100)">
+                <constraints nullable="false" />
+            </column>
+
             <column name="rule_code" type="varchar(64)">
                 <constraints nullable="false" />
             </column>

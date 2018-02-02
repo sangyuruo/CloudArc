@@ -44,7 +44,7 @@
         },
         {
             "fieldName": "analysis",
-            "javadoc": "分析器名",
+            "javadoc": "分析器代码",
             "fieldType": "String",
             "fieldValidateRules": [
                 "maxlength",

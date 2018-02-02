@@ -1,6 +1,5 @@
 package com.emcloud.arc.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Cache;
@@ -8,11 +7,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
-
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -40,6 +36,15 @@ public class MeterCategoryRule implements Serializable {
     private Integer meterCategoryCode;
 
     /**
+     * 设备分类名称
+     */
+    @NotNull
+    @Size(max = 100)
+    @ApiModelProperty(value = "设备分类名称", required = true)
+    @Column(name = "meter_category_name", length = 100, nullable = false)
+    private String meterCategoryName;
+
+    /**
      * 规则编码
      */
     @NotNull
@@ -58,16 +63,18 @@ public class MeterCategoryRule implements Serializable {
     private String ruleName;
 
     /**
-     * 分析器名
+     * 分析器代码
      */
+    @NotNull
     @Size(max = 64)
-    @ApiModelProperty(value = "分析器名", required = true)
+    @ApiModelProperty(value = "分析器代码", required = true)
     @Column(name = "analysis", length = 64, nullable = false)
     private String analysis;
 
     /**
      * 创建人
      */
+    @NotNull
     @Size(max = 20)
     @ApiModelProperty(value = "创建人", required = true)
     @Column(name = "created_by", length = 20, nullable = false)
@@ -76,6 +83,7 @@ public class MeterCategoryRule implements Serializable {
     /**
      * 创建时间
      */
+    @NotNull
     @ApiModelProperty(value = "创建时间", required = true)
     @Column(name = "create_time", nullable = false)
     private Instant createTime;
@@ -83,6 +91,7 @@ public class MeterCategoryRule implements Serializable {
     /**
      * 修改人
      */
+    @NotNull
     @Size(max = 20)
     @ApiModelProperty(value = "修改人", required = true)
     @Column(name = "updated_by", length = 20, nullable = false)
@@ -91,14 +100,10 @@ public class MeterCategoryRule implements Serializable {
     /**
      * 修改时间
      */
+    @NotNull
     @ApiModelProperty(value = "修改时间", required = true)
     @Column(name = "update_time", nullable = false)
     private Instant updateTime;
-
-    @OneToMany(mappedBy = "meterCategoryRule")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<AnalysisEngine> analysisEngines = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -120,6 +125,19 @@ public class MeterCategoryRule implements Serializable {
 
     public void setMeterCategoryCode(Integer meterCategoryCode) {
         this.meterCategoryCode = meterCategoryCode;
+    }
+
+    public String getMeterCategoryName() {
+        return meterCategoryName;
+    }
+
+    public MeterCategoryRule meterCategoryName(String meterCategoryName) {
+        this.meterCategoryName = meterCategoryName;
+        return this;
+    }
+
+    public void setMeterCategoryName(String meterCategoryName) {
+        this.meterCategoryName = meterCategoryName;
     }
 
     public String getRuleCode() {
@@ -212,31 +230,6 @@ public class MeterCategoryRule implements Serializable {
     public void setUpdateTime(Instant updateTime) {
         this.updateTime = updateTime;
     }
-
-    public Set<AnalysisEngine> getAnalysisEngines() {
-        return analysisEngines;
-    }
-
-    public MeterCategoryRule analysisEngines(Set<AnalysisEngine> analysisEngines) {
-        this.analysisEngines = analysisEngines;
-        return this;
-    }
-
-    public MeterCategoryRule addAnalysisEngine(AnalysisEngine analysisEngine) {
-        this.analysisEngines.add(analysisEngine);
-        analysisEngine.setMeterCategoryRule(this);
-        return this;
-    }
-
-    public MeterCategoryRule removeAnalysisEngine(AnalysisEngine analysisEngine) {
-        this.analysisEngines.remove(analysisEngine);
-        analysisEngine.setMeterCategoryRule(null);
-        return this;
-    }
-
-    public void setAnalysisEngines(Set<AnalysisEngine> analysisEngines) {
-        this.analysisEngines = analysisEngines;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -263,7 +256,8 @@ public class MeterCategoryRule implements Serializable {
     public String toString() {
         return "MeterCategoryRule{" +
             "id=" + getId() +
-            ", meterCategoryCode=" + getMeterCategoryCode() +
+            ", meterCategoryCode='" + getMeterCategoryCode() + "'" +
+            ", meterCategoryName='" + getMeterCategoryName() + "'" +
             ", ruleCode='" + getRuleCode() + "'" +
             ", ruleName='" + getRuleName() + "'" +
             ", analysis='" + getAnalysis() + "'" +
