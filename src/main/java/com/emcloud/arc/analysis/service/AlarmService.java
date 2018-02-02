@@ -1,16 +1,19 @@
 package com.emcloud.arc.analysis.service;
 
-
 import com.emcloud.arc.analysis.analysis.AnalysisFactory;
 import com.emcloud.arc.analysis.analysis.DefaultAnalysisResult;
 import com.emcloud.arc.analysis.analysis.DefaultOneParamAnalysis;
+import com.emcloud.arc.domain.SmartMeterData;
+import com.emcloud.arc.repository.AnalysisEngineRepository;
 import com.emcloud.arc.domain.*;
-import com.emcloud.arc.repository.AlarmRuleRepository;
 import com.emcloud.arc.repository.MeterCategoryRuleRepository;
 import com.emcloud.arc.repository.MeterRuleRepository;
 import com.emcloud.arc.repository.RuleAttributesRepository;
+<<<<<<< HEAD
 import org.springframework.stereotype.Service;
 
+=======
+>>>>>>> d52488f7e8b5d26f3cc927eac5f40a60fceca28d
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,17 +21,22 @@ import java.util.List;
 public class AlarmService {
 
 
+    private AnalysisEngineRepository analysisEngineRepository;
+
+
     private AnalysisFactory analysisFactory = new AnalysisFactory();
-    private AlarmRuleRepository alarmRuleRepository;
+
     private RuleAttributesRepository ruleAttributesRepository;
+
     private MeterCategoryRuleRepository meterCategoryRuleRepository;
+
     private MeterRuleRepository meterRuleRepository;
 
-    public AlarmService(AlarmRuleRepository alarmRuleRepository,
+    public AlarmService(AnalysisEngineRepository analysisEngineRepository,
                         RuleAttributesRepository ruleAttributesRepository,
                         MeterCategoryRuleRepository meterCategoryRuleRepository,
                         MeterRuleRepository meterRuleRepository) {
-        this.alarmRuleRepository = alarmRuleRepository;
+        this.analysisEngineRepository = analysisEngineRepository;
         this.ruleAttributesRepository = ruleAttributesRepository;
         this.meterCategoryRuleRepository = meterCategoryRuleRepository;
         this.meterRuleRepository = meterRuleRepository;
@@ -81,7 +89,7 @@ public class AlarmService {
         for (MeterCategoryRule meterCategoryRule : meterCategoryRuleList) {
             boolean ismatch = false;
             for (MeterRule meterRule : meterRuleList) {
-                if (meterRule.getClassName().equals(meterCategoryRule.getClassName())) {
+                if (meterRule.getAnalysis().equals(meterCategoryRule.getAnalysis())) {
                     ismatch = true;
                     break;
                 }
@@ -93,6 +101,7 @@ public class AlarmService {
                 rules.add(ruleDTO);
             }
         }
+
 
         List<DefaultAnalysisResult> results = new ArrayList<>();
         for (RuleDTO ruleDTO : rules) {
@@ -115,7 +124,7 @@ public class AlarmService {
 
     private RuleDTO covertToRuleDTO(MeterRule meterRule) {
         RuleDTO ruleDTO=new RuleDTO();
-        ruleDTO.setClassName(meterRule.getClassName());
+        ruleDTO.setClassName(meterRule.getAnalysis());
         ruleDTO.setRuleCode(meterRule.getRuleCode());
         return ruleDTO;
     }
@@ -123,7 +132,7 @@ public class AlarmService {
     private RuleDTO covertToRuleDTO(MeterCategoryRule meterCategoryRule) {
         RuleDTO ruleDTO =new RuleDTO();
         ruleDTO.setRuleCode(meterCategoryRule.getRuleCode());
-        ruleDTO.setClassName(meterCategoryRule.getClassName());
+        ruleDTO.setClassName(meterCategoryRule.getAnalysis());
         return ruleDTO;
     }
 

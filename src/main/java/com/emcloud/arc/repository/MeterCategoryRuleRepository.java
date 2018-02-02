@@ -5,8 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import org.springframework.data.jpa.repository.*;
 
-import java.util.List;
-
 
 /**
  * Spring Data JPA repository for the MeterCategoryRule entity.
@@ -14,6 +12,5 @@ import java.util.List;
 @SuppressWarnings("unused")
 @Repository
 public interface MeterCategoryRuleRepository extends JpaRepository<MeterCategoryRule, Long> {
-    List<MeterCategoryRule> findAll();
 
 }

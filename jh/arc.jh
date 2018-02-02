@@ -1,14 +1,12 @@
  /**
- * 报警分类表
+ * 分析引擎表
  * @author youhong
  */
-entity AlarmRule {
-  /** 规则名称*/
-  ruleName String maxlength(200) required,
-  /** 规则编码*/
-  ruleCode String maxlength(64)  required,
-  /** 分析器名*/
-  className String maxlength(64)  required,
+entity AnalysisEngine {
+  /** 名称*/
+  name String maxlength(200) required,
+  /** 分析器*/
+  analysis String maxlength(64)  required,
   /** 是否有效 */
   enable Boolean required,
   /** 创建人*/
@@ -58,7 +56,7 @@ entity MeterRule {
   /** 规则名称*/
   ruleName String maxlength(200) required,
   /** 分析器名*/
-  className String maxlength(64)  required,
+  analysis String maxlength(64)  required,
   /** 是否有效 */
   enable Boolean required ,
   /** 创建人*/
@@ -83,7 +81,7 @@ entity MeterCategoryRule {
   /** 规则名称*/
   ruleName String maxlength(200) required,
  /** 分析器名*/
-  className String maxlength(64)  required,
+  analysis String maxlength(64)  required,
   /** 创建人*/
   createdBy String maxlength(20) required,
   /** 创建时间*/
@@ -95,9 +93,5 @@ entity MeterCategoryRule {
 }
 
 relationship OneToMany {
-  AlarmRule{RuleAttributes} to RuleAttributes{AlarmRule}
-}
-
-relationship OneToMany {
-  MeterCategoryRule{AlarmRule} to AlarmRule{MeterCategoryRule}
+  MeterCategoryRule{AnalysisEngine} to AnalysisEngine{MeterCategoryRule}
 }

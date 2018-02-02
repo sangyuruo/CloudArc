@@ -3,8 +3,8 @@
     "relationships": [
         {
             "relationshipType": "one-to-many",
-            "relationshipName": "alarmRule",
-            "otherEntityName": "alarmRule",
+            "relationshipName": "analysisEngine",
+            "otherEntityName": "analysisEngine",
             "otherEntityRelationshipName": "meterCategoryRule"
         }
     ],
@@ -38,7 +38,7 @@
             "fieldValidateRulesMaxlength": 200
         },
         {
-            "fieldName": "className",
+            "fieldName": "analysis",
             "javadoc": "分析器名",
             "fieldType": "String",
             "fieldValidateRules": [

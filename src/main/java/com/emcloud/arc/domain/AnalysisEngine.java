@@ -1,6 +1,5 @@
 package com.emcloud.arc.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Cache;
@@ -8,21 +7,20 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
 
 /**
- * 报警服务规则表
+ * 分析引擎表
  * @author youhong
  */
-@ApiModel(description = "报警服务规则表 @author youhong")
+@ApiModel(description = "分析引擎表 @author youhong")
 @Entity
-@Table(name = "alarm_rule")
+@Table(name = "analysis_engine")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class AlarmRule implements Serializable {
+public class AnalysisEngine implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -31,31 +29,22 @@ public class AlarmRule implements Serializable {
     private Long id;
 
     /**
-     * 规则名称
+     * 名称
      */
     @NotNull
     @Size(max = 200)
-    @ApiModelProperty(value = "规则名称", required = true)
-    @Column(name = "rule_name", length = 200, nullable = false)
-    private String ruleName;
+    @ApiModelProperty(value = "名称", required = true)
+    @Column(name = "name", length = 200, nullable = false)
+    private String name;
 
     /**
-     * 规则编码
+     * 分析器
      */
     @NotNull
     @Size(max = 64)
-    @ApiModelProperty(value = "规则编码", required = true)
-    @Column(name = "rule_code", length = 64, nullable = false)
-    private String ruleCode;
-
-    /**
-     * 分析器名
-     */
-    @NotNull
-    @Size(max = 64)
-    @ApiModelProperty(value = "分析器名", required = true)
-    @Column(name = "class_name", length = 64, nullable = false)
-    private String className;
+    @ApiModelProperty(value = "分析器", required = true)
+    @Column(name = "analysis", length = 64, nullable = false)
+    private String analysis;
 
     /**
      * 是否有效
@@ -95,11 +84,6 @@ public class AlarmRule implements Serializable {
     @Column(name = "update_time", nullable = false)
     private Instant updateTime;
 
-    @OneToMany(mappedBy = "alarmRule")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<RuleAttributes> ruleAttributes = new HashSet<>();
-
     @ManyToOne
     private MeterCategoryRule meterCategoryRule;
 
@@ -112,50 +96,37 @@ public class AlarmRule implements Serializable {
         this.id = id;
     }
 
-    public String getRuleName() {
-        return ruleName;
+    public String getName() {
+        return name;
     }
 
-    public AlarmRule ruleName(String ruleName) {
-        this.ruleName = ruleName;
+    public AnalysisEngine name(String name) {
+        this.name = name;
         return this;
     }
 
-    public void setRuleName(String ruleName) {
-        this.ruleName = ruleName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getRuleCode() {
-        return ruleCode;
+    public String getAnalysis() {
+        return analysis;
     }
 
-    public AlarmRule ruleCode(String ruleCode) {
-        this.ruleCode = ruleCode;
+    public AnalysisEngine analysis(String analysis) {
+        this.analysis = analysis;
         return this;
     }
 
-    public void setRuleCode(String ruleCode) {
-        this.ruleCode = ruleCode;
-    }
-
-    public String getClassName() {
-        return className;
-    }
-
-    public AlarmRule className(String className) {
-        this.className = className;
-        return this;
-    }
-
-    public void setClassName(String className) {
-        this.className = className;
+    public void setAnalysis(String analysis) {
+        this.analysis = analysis;
     }
 
     public Boolean isEnable() {
         return enable;
     }
 
-    public AlarmRule enable(Boolean enable) {
+    public AnalysisEngine enable(Boolean enable) {
         this.enable = enable;
         return this;
     }
@@ -168,7 +139,7 @@ public class AlarmRule implements Serializable {
         return createdBy;
     }
 
-    public AlarmRule createdBy(String createdBy) {
+    public AnalysisEngine createdBy(String createdBy) {
         this.createdBy = createdBy;
         return this;
     }
@@ -181,7 +152,7 @@ public class AlarmRule implements Serializable {
         return createTime;
     }
 
-    public AlarmRule createTime(Instant createTime) {
+    public AnalysisEngine createTime(Instant createTime) {
         this.createTime = createTime;
         return this;
     }
@@ -194,7 +165,7 @@ public class AlarmRule implements Serializable {
         return updatedBy;
     }
 
-    public AlarmRule updatedBy(String updatedBy) {
+    public AnalysisEngine updatedBy(String updatedBy) {
         this.updatedBy = updatedBy;
         return this;
     }
@@ -207,7 +178,7 @@ public class AlarmRule implements Serializable {
         return updateTime;
     }
 
-    public AlarmRule updateTime(Instant updateTime) {
+    public AnalysisEngine updateTime(Instant updateTime) {
         this.updateTime = updateTime;
         return this;
     }
@@ -216,37 +187,11 @@ public class AlarmRule implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Set<RuleAttributes> getRuleAttributes() {
-        return ruleAttributes;
-    }
-
-    public AlarmRule ruleAttributes(Set<RuleAttributes> ruleAttributes) {
-        this.ruleAttributes = ruleAttributes;
-        return this;
-    }
-
-    public AlarmRule addRuleAttributes(RuleAttributes ruleAttributes) {
-        this.ruleAttributes.add(ruleAttributes);
-        ruleAttributes.setAlarmRule(this);
-        return this;
-    }
-
-    public AlarmRule removeRuleAttributes(RuleAttributes ruleAttributes) {
-        this.ruleAttributes.remove(ruleAttributes);
-        ruleAttributes.setAlarmRule(null);
-        return this;
-    }
-
-    public void setRuleAttributes(Set<RuleAttributes> ruleAttributes) {
-        this.ruleAttributes = ruleAttributes;
-    }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
-
     public MeterCategoryRule getMeterCategoryRule() {
         return meterCategoryRule;
     }
 
-    public AlarmRule meterCategoryRule(MeterCategoryRule meterCategoryRule) {
+    public AnalysisEngine meterCategoryRule(MeterCategoryRule meterCategoryRule) {
         this.meterCategoryRule = meterCategoryRule;
         return this;
     }
@@ -254,6 +199,7 @@ public class AlarmRule implements Serializable {
     public void setMeterCategoryRule(MeterCategoryRule meterCategoryRule) {
         this.meterCategoryRule = meterCategoryRule;
     }
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {
@@ -263,11 +209,11 @@ public class AlarmRule implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        AlarmRule alarmRule = (AlarmRule) o;
-        if (alarmRule.getId() == null || getId() == null) {
+        AnalysisEngine analysisEngine = (AnalysisEngine) o;
+        if (analysisEngine.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(getId(), alarmRule.getId());
+        return Objects.equals(getId(), analysisEngine.getId());
     }
 
     @Override
@@ -277,11 +223,10 @@ public class AlarmRule implements Serializable {
 
     @Override
     public String toString() {
-        return "AlarmRule{" +
+        return "AnalysisEngine{" +
             "id=" + getId() +
-            ", ruleName='" + getRuleName() + "'" +
-            ", ruleCode='" + getRuleCode() + "'" +
-            ", className='" + getClassName() + "'" +
+            ", name='" + getName() + "'" +
+            ", analysis='" + getAnalysis() + "'" +
             ", enable='" + isEnable() + "'" +
             ", createdBy='" + getCreatedBy() + "'" +
             ", createTime='" + getCreateTime() + "'" +

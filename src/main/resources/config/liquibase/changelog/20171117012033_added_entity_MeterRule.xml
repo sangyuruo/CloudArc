@@ -38,7 +38,7 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="class_name" type="varchar(64)">
+            <column name="analysis" type="varchar(64)">
                 <constraints nullable="false" />
             </column>
 

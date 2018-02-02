@@ -8,6 +8,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
@@ -61,8 +62,8 @@ public class MeterCategoryRule implements Serializable {
      */
     @Size(max = 64)
     @ApiModelProperty(value = "分析器名", required = true)
-    @Column(name = "class_name", length = 64, nullable = false)
-    private String className;
+    @Column(name = "analysis", length = 64, nullable = false)
+    private String analysis;
 
     /**
      * 创建人
@@ -97,7 +98,7 @@ public class MeterCategoryRule implements Serializable {
     @OneToMany(mappedBy = "meterCategoryRule")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<AlarmRule> alarmRules = new HashSet<>();
+    private Set<AnalysisEngine> analysisEngines = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -147,17 +148,17 @@ public class MeterCategoryRule implements Serializable {
         this.ruleName = ruleName;
     }
 
-    public String getClassName() {
-        return className;
+    public String getAnalysis() {
+        return analysis;
     }
 
-    public MeterCategoryRule className(String className) {
-        this.className = className;
+    public MeterCategoryRule analysis(String analysis) {
+        this.analysis = analysis;
         return this;
     }
 
-    public void setClassName(String className) {
-        this.className = className;
+    public void setAnalysis(String analysis) {
+        this.analysis = analysis;
     }
 
     public String getCreatedBy() {
@@ -212,29 +213,29 @@ public class MeterCategoryRule implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Set<AlarmRule> getAlarmRules() {
-        return alarmRules;
+    public Set<AnalysisEngine> getAnalysisEngines() {
+        return analysisEngines;
     }
 
-    public MeterCategoryRule alarmRules(Set<AlarmRule> alarmRules) {
-        this.alarmRules = alarmRules;
+    public MeterCategoryRule analysisEngines(Set<AnalysisEngine> analysisEngines) {
+        this.analysisEngines = analysisEngines;
         return this;
     }
 
-    public MeterCategoryRule addAlarmRule(AlarmRule alarmRule) {
-        this.alarmRules.add(alarmRule);
-        alarmRule.setMeterCategoryRule(this);
+    public MeterCategoryRule addAnalysisEngine(AnalysisEngine analysisEngine) {
+        this.analysisEngines.add(analysisEngine);
+        analysisEngine.setMeterCategoryRule(this);
         return this;
     }
 
-    public MeterCategoryRule removeAlarmRule(AlarmRule alarmRule) {
-        this.alarmRules.remove(alarmRule);
-        alarmRule.setMeterCategoryRule(null);
+    public MeterCategoryRule removeAnalysisEngine(AnalysisEngine analysisEngine) {
+        this.analysisEngines.remove(analysisEngine);
+        analysisEngine.setMeterCategoryRule(null);
         return this;
     }
 
-    public void setAlarmRules(Set<AlarmRule> alarmRules) {
-        this.alarmRules = alarmRules;
+    public void setAnalysisEngines(Set<AnalysisEngine> analysisEngines) {
+        this.analysisEngines = analysisEngines;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -258,15 +259,14 @@ public class MeterCategoryRule implements Serializable {
         return Objects.hashCode(getId());
     }
 
-
     @Override
     public String toString() {
         return "MeterCategoryRule{" +
             "id=" + getId() +
-            ", meterCategoryCode='" + getMeterCategoryCode() + "'" +
+            ", meterCategoryCode=" + getMeterCategoryCode() +
             ", ruleCode='" + getRuleCode() + "'" +
             ", ruleName='" + getRuleName() + "'" +
-            ", className='" + getClassName() + "'" +
+            ", analysis='" + getAnalysis() + "'" +
             ", createdBy='" + getCreatedBy() + "'" +
             ", createTime='" + getCreateTime() + "'" +
             ", updatedBy='" + getUpdatedBy() + "'" +
