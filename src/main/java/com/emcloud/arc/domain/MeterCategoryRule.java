@@ -60,7 +60,6 @@ public class MeterCategoryRule implements Serializable {
     /**
      * 分析器名
      */
-    @NotNull
     @Size(max = 64)
     @ApiModelProperty(value = "分析器名", required = true)
     @Column(name = "analysis", length = 64, nullable = false)

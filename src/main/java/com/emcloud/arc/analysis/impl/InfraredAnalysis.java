@@ -7,8 +7,10 @@ import com.emcloud.arc.domain.RuleAttributes;
 import java.util.List;
 import java.util.Map;
 
-public class InfraredAnalysis extends DefaultOneParamAnalysis {
+public abstract class InfraredAnalysis extends DefaultOneParamAnalysis {
     static final String infraredkey = "";
+
+
     @Override
     public DefaultAnalysisResult handle(Float infrared, List<RuleAttributes> ruleAttributesList) {
         DefaultAnalysisResult defaultAnalysis = new DefaultAnalysisResult();

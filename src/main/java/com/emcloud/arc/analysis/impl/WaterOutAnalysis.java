@@ -8,7 +8,8 @@ import com.emcloud.arc.domain.RuleAttributes;
 import java.util.List;
 import java.util.Map;
 
-public class WaterOutAnalysis extends DefaultOneParamAnalysis {
+public abstract class WaterOutAnalysis extends DefaultOneParamAnalysis {
+
     @Override
     public DefaultAnalysisResult handle(Float waterlev, List<RuleAttributes> ruleAttributesList) {
         DefaultAnalysisResult defaultAnalysis = new DefaultAnalysisResult();

@@ -9,6 +9,15 @@ import java.util.Map;
 
 //无功
 public class ReactivePowerAnalysis   extends DefaultOneParamAnalysis {
+    /*public ReactivePowerAnalysis() {
+        super(ruleAttributesRepository, meterRuleRepository);
+    }*/
+
+    @Override
+    public String getKey() {
+        return null;
+    }
+
     @Override
     public DefaultAnalysisResult handle(Float reactivePower, List<RuleAttributes> ruleAttributesList) {
         DefaultAnalysisResult defaultAnalysis = new DefaultAnalysisResult();

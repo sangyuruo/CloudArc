@@ -8,29 +8,17 @@ import com.emcloud.arc.domain.RuleAttributes;
 import java.util.List;
 import java.util.Map;
 
-public  class ElectricityAnalysis extends DefaultOneParamAnalysis {
+public abstract class ElectricityAnalysis extends DefaultOneParamAnalysis {
+
 
     @Override
     public DefaultAnalysisResult handle(Float electricity, List<RuleAttributes> ruleAttributesList) {
-        DefaultAnalysisResult defaultAnalysis = new DefaultAnalysisResult();
-        int alarmLevel = 0;
-        boolean alarm = true;
-        if (electricity > 200 && electricity < 300) {
-            alarmLevel = 1;
-        } else if (electricity >300  && electricity < 400) {
-            alarmLevel = 2;
-        } else if (electricity > 400) {
-            alarmLevel = 3;
-        }else{
-            alarm = false;
-        }
-        defaultAnalysis.setAlarm( alarm );
-        defaultAnalysis.setAlarmLevel(alarmLevel);
-        return defaultAnalysis;
+        return null;
+
     }
 
     @Override
     public DefaultAnalysisResult handle(Map<String, Float> data, List<RuleAttributes> ruleAttributesList) {
-        return handle(data.get(""),ruleAttributesList );
+        return handle(data.get( getKey() ), ruleAttributesList);
     }
 }

@@ -7,7 +7,8 @@ import com.emcloud.arc.domain.RuleAttributes;
 import java.util.List;
 import java.util.Map;
 
-public class Pm25Analysis extends DefaultOneParamAnalysis {
+public abstract class Pm25Analysis extends DefaultOneParamAnalysis {
+
 
     @Override
     public DefaultAnalysisResult handle(Float pm25, List<RuleAttributes> ruleAttributesList) {
