@@ -9,10 +9,12 @@ import com.emcloud.arc.repository.AlarmRuleRepository;
 import com.emcloud.arc.repository.MeterCategoryRuleRepository;
 import com.emcloud.arc.repository.MeterRuleRepository;
 import com.emcloud.arc.repository.RuleAttributesRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class AlarmService {
 
 
@@ -126,40 +128,6 @@ public class AlarmService {
     }
 
 
-//    public List<DefaultAnalysisResult> analysis(SmartMeterData smartMeterData) {
-//        List<DefaultAnalysisResult> list = new ArrayList<>();
-//        List<DefaultOneParamAnalysis> analyses = new ArrayList<>();
-//
-//        if (smartMeterData.getCategory() == 45) {//45	建大仁科红外探测
-//            analyses.add(infraredAnalysis);
-//        }else  if (smartMeterData.getCategory() == 44) {//44	建大仁科水浸检测
-//            analyses.add(waterOutAnalysis);
-//        }else  if (smartMeterData.getCategory() == 42) {//42	建大仁科温湿度
-//            analyses.add(temperatureAnalysis);
-//            analyses.add(humidityAnalysis);
-//        }else  if (smartMeterData.getCategory() == 43) {//43	建大仁科PM2.5和PM10
-//            analyses.add(electricityAnalysis);
-//            analyses.add(voltageAnalysis);
-//            analyses.add(powerAnalysis);
-//            analyses.add(pm10Analysis);
-//            analyses.add(pm25Analysis);
-//        }else  if (smartMeterData.getCategory() == 22) {//22	GL-100液位计
-//            analyses.add(waterLevelAnalysis);
-//            analyses.add(reactivePowerAnalysis);
-//        }
-
-
-//        Map<String, Float> data = smartMeterData.getData();
-//        for (DefaultOneParamAnalysis dopa: analyses ){
-//            DefaultAnalysisResult result =  dopa.handle(data,);
-//            if( result.isAlarm() ){
-//
-//                list.add(result);
-//            }
-//        }
-
-//        return list;
-//    }
 
 
 }

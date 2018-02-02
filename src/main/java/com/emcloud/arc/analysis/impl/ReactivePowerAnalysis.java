@@ -10,6 +10,11 @@ import java.util.Map;
 public abstract class ReactivePowerAnalysis extends DefaultOneParamAnalysis {
 
     @Override
+    public String getKey() {
+        return null;
+    }
+
+    @Override
     public DefaultAnalysisResult handle(Float tem, List<RuleAttributes> ruleAttributesList) {
         DefaultAnalysisResult defaultAnalysis = new DefaultAnalysisResult();
         int alarmLevel = 0;

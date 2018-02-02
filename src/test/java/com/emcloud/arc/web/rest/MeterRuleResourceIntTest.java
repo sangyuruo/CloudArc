@@ -2,6 +2,7 @@ package com.emcloud.arc.web.rest;
 
 import com.emcloud.arc.EmCloudArcApp;
 
+import com.emcloud.arc.analysis.service.AlarmService;
 import com.emcloud.arc.config.SecurityBeanOverrideConfiguration;
 
 import com.emcloud.arc.domain.MeterRule;
@@ -74,6 +75,8 @@ public class MeterRuleResourceIntTest {
     private MeterRuleRepository meterRuleRepository;
 
     @Autowired
+    private AlarmService alarmService;
+    @Autowired
     private MeterRuleService meterRuleService;
 
     @Autowired
@@ -95,7 +98,7 @@ public class MeterRuleResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final MeterRuleResource meterRuleResource = new MeterRuleResource(meterRuleService);
+        final MeterRuleResource meterRuleResource = new MeterRuleResource(meterRuleService, alarmService);
         this.restMeterRuleMockMvc = MockMvcBuilders.standaloneSetup(meterRuleResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

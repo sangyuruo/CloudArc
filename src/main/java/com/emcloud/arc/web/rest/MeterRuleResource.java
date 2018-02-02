@@ -1,7 +1,9 @@
 package com.emcloud.arc.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.emcloud.arc.analysis.service.AlarmService;
 import com.emcloud.arc.domain.MeterRule;
+import com.emcloud.arc.domain.SmartMeterData;
 import com.emcloud.arc.service.MeterRuleService;
 import com.emcloud.arc.web.rest.errors.BadRequestAlertException;
 import com.emcloud.arc.web.rest.util.HeaderUtil;
@@ -15,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -37,8 +40,10 @@ public class MeterRuleResource {
 
     private final MeterRuleService meterRuleService;
 
-    public MeterRuleResource(MeterRuleService meterRuleService) {
+    private final  AlarmService alarmService;
+    public MeterRuleResource(MeterRuleService meterRuleService, AlarmService alarmService) {
         this.meterRuleService = meterRuleService;
+        this.alarmService = alarmService;
     }
 
     /**
@@ -59,6 +64,17 @@ public class MeterRuleResource {
         return ResponseEntity.created(new URI("/api/meter-rules/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
+    }
+
+    @PostMapping("/meter-rules/json")
+    @Timed
+    public String json(@Valid @RequestBody SmartMeterData smartMeterData) throws URISyntaxException {
+
+        if (smartMeterData.getId() != null) {
+            throw new BadRequestAlertException("A new meterRule cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        System.out.println(alarmService.analysis(smartMeterData));
+        return "成功";
     }
 
     /**
