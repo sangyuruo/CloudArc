@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.util.UUID;
 
 
 /**
@@ -42,6 +43,7 @@ public class MeterRuleServiceImpl implements MeterRuleService{
         meterRule.setCreateTime(Instant.now());
         meterRule.setUpdatedBy(SecurityUtils.getCurrentUserLogin());
         meterRule.setUpdateTime(Instant.now());
+        meterRule.setRuleCode( UUID.randomUUID().toString() );
         return meterRuleRepository.save(meterRule);
     }
 

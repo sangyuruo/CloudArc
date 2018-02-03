@@ -43,7 +43,6 @@ public class RuleAttributesServiceImpl implements RuleAttributesService{
         ruleAttributes.setCreateTime(Instant.now());
         ruleAttributes.setUpdatedBy(SecurityUtils.getCurrentUserLogin());
         ruleAttributes.setUpdateTime(Instant.now());
-        ruleAttributes.setRuleCode( UUID.randomUUID().toString() );
         return ruleAttributesRepository.save(ruleAttributes);
     }
 
