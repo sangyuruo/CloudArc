@@ -10,8 +10,6 @@ import com.emcloud.arc.domain.*;
 import com.emcloud.arc.repository.MeterCategoryRuleRepository;
 import com.emcloud.arc.repository.MeterRuleRepository;
 import com.emcloud.arc.repository.RuleAttributesRepository;
-import com.mysql.jdbc.log.Log;
-import com.sun.media.jfxmedia.logging.Logger;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -25,7 +23,6 @@ public class AlarmService {
     private AnalysisEngineRepository analysisEngineRepository;
 
 
-    private AnalysisFactory analysisFactory = new AnalysisFactory();
 
     private RuleAttributesRepository ruleAttributesRepository;
 
@@ -106,14 +103,21 @@ public class AlarmService {
             List<RuleAttributes> attributes = getRuleAttributes(ruleDTO.getRuleCode());
 
 
+
+            DefaultOneParamAnalysis analysis = AnalysisFactory.getInstance().getAnalysis(ruleDTO.getAnalysis());
+
             //判断是否有这个analysis 没有则抛异常(log.ERRO())
-            DefaultOneParamAnalysis analysis = analysisFactory.getAnalysis(ruleDTO.getClassName());
-            if(StringUtils.isBlank(analysis+"")){
+            if(analysis==null){
 
                 log.error("没有这个分析器",new NullPointerException("NUll"));
             }
 
+
             DefaultAnalysisResult result = analysis.handle(smartMeterData.getData(), attributes);
+            //。。。
+            result.setMeterId(ruleDTO.getMeterId());
+            result.setType(ruleDTO.getAnalysis());
+            result.setMessage(ruleDTO.getType());
             if (result.isAlarm()) {
                 results.add(result);
             }
@@ -129,15 +133,20 @@ public class AlarmService {
 
     private RuleDTO covertToRuleDTO(MeterRule meterRule) {
         RuleDTO ruleDTO=new RuleDTO();
-        ruleDTO.setClassName(meterRule.getAnalysis());
+        ruleDTO.setAnalysis(meterRule.getAnalysis());
         ruleDTO.setRuleCode(meterRule.getRuleCode());
+
+        //。。。
+        ruleDTO.setMeterId(meterRule.getMeterCode());
+        ruleDTO.setType(meterRule.getAnalysis());
+        ruleDTO.setMessage(meterRule.getRuleName());
         return ruleDTO;
     }
 
     private RuleDTO covertToRuleDTO(MeterCategoryRule meterCategoryRule) {
         RuleDTO ruleDTO =new RuleDTO();
         ruleDTO.setRuleCode(meterCategoryRule.getRuleCode());
-        ruleDTO.setClassName(meterCategoryRule.getAnalysis());
+        ruleDTO.setAnalysis(meterCategoryRule.getAnalysis());
         return ruleDTO;
     }
 
