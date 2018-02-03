@@ -20,7 +20,7 @@ entity AnalysisEngine {
 }
 
   /**
- * 规则属性表
+ * 报警规则属性表
  * @author youhong
  */
 entity RuleAttributes {
