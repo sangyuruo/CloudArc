@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -72,6 +73,11 @@ public class MeterCategoryRuleServiceImpl implements MeterCategoryRuleService{
     public Page<MeterCategoryRule> findAll(Pageable pageable) {
         log.debug("Request to get all MeterCategoryRules");
         return meterCategoryRuleRepository.findAll(pageable);
+    }
+
+    @Override
+    public List<MeterCategoryRule> findAll() {
+        return meterCategoryRuleRepository.findAll();
     }
 
     /**

@@ -1,7 +1,9 @@
 package com.emcloud.arc.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.emcloud.arc.domain.MeterCategoryRule;
 import com.emcloud.arc.domain.MeterRule;
+import com.emcloud.arc.service.MeterCategoryRuleService;
 import com.emcloud.arc.service.MeterRuleService;
 import com.emcloud.arc.web.rest.errors.BadRequestAlertException;
 import com.emcloud.arc.web.rest.util.HeaderUtil;
@@ -21,6 +23,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,9 +39,11 @@ public class MeterRuleResource {
     private static final String ENTITY_NAME = "meterRule";
 
     private final MeterRuleService meterRuleService;
+    private final MeterCategoryRuleService meterCategoryRuleService;
 
-    public MeterRuleResource(MeterRuleService meterRuleService) {
+    public MeterRuleResource(MeterRuleService meterRuleService, MeterCategoryRuleService meterCategoryRuleService) {
         this.meterRuleService = meterRuleService;
+        this.meterCategoryRuleService = meterCategoryRuleService;
     }
 
     /**
@@ -97,6 +102,29 @@ public class MeterRuleResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/meter-rules");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
+    @GetMapping("meter-rules/test")
+    @Timed
+    public List<String> getTest() {
+        log.debug("REST request to get a page of MeterCategoryRules");
+        List<MeterCategoryRule> list = meterCategoryRuleService.findAll();
+        List<MeterRule> list2 = meterRuleService.findAll();
+        String mcr;
+        String  mr;
+        List<String> string1 = new ArrayList<>();
+        List<String> string2 = new ArrayList<>();
+        for (MeterCategoryRule rule : list){
+            mcr=rule.getRuleName();
+            string1.add(mcr);
+        }
+        for (MeterRule rule1:list2) {
+            mr = rule1.getRuleName();
+            string2.add(mr);
+        }
+        string2.addAll(string1);
+        return  string2;
+    }
+
+
 
     /**
      * GET  /meter-rules/:id : get the "id" meterRule.

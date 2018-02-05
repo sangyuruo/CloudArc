@@ -6,9 +6,11 @@ import com.emcloud.arc.config.SecurityBeanOverrideConfiguration;
 
 import com.emcloud.arc.domain.MeterRule;
 import com.emcloud.arc.repository.MeterRuleRepository;
+import com.emcloud.arc.service.MeterCategoryRuleService;
 import com.emcloud.arc.service.MeterRuleService;
 import com.emcloud.arc.web.rest.errors.ExceptionTranslator;
 
+import io.advantageous.boon.core.Sys;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -80,6 +82,9 @@ public class MeterRuleResourceIntTest {
     private MeterRuleService meterRuleService;
 
     @Autowired
+    private MeterCategoryRuleService meterCategoryRuleService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -98,7 +103,7 @@ public class MeterRuleResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final MeterRuleResource meterRuleResource = new MeterRuleResource(meterRuleService);
+        final MeterRuleResource meterRuleResource = new MeterRuleResource(meterRuleService, meterCategoryRuleService);
         this.restMeterRuleMockMvc = MockMvcBuilders.standaloneSetup(meterRuleResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -158,6 +163,11 @@ public class MeterRuleResourceIntTest {
         assertThat(testMeterRule.getUpdatedBy()).isEqualTo(DEFAULT_UPDATED_BY);
         assertThat(testMeterRule.getUpdateTime()).isEqualTo(DEFAULT_UPDATE_TIME);
     }
+
+
+
+
+
 
     @Test
     @Transactional

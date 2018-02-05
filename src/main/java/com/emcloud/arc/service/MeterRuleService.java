@@ -4,6 +4,8 @@ import com.emcloud.arc.domain.MeterRule;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 /**
  * Service Interface for managing MeterRule.
  */
@@ -32,6 +34,8 @@ public interface MeterRuleService {
      *  @return the list of entities
      */
     Page<MeterRule> findAll(Pageable pageable);
+
+    List<MeterRule> findAll();
 
     /**
      *  Get the "id" meterRule.

@@ -1,5 +1,6 @@
 package com.emcloud.arc.service.impl;
 
+import com.emcloud.arc.domain.MeterCategoryRule;
 import com.emcloud.arc.security.SecurityUtils;
 import com.emcloud.arc.service.MeterRuleService;
 import com.emcloud.arc.domain.MeterRule;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -28,6 +30,11 @@ public class MeterRuleServiceImpl implements MeterRuleService{
 
     public MeterRuleServiceImpl(MeterRuleRepository meterRuleRepository) {
         this.meterRuleRepository = meterRuleRepository;
+    }
+
+    @Override
+    public List<MeterRule> findAll() {
+        return meterRuleRepository.findAll();
     }
 
     /**
@@ -60,6 +67,11 @@ public class MeterRuleServiceImpl implements MeterRuleService{
         meterRule.setUpdateTime(Instant.now());
         return meterRuleRepository.save(meterRule);
     }
+
+   /* @Override
+    public List<MeterRule> findAll() {
+        return meterRuleRepository.findAll();
+    }*/
 
     /**
      *  Get all the meterRules.
