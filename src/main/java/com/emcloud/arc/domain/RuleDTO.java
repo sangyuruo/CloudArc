@@ -4,6 +4,7 @@ package com.emcloud.arc.domain;
 import java.security.MessageDigest;
 
 public class RuleDTO {
+
     public String getRuleCode() {
         return ruleCode;
     }
@@ -32,8 +33,8 @@ public class RuleDTO {
     }
 
     private String message;
-    private String type;
     private String meterId;
+
 
 
     public String getMessage() {
@@ -42,14 +43,6 @@ public class RuleDTO {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public String getMeterId() {

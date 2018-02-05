@@ -5,7 +5,6 @@ public class DefaultAnalysisResult {
    // 0 : 不报警， 1： 一般 ， 2：严重 ， 3： 紧急
  private int alarmLevel;
  private String message;
- private String type;
  private String meterId;
     public boolean isAlarm() {
         return alarm;
@@ -29,14 +28,6 @@ public class DefaultAnalysisResult {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public String getMeterId() {
