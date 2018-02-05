@@ -114,10 +114,10 @@ public class AlarmService {
 
 
             DefaultAnalysisResult result = analysis.handle(smartMeterData.getData(), attributes);
-            //。。。
+
             result.setMeterId(ruleDTO.getMeterId());
-            result.setType(ruleDTO.getAnalysis());
-            result.setMessage(ruleDTO.getType());
+            result.setMessage(ruleDTO.getAnalysis()+"，设备名称："+smartMeterData.getName()+"，时间："+smartMeterData.getYmd()+" " +smartMeterData.getHour()+":"+smartMeterData.getMinute()
+            +":"+smartMeterData.getSec());
             if (result.isAlarm()) {
                 results.add(result);
             }
@@ -135,11 +135,7 @@ public class AlarmService {
         RuleDTO ruleDTO=new RuleDTO();
         ruleDTO.setAnalysis(meterRule.getAnalysis());
         ruleDTO.setRuleCode(meterRule.getRuleCode());
-
-        //。。。
         ruleDTO.setMeterId(meterRule.getMeterCode());
-        ruleDTO.setType(meterRule.getAnalysis());
-        ruleDTO.setMessage(meterRule.getRuleName());
         return ruleDTO;
     }
 
