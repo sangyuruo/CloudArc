@@ -4,7 +4,9 @@ import com.emcloud.arc.EmCloudArcApp;
 
 import com.emcloud.arc.config.SecurityBeanOverrideConfiguration;
 
+import com.emcloud.arc.domain.MeterCategoryRule;
 import com.emcloud.arc.domain.MeterRule;
+import com.emcloud.arc.domain.RuleDTO;
 import com.emcloud.arc.repository.MeterRuleRepository;
 import com.emcloud.arc.service.MeterCategoryRuleService;
 import com.emcloud.arc.service.MeterRuleService;
@@ -28,6 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.emcloud.arc.web.rest.TestUtil.createFormattingConversionService;
@@ -164,8 +167,34 @@ public class MeterRuleResourceIntTest {
         assertThat(testMeterRule.getUpdateTime()).isEqualTo(DEFAULT_UPDATE_TIME);
     }
 
+    @Test
+    @Transactional
+    public void getTest() throws Exception {
+        List<MeterCategoryRule> list = meterCategoryRuleService.findAll();
+        List<MeterRule> list2 = meterRuleService.findAll();
+        List<RuleDTO> ruleDTOList = new ArrayList<>();
+        List<RuleDTO> ruleDTOList2 = new ArrayList<>();
 
+       /* String mcr;
+        String  mr;*/
 
+        for (MeterCategoryRule rule : list){
+            RuleDTO r=new RuleDTO();
+            r.setRuleName(rule.getRuleName());
+            r.setRuleCode(rule.getRuleCode());
+            ruleDTOList.add(r);
+        }
+        for (MeterRule rule1:list2) {
+            RuleDTO r=new RuleDTO();
+            r.setRuleName(rule1.getRuleName());
+            r.setRuleCode(rule1.getRuleCode());
+            ruleDTOList2.add(r);
+        }
+        ruleDTOList2.addAll(ruleDTOList);
+
+        System.out.println(ruleDTOList2);
+
+    }
 
 
 

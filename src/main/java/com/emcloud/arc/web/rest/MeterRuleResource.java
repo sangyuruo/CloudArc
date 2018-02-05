@@ -3,6 +3,7 @@ package com.emcloud.arc.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.emcloud.arc.domain.MeterCategoryRule;
 import com.emcloud.arc.domain.MeterRule;
+import com.emcloud.arc.domain.RuleDTO;
 import com.emcloud.arc.service.MeterCategoryRuleService;
 import com.emcloud.arc.service.MeterRuleService;
 import com.emcloud.arc.web.rest.errors.BadRequestAlertException;
@@ -102,28 +103,29 @@ public class MeterRuleResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/meter-rules");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
-    @GetMapping("meter-rules/test")
+    @GetMapping("/meter-rules/test")
     @Timed
-    public List<String> getTest() {
+    public List<RuleDTO> getTest() {
         log.debug("REST request to get a page of MeterCategoryRules");
         List<MeterCategoryRule> list = meterCategoryRuleService.findAll();
         List<MeterRule> list2 = meterRuleService.findAll();
-        String mcr;
-        String  mr;
-        List<String> string1 = new ArrayList<>();
-        List<String> string2 = new ArrayList<>();
+        List<RuleDTO> ruleDTOList = new ArrayList<>();
+        List<RuleDTO> ruleDTOList2 = new ArrayList<>();
         for (MeterCategoryRule rule : list){
-            mcr=rule.getRuleName();
-            string1.add(mcr);
+            RuleDTO r=new RuleDTO();
+             r.setRuleName(rule.getRuleName());
+             r.setRuleCode(rule.getRuleCode());
+            ruleDTOList.add(r);
         }
         for (MeterRule rule1:list2) {
-            mr = rule1.getRuleName();
-            string2.add(mr);
+            RuleDTO r=new RuleDTO();
+            r.setRuleName(rule1.getRuleName());
+            r.setRuleCode(rule1.getRuleCode());
+            ruleDTOList2.add(r);
         }
-        string2.addAll(string1);
-        return  string2;
+        ruleDTOList2.addAll(ruleDTOList);
+         return ruleDTOList2;
     }
-
 
 
     /**
