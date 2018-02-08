@@ -6,7 +6,6 @@ import com.emcloud.arc.analysis.analysis.DefaultOneParamAnalysis;
 import com.emcloud.arc.domain.RuleAttributes;
 import org.springframework.util.CollectionUtils;
 
-import javax.swing.*;
 import java.util.List;
 import java.util.Map;
 

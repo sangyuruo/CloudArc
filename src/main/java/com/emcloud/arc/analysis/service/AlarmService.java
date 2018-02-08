@@ -13,6 +13,7 @@ import com.emcloud.arc.repository.RuleAttributesRepository;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +22,6 @@ public class AlarmService {
 
 
     private AnalysisEngineRepository analysisEngineRepository;
-
 
 
     private RuleAttributesRepository ruleAttributesRepository;
@@ -39,6 +39,7 @@ public class AlarmService {
         this.meterCategoryRuleRepository = meterCategoryRuleRepository;
         this.meterRuleRepository = meterRuleRepository;
     }
+
     /**
      * 1.查分析器列表(alarm_rule : )    Repository: 查分析器的方法；
      * <p>
@@ -68,6 +69,11 @@ public class AlarmService {
      * 6.输出总的分析结果
      */
     private static final org.slf4j.Logger log = LoggerFactory.getLogger(EmCloudArcApp.class);
+
+
+
+
+
 
     public List<DefaultAnalysisResult> analysis(SmartMeterData smartMeterData) {
 
@@ -103,21 +109,20 @@ public class AlarmService {
             List<RuleAttributes> attributes = getRuleAttributes(ruleDTO.getRuleCode());
 
 
-
             DefaultOneParamAnalysis analysis = AnalysisFactory.getInstance().getAnalysis(ruleDTO.getAnalysis());
 
             //判断是否有这个analysis 没有则抛异常(log.ERRO())
-            if(analysis==null){
+            if (analysis == null) {
 
-                log.error("没有这个分析器",new NullPointerException("NUll"));
+                log.error("没有这个分析器", new NullPointerException("NUll"));
             }
-
 
             DefaultAnalysisResult result = analysis.handle(smartMeterData.getData(), attributes);
 
             result.setMeterId(ruleDTO.getMeterId());
-            result.setMessage(ruleDTO.getAnalysis()+"，设备名称："+smartMeterData.getName()+"，时间："+smartMeterData.getYmd()+" " +smartMeterData.getHour()+":"+smartMeterData.getMinute()
-            +":"+smartMeterData.getSec());
+            result.setMessage(ruleDTO.getAnalysis() + "，设备名称：" + smartMeterData.getName() + "，时间：" + smartMeterData.getYmd() + " " + smartMeterData.getHour() + ":" + smartMeterData.getMinute()
+                + ":" + smartMeterData.getSec());
+
             if (result.isAlarm()) {
                 results.add(result);
             }
@@ -132,7 +137,7 @@ public class AlarmService {
     }
 
     private RuleDTO covertToRuleDTO(MeterRule meterRule) {
-        RuleDTO ruleDTO=new RuleDTO();
+        RuleDTO ruleDTO = new RuleDTO();
         ruleDTO.setAnalysis(meterRule.getAnalysis());
         ruleDTO.setRuleCode(meterRule.getRuleCode());
         ruleDTO.setMeterId(meterRule.getMeterCode());
@@ -140,13 +145,11 @@ public class AlarmService {
     }
 
     private RuleDTO covertToRuleDTO(MeterCategoryRule meterCategoryRule) {
-        RuleDTO ruleDTO =new RuleDTO();
+        RuleDTO ruleDTO = new RuleDTO();
         ruleDTO.setRuleCode(meterCategoryRule.getRuleCode());
         ruleDTO.setAnalysis(meterCategoryRule.getAnalysis());
         return ruleDTO;
     }
-
-
 
 
 }

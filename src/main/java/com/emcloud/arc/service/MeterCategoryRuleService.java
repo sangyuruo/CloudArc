@@ -4,6 +4,8 @@ import com.emcloud.arc.domain.MeterCategoryRule;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 /**
  * Service Interface for managing MeterCategoryRule.
  */
@@ -32,6 +34,7 @@ public interface MeterCategoryRuleService {
      *  @return the list of entities
      */
     Page<MeterCategoryRule> findAll(Pageable pageable);
+    List<MeterCategoryRule> findAll();
 
     /**
      *  Get the "id" meterCategoryRule.

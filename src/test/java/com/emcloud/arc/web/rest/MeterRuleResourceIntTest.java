@@ -2,13 +2,17 @@ package com.emcloud.arc.web.rest;
 
 import com.emcloud.arc.EmCloudArcApp;
 
+import com.emcloud.arc.analysis.analysis.DefaultAnalysisResult;
+import com.emcloud.arc.analysis.service.AlarmService;
 import com.emcloud.arc.config.SecurityBeanOverrideConfiguration;
 
 import com.emcloud.arc.domain.MeterRule;
+import com.emcloud.arc.domain.SmartMeterData;
 import com.emcloud.arc.repository.MeterRuleRepository;
 import com.emcloud.arc.service.MeterRuleService;
 import com.emcloud.arc.web.rest.errors.ExceptionTranslator;
 
+import io.advantageous.boon.core.Sys;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,7 +30,10 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import static com.emcloud.arc.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -78,6 +85,8 @@ public class MeterRuleResourceIntTest {
 
     @Autowired
     private MeterRuleService meterRuleService;
+@Autowired
+private AlarmService alarmService;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -105,6 +114,26 @@ public class MeterRuleResourceIntTest {
             .setConversionService(createFormattingConversionService())
             .setMessageConverters(jacksonMessageConverter).build();
     }
+
+
+
+    @Test
+    @Transactional
+    public void test(){
+        SmartMeterData meterData=new SmartMeterData();
+        Map<String,Float> map=new HashMap<>();
+        map.put("Level",7.19F);
+        meterData.setData(map);
+        meterData.setMeterId(UUID.fromString("6663141a-fcfa-11e7-9994-0242ac111007"));
+        meterData.setCategory(22);
+        meterData.setName("徐家坝进水位");
+
+        List<DefaultAnalysisResult> list= alarmService.analysis(meterData);
+        System.out.println(list+"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+    }
+
+
+
 
     /**
      * Create an entity for this test.
@@ -504,5 +533,13 @@ public class MeterRuleResourceIntTest {
         assertThat(meterRule1).isNotEqualTo(meterRule2);
         meterRule1.setId(null);
         assertThat(meterRule1).isNotEqualTo(meterRule2);
+    }
+
+    public AlarmService getAlarmService() {
+        return alarmService;
+    }
+
+    public void setAlarmService(AlarmService alarmService) {
+        this.alarmService = alarmService;
     }
 }

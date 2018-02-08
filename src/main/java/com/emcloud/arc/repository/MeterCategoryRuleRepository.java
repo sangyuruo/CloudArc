@@ -14,5 +14,6 @@ import java.util.List;
 @SuppressWarnings("unused")
 @Repository
 public interface MeterCategoryRuleRepository extends JpaRepository<MeterCategoryRule, Long> {
-            List<MeterCategoryRule> findByMeterCategoryCode(int m);
+    List<MeterCategoryRule> findByMeterCategoryCode(int m);
+    List<MeterCategoryRule> findAll();
 }

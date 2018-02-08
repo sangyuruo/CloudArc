@@ -14,5 +14,7 @@ import java.util.List;
 @SuppressWarnings("unused")
 @Repository
 public interface MeterRuleRepository extends JpaRepository<MeterRule, Long> {
-            List<MeterRule> findByMeterCode(String m);
+    List<MeterRule> findByMeterCode(String m);
+    List<MeterRule> findAll();
+
 }
