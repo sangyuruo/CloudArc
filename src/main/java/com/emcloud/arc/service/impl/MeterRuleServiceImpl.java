@@ -1,7 +1,6 @@
 package com.emcloud.arc.service.impl;
 
 import com.emcloud.arc.domain.MeterCategoryRule;
-import com.emcloud.arc.repository.MeterCategoryRuleRepository;
 import com.emcloud.arc.security.SecurityUtils;
 import com.emcloud.arc.service.MeterCategoryRuleService;
 import com.emcloud.arc.service.MeterRuleService;
@@ -58,6 +57,11 @@ public class MeterRuleServiceImpl implements MeterRuleService{
         return  string2;
     }
 
+    @Override
+    public List<MeterRule> findAll() {
+        return meterRuleRepository.findAll();
+    }
+
     /**
      * Save a meterRule.
      *
@@ -92,6 +96,11 @@ public class MeterRuleServiceImpl implements MeterRuleService{
         return meterRuleRepository.save(meterRule);
     }
 
+   /* @Override
+    public List<MeterRule> findAll() {
+        return meterRuleRepository.findAll();
+    }*/
+
     /**
      *  Get all the meterRules.
      *
@@ -105,10 +114,7 @@ public class MeterRuleServiceImpl implements MeterRuleService{
         return meterRuleRepository.findAll(pageable);
     }
 
-    @Override
-    public List<MeterRule> findAll() {
-        return meterRuleRepository.findAll();
-    }
+
 
     /**
      *  Get one meterRule by id.

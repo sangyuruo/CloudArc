@@ -36,6 +36,8 @@ public interface MeterCategoryRuleService {
     Page<MeterCategoryRule> findAll(Pageable pageable);
     List<MeterCategoryRule> findAll();
 
+
+
     /**
      *  Get the "id" meterCategoryRule.
      *

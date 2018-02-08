@@ -16,6 +16,7 @@ public class RuleDTO {
     /**
      * 规则名称
      */
+    private String ruleName;
     private String ruleCode; // ruleAttributes
 
     /**
@@ -51,5 +52,13 @@ public class RuleDTO {
 
     public void setMeterId(String meterId) {
         this.meterId = meterId;
+    }
+
+    public String getRuleName() {
+        return ruleName;
+    }
+
+    public void setRuleName(String ruleName) {
+        this.ruleName = ruleName;
     }
 }

@@ -7,6 +7,7 @@ import com.emcloud.arc.config.SecurityBeanOverrideConfiguration;
 import com.emcloud.arc.domain.MeterCategoryRule;
 import com.emcloud.arc.repository.MeterCategoryRuleRepository;
 import com.emcloud.arc.service.MeterCategoryRuleService;
+import com.emcloud.arc.service.MeterRuleService;
 import com.emcloud.arc.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -75,6 +76,8 @@ public class MeterCategoryRuleResourceIntTest {
 
     @Autowired
     private MeterCategoryRuleService meterCategoryRuleService;
+    @Autowired
+    private MeterRuleService meterRuleService;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;

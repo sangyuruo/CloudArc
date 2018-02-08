@@ -6,9 +6,12 @@ import com.emcloud.arc.analysis.analysis.DefaultAnalysisResult;
 import com.emcloud.arc.analysis.service.AlarmService;
 import com.emcloud.arc.config.SecurityBeanOverrideConfiguration;
 
+import com.emcloud.arc.domain.MeterCategoryRule;
 import com.emcloud.arc.domain.MeterRule;
 import com.emcloud.arc.domain.SmartMeterData;
+import com.emcloud.arc.domain.RuleDTO;
 import com.emcloud.arc.repository.MeterRuleRepository;
+import com.emcloud.arc.service.MeterCategoryRuleService;
 import com.emcloud.arc.service.MeterRuleService;
 import com.emcloud.arc.web.rest.errors.ExceptionTranslator;
 
@@ -31,6 +34,7 @@ import javax.persistence.EntityManager;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -89,6 +93,9 @@ public class MeterRuleResourceIntTest {
 private AlarmService alarmService;
 
     @Autowired
+    private MeterCategoryRuleService meterCategoryRuleService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -107,7 +114,7 @@ private AlarmService alarmService;
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final MeterRuleResource meterRuleResource = new MeterRuleResource(meterRuleService);
+        final MeterRuleResource meterRuleResource = new MeterRuleResource(meterRuleService, meterCategoryRuleService);
         this.restMeterRuleMockMvc = MockMvcBuilders.standaloneSetup(meterRuleResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -187,6 +194,37 @@ private AlarmService alarmService;
         assertThat(testMeterRule.getUpdatedBy()).isEqualTo(DEFAULT_UPDATED_BY);
         assertThat(testMeterRule.getUpdateTime()).isEqualTo(DEFAULT_UPDATE_TIME);
     }
+
+    @Test
+    @Transactional
+    public void getTest() throws Exception {
+        List<MeterCategoryRule> list = meterCategoryRuleService.findAll();
+        List<MeterRule> list2 = meterRuleService.findAll();
+        List<RuleDTO> ruleDTOList = new ArrayList<>();
+        List<RuleDTO> ruleDTOList2 = new ArrayList<>();
+
+       /* String mcr;
+        String  mr;*/
+
+        for (MeterCategoryRule rule : list){
+            RuleDTO r=new RuleDTO();
+            r.setRuleName(rule.getRuleName());
+            r.setRuleCode(rule.getRuleCode());
+            ruleDTOList.add(r);
+        }
+        for (MeterRule rule1:list2) {
+            RuleDTO r=new RuleDTO();
+            r.setRuleName(rule1.getRuleName());
+            r.setRuleCode(rule1.getRuleCode());
+            ruleDTOList2.add(r);
+        }
+        ruleDTOList2.addAll(ruleDTOList);
+
+        System.out.println(ruleDTOList2);
+
+    }
+
+
 
     @Test
     @Transactional

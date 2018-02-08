@@ -1,7 +1,10 @@
 package com.emcloud.arc.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.emcloud.arc.domain.MeterCategoryRule;
 import com.emcloud.arc.domain.MeterRule;
+import com.emcloud.arc.domain.RuleDTO;
+import com.emcloud.arc.service.MeterCategoryRuleService;
 import com.emcloud.arc.service.MeterRuleService;
 import com.emcloud.arc.web.rest.errors.BadRequestAlertException;
 import com.emcloud.arc.web.rest.util.HeaderUtil;
@@ -21,6 +24,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,9 +40,11 @@ public class MeterRuleResource {
     private static final String ENTITY_NAME = "meterRule";
 
     private final MeterRuleService meterRuleService;
+    private final MeterCategoryRuleService meterCategoryRuleService;
 
-    public MeterRuleResource(MeterRuleService meterRuleService) {
+    public MeterRuleResource(MeterRuleService meterRuleService, MeterCategoryRuleService meterCategoryRuleService) {
         this.meterRuleService = meterRuleService;
+        this.meterCategoryRuleService = meterCategoryRuleService;
     }
 
     /**
@@ -97,6 +103,30 @@ public class MeterRuleResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/meter-rules");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
+    @GetMapping("/meter-rules/test")
+    @Timed
+    public List<RuleDTO> getTest() {
+        log.debug("REST request to get a page of MeterCategoryRules");
+        List<MeterCategoryRule> list = meterCategoryRuleService.findAll();
+        List<MeterRule> list2 = meterRuleService.findAll();
+        List<RuleDTO> ruleDTOList = new ArrayList<>();
+        List<RuleDTO> ruleDTOList2 = new ArrayList<>();
+        for (MeterCategoryRule rule : list){
+            RuleDTO r=new RuleDTO();
+             r.setRuleName(rule.getRuleName());
+             r.setRuleCode(rule.getRuleCode());
+            ruleDTOList.add(r);
+        }
+        for (MeterRule rule1:list2) {
+            RuleDTO r=new RuleDTO();
+            r.setRuleName(rule1.getRuleName());
+            r.setRuleCode(rule1.getRuleCode());
+            ruleDTOList2.add(r);
+        }
+        ruleDTOList2.addAll(ruleDTOList);
+         return ruleDTOList2;
+    }
+
 
     /**
      * GET  /meter-rules/:id : get the "id" meterRule.
