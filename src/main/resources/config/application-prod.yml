@@ -66,6 +66,14 @@ spring:
             discovery:
                 enabled: true
 
+    cloud:
+        stream:
+            bindings:
+                messageChannel:
+                    destination: em-data
+                subscribableChannel:
+                    destination: em-data
+
 liquibase:
     contexts: prod
 
