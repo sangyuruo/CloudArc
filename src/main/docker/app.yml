@@ -2,14 +2,16 @@ version: '2'
 services:
     emcloudarc-app:
         image: emcloudarc
-        ports:
-            - 8087:8087
         environment:
             - SPRING_PROFILES_ACTIVE=prod,swagger
             - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/eureka
             - SPRING_CLOUD_CONFIG_URI=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/config
             - SPRING_DATASOURCE_URL=jdbc:mysql://emcloudarc-mysql:3306/emcloudarc?useUnicode=true&characterEncoding=utf8&useSSL=false
             - JHIPSTER_SLEEP=30 # gives time for the JHipster Registry to boot before the application
+            - KAFKA_HOST=kafka
+            - ZK_HOST=zookeeper
+        ports:
+            - 8087:8087
     emcloudarc-mysql:
         extends:
             file: mysql.yml
@@ -20,3 +22,13 @@ services:
             service: jhipster-registry
         environment:
             - SPRING_CLOUD_CONFIG_SERVER_NATIVE_SEARCH_LOCATIONS=file:./central-config/docker-config/
+    kafka:
+        extends:
+            file: kafka.yml
+            service: kafka
+        environment:
+            - KAFKA_ADVERTISED_HOST_NAME=kafka
+    zookeeper:
+        extends:
+            file: kafka.yml
+            service: zookeeper
