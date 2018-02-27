@@ -1,13 +1,6 @@
 {
     "fluentMethods": true,
-    "relationships": [
-        {
-            "relationshipType": "many-to-one",
-            "relationshipName": "alarmRule",
-            "otherEntityName": "alarmRule",
-            "otherEntityField": "id"
-        }
-    ],
+    "relationships": [],
     "fields": [
         {
             "fieldName": "ruleCode",
@@ -20,22 +13,38 @@
             "fieldValidateRulesMaxlength": 64
         },
         {
-            "fieldName": "attributeName",
-            "javadoc": "属性名",
-            "fieldType": "Double",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "attributeValue",
-            "javadoc": "属性值",
+            "fieldName": "ruleName",
+            "javadoc": "规则名称",
             "fieldType": "String",
             "fieldValidateRules": [
                 "maxlength",
                 "required"
             ],
-            "fieldValidateRulesMaxlength": 100
+            "fieldValidateRulesMaxlength": 200
+        },
+        {
+            "fieldName": "alarmLevel",
+            "javadoc": "紧急度",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "startValue",
+            "javadoc": "起始值",
+            "fieldType": "Float",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "endValue",
+            "javadoc": "结束值",
+            "fieldType": "Float",
+            "fieldValidateRules": [
+                "required"
+            ]
         },
         {
             "fieldName": "createdBy",

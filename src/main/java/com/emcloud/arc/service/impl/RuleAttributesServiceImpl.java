@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.util.UUID;
 
 
 /**
@@ -58,6 +59,7 @@ public class RuleAttributesServiceImpl implements RuleAttributesService{
         ruleAttributes.setUpdateTime(Instant.now());
         return ruleAttributesRepository.save(ruleAttributes);
     }
+
 
     /**
      *  Get all the ruleAttributes.

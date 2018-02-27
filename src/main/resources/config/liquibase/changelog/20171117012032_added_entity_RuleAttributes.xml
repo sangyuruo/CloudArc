@@ -26,11 +26,19 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="attribute_name" type="double">
+            <column name="rule_name" type="varchar(200)">
                 <constraints nullable="false" />
             </column>
 
-            <column name="attribute_value" type="varchar(100)">
+            <column name="alarm_level" type="integer">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="start_value" type="float">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="end_value" type="float">
                 <constraints nullable="false" />
             </column>
 
@@ -48,10 +56,6 @@
 
             <column name="update_time" type="datetime">
                 <constraints nullable="false" />
-            </column>
-
-            <column name="alarm_rule_id" type="bigint">
-                <constraints nullable="true" />
             </column>
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->

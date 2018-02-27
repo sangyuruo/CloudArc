@@ -32,11 +32,11 @@ public class OAuth2Properties {
          */
         private int sessionTimeoutInSeconds = 1800;
         /**
-         * Defines the cookie domain. If specified, cookies will be set on this domain.
-         * If not configured, then cookies will be set on the top-level domain of the
-         * request you sent, i.e. if you send a request to <code>app1.your-domain.com</code>,
-         * then cookies will be set <code>on .your-domain.com</code>, such that they
-         * are also valid for <code>app2.your-domain.com</code>.
+         * Defines the cookie service. If specified, cookies will be set on this service.
+         * If not configured, then cookies will be set on the top-level service of the
+         * request you sent, i.e. if you send a request to <code>app1.your-service.com</code>,
+         * then cookies will be set <code>on .your-service.com</code>, such that they
+         * are also valid for <code>app2.your-service.com</code>.
          */
         private String cookieDomain;
 

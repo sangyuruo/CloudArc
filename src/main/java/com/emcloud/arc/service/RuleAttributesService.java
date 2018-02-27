@@ -17,7 +17,6 @@ public interface RuleAttributesService {
      */
     RuleAttributes save(RuleAttributes ruleAttributes);
 
-
     /**
      * update a ruleAttributes.
      *

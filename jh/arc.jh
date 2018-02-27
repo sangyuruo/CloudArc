@@ -1,47 +1,47 @@
  /**
- * 报警服务规则表
+ * 分析引擎表
  * @author youhong
  */
-entity AlarmRule {
-  /** 规则名称*/
-  ruleName String maxlength(200) required,
-  /** 规则编码*/
-  ruleCode String maxlength(64)  required,
-  /** 规则类型*/
-  ruleType String maxlength(100)  required,
-  /** 紧急度*/
-  alarmLevel Integer required,
+entity AnalysisEngine {
+  /** 名称 */
+  name String maxlength(200) required,
+  /** 分析器代码*/
+  analysis String maxlength(64)  required,
   /** 是否有效 */
   enable Boolean required,
   /** 创建人*/
-  createdBy String maxlength(20) required, 
+  createdBy String maxlength(20) required,
   /** 创建时间*/
   createTime Instant  required,
   /** 修改人*/
   updatedBy String maxlength(20) required,
   /** 修改时间*/
-  updateTime Instant  required		
+  updateTime Instant  required
 }
 
   /**
- * 规则属性表
+ * 报警规则属性表
  * @author youhong
  */
 entity RuleAttributes {
   /** 规则编码*/
   ruleCode String maxlength(64)  required,
-  /**属性名*/
-  attributeName Double required,
-  /** 属性值*/
-  attributeValue String maxlength(100)  required,
+  /** 规则名称*/
+  ruleName String maxlength(200)  required,
+  /**紧急度*/
+  alarmLevel Integer required,
+  /** 起始值*/
+  startValue Float required,
+  /** 结束值*/
+  endValue Float required,
   /** 创建人*/
-  createdBy String maxlength(20) required, 
+  createdBy String maxlength(20) required,
   /** 创建时间*/
   createTime Instant  required,
   /** 修改人*/
   updatedBy String maxlength(20) required,
   /** 修改时间*/
-  updateTime Instant  required		
+  updateTime Instant  required
 }
 
   /**
@@ -53,23 +53,46 @@ entity MeterRule {
   meterCode String maxlength(64)  required,
   /** 设备名称*/
   meterName  String maxlength(200) required,
-    /** 规则编码*/
+  /** 规则编码*/
   ruleCode String maxlength(64)  required,
   /** 规则名称*/
   ruleName String maxlength(200) required,
+  /** 分析器代码 */
+  analysis String maxlength(64)  required,
   /** 是否有效 */
   enable Boolean required ,
   /** 创建人*/
-  createdBy String maxlength(20) required, 
+  createdBy String maxlength(20) required,
   /** 创建时间*/
   createTime Instant required,
   /** 修改人*/
   updatedBy String maxlength(20) required,
   /** 修改时间*/
-  updateTime Instant required		
+  updateTime Instant required
 }
 
-relationship OneToMany {
-  AlarmRule{RuleAttributes} to RuleAttributes{AlarmRule}
+ /**
+ * 设备分类规则表
+ * @author youhong
+ */
+entity MeterCategoryRule {
+  /** 设备分类编码*/
+  meterCategoryCode Integer  required,
+  /** 设备分类名称*/
+  meterCategoryName String maxlength(100)  required,
+  /** 规则编码*/
+  ruleCode String maxlength(64)  required,
+  /** 规则名称*/
+  ruleName String maxlength(200) required,
+ /** 分析器代码*/
+  analysis String maxlength(64)  required,
+  /** 创建人*/
+  createdBy String maxlength(20) required,
+  /** 创建时间*/
+  createTime Instant  required,
+  /** 修改人*/
+  updatedBy String maxlength(20) required,
+  /** 修改时间*/
+  updateTime Instant  required
 }
 

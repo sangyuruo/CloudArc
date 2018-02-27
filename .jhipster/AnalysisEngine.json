@@ -1,17 +1,10 @@
 {
     "fluentMethods": true,
-    "relationships": [
-        {
-            "relationshipType": "one-to-many",
-            "relationshipName": "ruleAttributes",
-            "otherEntityName": "ruleAttributes",
-            "otherEntityRelationshipName": "alarmRule"
-        }
-    ],
+    "relationships": [],
     "fields": [
         {
-            "fieldName": "ruleName",
-            "javadoc": "规则名称",
+            "fieldName": "name",
+            "javadoc": "名称",
             "fieldType": "String",
             "fieldValidateRules": [
                 "maxlength",
@@ -20,32 +13,14 @@
             "fieldValidateRulesMaxlength": 200
         },
         {
-            "fieldName": "ruleCode",
-            "javadoc": "规则编码",
+            "fieldName": "analysis",
+            "javadoc": "分析器代码",
             "fieldType": "String",
             "fieldValidateRules": [
                 "maxlength",
                 "required"
             ],
             "fieldValidateRulesMaxlength": 64
-        },
-        {
-            "fieldName": "ruleType",
-            "javadoc": "规则类型",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "maxlength",
-                "required"
-            ],
-            "fieldValidateRulesMaxlength": 100
-        },
-        {
-            "fieldName": "alarmLevel",
-            "javadoc": "紧急度",
-            "fieldType": "Integer",
-            "fieldValidateRules": [
-                "required"
-            ]
         },
         {
             "fieldName": "enable",
@@ -93,8 +68,8 @@
         }
     ],
     "changelogDate": "20171117012031",
-    "javadoc": "报警服务规则表\n@author youhong",
-    "entityTableName": "alarm_rule",
+    "javadoc": "分析引擎表\n@author youhong",
+    "entityTableName": "analysis_engine",
     "dto": "no",
     "pagination": "pager",
     "service": "serviceImpl",

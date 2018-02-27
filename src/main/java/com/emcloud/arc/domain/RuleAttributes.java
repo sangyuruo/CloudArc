@@ -37,21 +37,37 @@ public class RuleAttributes implements Serializable {
     private String ruleCode;
 
     /**
-     * 属性名
+     * 规则名称
      */
     @NotNull
-    @ApiModelProperty(value = "属性名", required = true)
-    @Column(name = "attribute_name", nullable = false)
-    private Double attributeName;
+    @Size(max = 200)
+    @ApiModelProperty(value = "规则名称", required = true)
+    @Column(name = "rule_name", length = 200, nullable = false)
+    private String ruleName;
 
     /**
-     * 属性值
+     * 紧急度
      */
     @NotNull
-    @Size(max = 100)
-    @ApiModelProperty(value = "属性值", required = true)
-    @Column(name = "attribute_value", length = 100, nullable = false)
-    private String attributeValue;
+    @ApiModelProperty(value = "紧急度", required = true)
+    @Column(name = "alarm_level", nullable = false)
+    private Integer alarmLevel;
+
+    /**
+     * 起始值
+     */
+    @NotNull
+    @ApiModelProperty(value = "起始值", required = true)
+    @Column(name = "start_value", nullable = false)
+    private Float startValue;
+
+    /**
+     * 结束值
+     */
+    @NotNull
+    @ApiModelProperty(value = "结束值", required = true)
+    @Column(name = "end_value", nullable = false)
+    private Float endValue;
 
     /**
      * 创建人
@@ -83,9 +99,6 @@ public class RuleAttributes implements Serializable {
     @Column(name = "update_time", nullable = false)
     private Instant updateTime;
 
-    @ManyToOne
-    private AlarmRule alarmRule;
-
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -108,30 +121,56 @@ public class RuleAttributes implements Serializable {
         this.ruleCode = ruleCode;
     }
 
-    public Double getAttributeName() {
-        return attributeName;
+    public String getRuleName() {
+        return ruleName;
     }
 
-    public RuleAttributes attributeName(Double attributeName) {
-        this.attributeName = attributeName;
+    public RuleAttributes ruleName(String ruleName) {
+        this.ruleName = ruleName;
         return this;
     }
 
-    public void setAttributeName(Double attributeName) {
-        this.attributeName = attributeName;
+    public void setRuleName(String ruleName) {
+        this.ruleName = ruleName;
     }
 
-    public String getAttributeValue() {
-        return attributeValue;
+    public Integer getAlarmLevel() {
+        return alarmLevel;
     }
 
-    public RuleAttributes attributeValue(String attributeValue) {
-        this.attributeValue = attributeValue;
+    public RuleAttributes alarmLevel(Integer alarmLevel) {
+        this.alarmLevel = alarmLevel;
         return this;
     }
 
-    public void setAttributeValue(String attributeValue) {
-        this.attributeValue = attributeValue;
+    public void setAlarmLevel(Integer alarmLevel) {
+        this.alarmLevel = alarmLevel;
+    }
+
+    public Float getStartValue() {
+        return startValue;
+    }
+
+    public RuleAttributes startValue(Float startValue) {
+        this.startValue = startValue;
+        return this;
+    }
+
+    public void setStartValue(Float startValue) {
+        this.startValue = startValue;
+    }
+
+    public Float getEndValue() {
+        return endValue;
+    }
+
+    public RuleAttributes endValue(Float endValue) {
+        this.endValue = endValue;
+        return this;
+    }
+
+    public void setEndValue(Float endValue) {
+        this.endValue = endValue;
     }
 
     public String getCreatedBy() {
@@ -185,19 +224,6 @@ public class RuleAttributes implements Serializable {
     public void setUpdateTime(Instant updateTime) {
         this.updateTime = updateTime;
     }
-
-    public AlarmRule getAlarmRule() {
-        return alarmRule;
-    }
-
-    public RuleAttributes alarmRule(AlarmRule alarmRule) {
-        this.alarmRule = alarmRule;
-        return this;
-    }
-
-    public void setAlarmRule(AlarmRule alarmRule) {
-        this.alarmRule = alarmRule;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -225,8 +251,10 @@ public class RuleAttributes implements Serializable {
         return "RuleAttributes{" +
             "id=" + getId() +
             ", ruleCode='" + getRuleCode() + "'" +
-            ", attributeName='" + getAttributeName() + "'" +
-            ", attributeValue='" + getAttributeValue() + "'" +
+            ", ruleName='" + getRuleName() + "'" +
+            ", alarmLevel='" + getAlarmLevel() + "'" +
+            ", startValue='" + getStartValue() + "'" +
+            ", endValue='" + getEndValue() + "'" +
             ", createdBy='" + getCreatedBy() + "'" +
             ", createTime='" + getCreateTime() + "'" +
             ", updatedBy='" + getUpdatedBy() + "'" +

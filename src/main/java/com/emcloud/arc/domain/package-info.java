@@ -1,4 +1,4 @@
 /**
- * JPA domain objects.
+ * JPA service objects.
  */
 package com.emcloud.arc.domain;

@@ -38,6 +38,10 @@
                 <constraints nullable="false" />
             </column>
 
+            <column name="analysis" type="varchar(64)">
+                <constraints nullable="false" />
+            </column>
+
             <column name="jhi_enable" type="bit">
                 <constraints nullable="false" />
             </column>

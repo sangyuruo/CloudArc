@@ -48,7 +48,6 @@ public class MeterRule implements Serializable {
     /**
      * 规则编码
      */
-    @NotNull
     @Size(max = 64)
     @ApiModelProperty(value = "规则编码", required = true)
     @Column(name = "rule_code", length = 64, nullable = false)
@@ -62,6 +61,15 @@ public class MeterRule implements Serializable {
     @ApiModelProperty(value = "规则名称", required = true)
     @Column(name = "rule_name", length = 200, nullable = false)
     private String ruleName;
+
+    /**
+     * 分析器代码
+     */
+    @NotNull
+    @Size(max = 64)
+    @ApiModelProperty(value = "分析器代码", required = true)
+    @Column(name = "analysis", length = 64, nullable = false)
+    private String analysis;
 
     /**
      * 是否有效
@@ -162,6 +170,19 @@ public class MeterRule implements Serializable {
         this.ruleName = ruleName;
     }
 
+    public String getAnalysis() {
+        return analysis;
+    }
+
+    public MeterRule analysis(String analysis) {
+        this.analysis = analysis;
+        return this;
+    }
+
+    public void setAnalysis(String analysis) {
+        this.analysis = analysis;
+    }
+
     public Boolean isEnable() {
         return enable;
     }
@@ -256,6 +277,7 @@ public class MeterRule implements Serializable {
             ", meterName='" + getMeterName() + "'" +
             ", ruleCode='" + getRuleCode() + "'" +
             ", ruleName='" + getRuleName() + "'" +
+            ", analysis='" + getAnalysis() + "'" +
             ", enable='" + isEnable() + "'" +
             ", createdBy='" + getCreatedBy() + "'" +
             ", createTime='" + getCreateTime() + "'" +
