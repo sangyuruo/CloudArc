@@ -75,9 +75,9 @@ spring:
         stream:
             bindings:
                 messageChannel:
-                    destination: em-data
+                    destination: cloud-arc
                 subscribableChannel:
-                    destination: em-data
+                    destination: cloud-data
 
 liquibase:
     contexts: dev
